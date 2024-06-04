@@ -1,0 +1,92 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html>
+
+  <head lang="en">
+    <meta charset="UTF-8" />
+
+    <!--Page Title-->
+    <title>OSS - Landing Page</title>
+
+    <!--Meta Keywords and Description-->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" title="Favicon" />
+
+    <!-- Main CSS Files -->
+    <link rel="stylesheet" href="/assets/css/style.css" />
+
+    <!-- Namari Color CSS -->
+    <link rel="stylesheet" href="/assets/css/namari-color.css" />
+
+    <!--Icon Fonts - Font Awesome Icons-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css" />
+
+    <!-- Animate CSS-->
+    <link href="/assets/css/animate.css" rel="stylesheet" type="text/css" />
+
+    <!--Google Webfonts-->
+    <link href="/assets/css/google.font.css" rel="stylesheet" type="text/css" />
+
+    {{ /* loopo */ }}
+    {{ /* <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" /> */ }}
+    {{ /* <!-- CSS Files -->
+    <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" /> */ }}
+  </head>
+
+  <body>
+    <!-- Preloader -->
+    <div id="preloader">
+      <div id="status" class="la-ball-triangle-path">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <!--End of Preloader-->
+
+    <div class="page-border" data-wow-duration="0.7s" data-wow-delay="0.2s">
+      <div class="top-border wow fadeInDown " style="visibility: visible; animation-name: fadeInDown"></div>
+      <div class="right-border wow fadeInRight " style="visibility: visible; animation-name: fadeInRight"></div>
+      <div class="bottom-border wow fadeInUp " style="visibility: visible; animation-name: fadeInUp"></div>
+      <div class="left-border wow fadeInLeft " style="visibility: visible; animation-name: fadeInLeft"></div>
+    </div>
+
+    <div id="wrapper">
+
+
+
+
+      <!--Main Content Area-->
+      {{~ it.body }}
+
+      <!--End Main Content Area-->
+
+      <!--Footer-->
+      {{~ include("../component/footer.eta") }}
+
+
+
+      <!--End of Footer-->
+    </div>
+
+    <!-- include JavaScript resources -->
+    {{~ include("../component/script.eta") }}
+    
+    <script src="/assets/js/core/popper.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="/assets/js/plugins/chartjs.min.js"></script>
+
+  </body>
+
+</html>

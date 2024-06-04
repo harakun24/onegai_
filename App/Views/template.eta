@@ -1,0 +1,475 @@
+<!--
+=========================================================
+* Argon Dashboard 2 - v2.0.4
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2022 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/admin/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="/assets/images/onegai.png">
+    <title>
+      OSS - {{=it.title}}
+    </title>
+    <!--     Fonts and icons     -->
+    <link href="/assets/css/google.font.css" rel="stylesheet" />
+    <!-- Nucleo Icons -->
+    <link href="/assets/admin/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/admin/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <!-- <script src="/assets/css/kit.css" crossorigin="anonymous"></script> -->
+    <link href="/assets/admin/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link id="pagestyle" href="/assets/admin/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+    <script src="/assets/js/jquery.1.8.3.min.js"></script>
+
+    <link href="/assets/css/datatable.css" rel="stylesheet" />
+    <link href="/assets/css/swal2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/fa/css/all.min.css">
+    <script src="/assets/js/datatable.js"></script>
+
+
+    <script src="/assets/js/swal2.js"></script>
+    <script src="/assets/js/htmx.js"></script>
+    <script src="/assets/fa/js/all.js"></script>
+    <style>
+      .dt-paging-button {
+        box-shadow: 0 !important;
+        border: 0 !important;
+        padding: 3px !important
+      }
+
+      .current {
+        box-shadow: 0 !important;
+        border: 1px solid black !important;
+        padding: 0px 8px 0px 8px !important;
+        outline: none !important;
+      }
+
+      .dt-input {
+        outline: none !important;
+        border: 1px solid black !important;
+        font-size: 60%;
+      }
+
+      .dt-info {
+        font-size: 70% !important;
+      }
+
+      select,
+      input {
+        height: auto;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body class="g-sidenav-show   bg-gray-100">
+    <div class="min-height-300 bg-primary position-absolute w-100"></div>
+    <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+      <div class="sidenav-header">
+        <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+        <a class="navbar-brand m-0 d-flex justify-content-between align-items-center" href="#">
+          <i class="fa fa-torii-gate fa-xl text-primary"></i>
+          <span class="ms-1 badge rounded-pill text-danger" style="font-size:100%;box-shadow:0px 0px 3px #f5365c"><i class="fa fa-user-circle"></i> {{= it.user.uname.toUpperCase().substr(0,6)+(it.user.uname.length>6?'...':'')}} </span>
+        </a>
+      </div>
+      <hr class="horizontal dark mt-0">
+      <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link {{=it.side=='dashboard'?'active':''}}" href="{{=it.side=='dashboard'?'#':'/panel-admin'}}">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="fas fa-laptop-code text-primary text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../pages/tables.html">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Tables</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="../pages/billing.html">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Billing</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="../pages/virtual-reality.html">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-app text-info text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Virtual Reality</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="../pages/rtl.html">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">RTL</span>
+            </a>
+          </li>
+          <li class="nav-item mt-3">
+            <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="../pages/profile.html">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Profile</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="../pages/sign-in.html">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Sign In</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="../pages/sign-up.html">
+              <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                <i class="ni ni-collection text-info text-sm opacity-10"></i>
+              </div>
+              <span class="nav-link-text ms-1">Sign Up</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="sidenav-footer mx-3 ">
+        <div class="opacity-0 card card-plain shadow-none" id="sidenavCard">
+          <img class="w-50 mx-auto" src="/assets/admin/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
+          <div class="card-body text-center p-3 w-100 pt-0">
+            <div class="docs-info">
+              <h6 class="mb-0">Need help?</h6>
+              <p class="text-xs font-weight-bold mb-0">Please check our docs</p>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="btn btn-dark btn-sm w-100 mb-3 opacity-0">Documentation</a>
+        <a class="btn btn-primary btn-sm mb-0 w-100" onclick="logout()" type="button">KELUAR</a>
+      </div>
+      <script>
+        function logout() {
+          Swal.fire({
+            title: "Yakin ingin keluar?",
+            text: "Sesi anda akan berakhir",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Keluar",
+            cancelButtonText: "Batal",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              document.location.replace(`/panel-admin/user/keluar`);
+            }
+          });
+        }
+      </script>
+    </aside>
+
+    <main class="main-content position-relative border-radius-lg ">
+      <!-- Navbar -->
+      <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+        <div class="container-fluid py-1 px-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+              <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Admin</a></li>
+              <li class="breadcrumb-item text-sm text-white active" aria-current="page">Panel</li>
+            </ol>
+            <h6 class="font-weight-bolder text-white mb-0">{{=it.side.toUpperCase()}}</h6>
+          </nav>
+          <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+            <div class="opacity-0 ms-md-auto pe-md-3 d-flex align-items-center">
+              <div class="input-group">
+                <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" placeholder="Type here...">
+              </div>
+            </div>
+            <ul class="navbar-nav  justify-content-end">
+              <li class="nav-item d-flex align-items-center">
+
+              </li>
+              <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                  <div class="sidenav-toggler-inner">
+                    <i class="sidenav-toggler-line bg-white"></i>
+                    <i class="sidenav-toggler-line bg-white"></i>
+                    <i class="sidenav-toggler-line bg-white"></i>
+                  </div>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="container-fluid py-4">
+        <div class="row">
+          <div class="col-12">
+            <div class="card mb-4">
+              <div class="card-header pb-0">
+                <div class="d-flex justify-content-between align-items-center" style="width: 23%">
+                  <h6 class="d-lg-block d-none">Tabel user</h6>
+                  <a href="#" class="btn btn-primary btn-sm mb-3" onclick="adduser()"> Tambah</a>
+                </div>
+              </div>
+              <div class="card-body pt-0 pb-2" style="padding-left:10px;padding-right:10px">
+                <div class="table-responsive p-0">
+                  {{~ include("./component/user-table.eta",{list_user:it.list_user,user:it.user})}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="footer pt-3  ">
+          <div class="container-fluid">
+            <div class="row align-items-center justify-content-lg-between">
+              <div class="col-lg-6 mb-lg-0 mb-4">
+                <div class="copyright text-center text-sm text-muted text-lg-start">
+                  © <script>
+                    document.write(new Date().getFullYear())
+                  </script>,
+                  made with <i class="fa fa-heart"></i> by
+                  <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
+                  for a better web.
+                </div>
+              </div>
+              {{ /* <div class="col-lg-6">
+                <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                  <li class="nav-item">
+                    <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
+                  </li>
+                </ul>
+              </div> */ }}
+            </div>
+          </div>
+        </footer>
+      </div>
+    </main>
+    <script>
+    {{ if(it.deluser>0){
+      }}
+
+    Swal.fire({
+    icon: "success",
+    title: "berhasil menghapus",
+    text: "data yang dihapus tidak dapat dipulihkan",
+    showConfirmButton: false,
+    timer: 2800
+    });
+    {{
+      }
+        }}
+    {{ if(it.create=="success"){
+      }}
+
+    Swal.fire({
+    icon: "success",
+    title: "berhasil menambah user",
+    text: "username berhasil ditambah",
+    showConfirmButton: false,
+    timer: 2800
+    });
+    {{
+     }
+      else if(it.create=="error"){
+      }}
+    Swal.fire({
+    icon: "error",
+    title: "Gagal menambah data",
+    text: "user gagal ditambahkan",
+    showConfirmButton: false,
+    timer: 2800
+    });
+    {{
+      }
+        }}
+    {{ if(it.update=="success"){
+      }}
+
+    Swal.fire({
+    icon: "success",
+    title: "berhasil mengubah user",
+    text: "user berhasil diubah",
+    showConfirmButton: false,
+    timer: 2800
+    });
+    {{
+      }
+      else if(it.update=="error"){
+      }}
+    Swal.fire({
+    icon: "error",
+    title: "pengubahan gagal",
+    text: "user gagal diubah",
+    showConfirmButton: false,
+    timer: 2800
+    });
+    {{
+      }
+        }}
+
+    function adduser() {
+    Swal.fire({
+    html: `
+    <div class="card z-index-0">
+      <div class="card-header text-center pt-4">
+        <h3>Tambah data</h3>
+      </div>
+      <div class="card-body justify-content-center">
+        <form method="post" action="/panel-admin/user/tambah">
+          <div class="mb-3">
+            <input type="text" class="form-control" placeholder="UName" name="uname" aria-label="Name" required />
+          </div>
+          <div class="mb-3">
+            <input type="password" class="form-control" placeholder="Password" name="password" aria-label="Password" required />
+          </div>
+          <!-- <div class="form-check text-start" style="margin-left: 13px">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  checked />
+                <label class="form-check-label" for="flexCheckDefault">
+                  <b>Ingat saya</b>
+                </label>
+              </div> -->
+          <div class="text-center mt-3">
+            <input type="submit" class="form-control py-3" class="btn bg-danger w-100 my-4 mb-2 text-white" value="SUBMIT" />
+          </div>
+        </form>
+      </div>
+    </div>
+    `,
+    showCloseButton: false,
+    showConfirmButton: false
+    });
+    }
+
+    function edituser(id) {
+    fetch("/panel-admin/user/" + id).
+    then(e => e.json()).then(e => {
+
+    Swal.fire({
+    html: `
+    <div class="card z-index-0">
+      <div class="card-header text-center pt-4">
+        <h3>Edit data</h3>
+      </div>
+      <div class="card-body justify-content-center">
+        <form method="post" action="/panel-admin/user/${e.id}/ubah">
+          <div class="mb-3">
+            <input type="text" class="form-control" placeholder="UName" name="uname" aria-label="Name" value="${e.uname}" required />
+          </div>
+          <div class="mb-3">
+            <input type="password" class="form-control" placeholder="Password" name="password" aria-label="Password" />
+            <label class="form-check-label">
+              <span class="text-sm text-primary">*biarkan kosong jika tidak ingin ganti password</span>
+            </label>
+          </div>
+          <!-- <div class="form-check text-start" style="margin-left: 13px">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  checked />
+                <label class="form-check-label" for="flexCheckDefault">
+                  <b>Ingat saya</b>
+                </label>
+              </div> -->
+          <div class="text-center mt-3">
+            <input type="submit" class="form-control  py-3" class="btn bg-danger w-100 my-4 mb-2 text-white" value="SUBMIT" />
+          </div>
+        </form>
+      </div>
+    </div>
+    `,
+    showCloseButton: false,
+    showConfirmButton: false
+    });
+    })
+
+    }
+    let status = false;
+    document.getElementById("menuu").onclick = function() {
+    const sidenav = document.getElementById("sidenav-main");
+    if (status) {
+    sidenav.style.cssText = "";
+    } else {
+    sidenav.style.cssText = "left:-200%";
+    }
+    status = !status;
+    };
+
+    function hapus(id) {
+    Swal.fire({
+    title: "Yakin ingin hapus data?",
+    text: "data yang dihapus tidak dapat dipulihkan",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Tetap hapus",
+    cancelButtonText: "Batal",
+    }).then((result) => {
+    if (result.isConfirmed) {
+    document.location.replace(`/panel-admin/user/${id}/hapus`);
+    }
+    });
+    }
+    </script>
+    <!--   Core JS Files   -->
+    <script src="/assets/admin/js/core/popper.min.js"></script>
+    <script src="/assets/admin/js/core/bootstrap.min.js"></script>
+    <script src="/assets/admin/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="/assets/admin/js/plugins/smooth-scrollbar.min.js"></script>
+    <script>
+      var win = navigator.platform.indexOf('Win') > -1;
+      if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+          damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+      }
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="/assets/admin/js/argon-dashboard.min.js?v=2.0.4"></script>
+  </body>
+
+</html>

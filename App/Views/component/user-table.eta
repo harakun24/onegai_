@@ -1,0 +1,84 @@
+<table class="table align-items-center p-4" id="utable">
+  <thead class="text-center">
+    <tr>
+      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+        id
+      </th>
+      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+        username
+      </th>
+      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+        password
+      </th>
+      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+        aksi
+      </th>
+    </tr>
+  </thead>
+  <tbody class="text-center">
+    {{ let count=0; if(!it.list_user.length || it.list_user.length==1) }}
+    <tr>
+      <td colspan="4">data kosong</td>
+    </tr>
+    {{ else for(const user of it.list_user){ if(count<1)
+                  {count++;continue;} const id =
+                  ("00000"+(user.id-1)).split("").reverse().join("").substr(0,4).split("").reverse().join("")
+                  }}
+    <tr>
+      <td>
+        <p class="text-sm font-weight-bold mb-0">
+          {{= `OS-${id}`}}
+        </p>
+      </td>
+      <td>
+        <p class="text-sm  mb-0">
+          {{= user.uname}}
+        </p>
+      </td>
+      <td>
+        <p class="text-sm  mb-0">
+          {{= user.password}}
+        </p>
+      </td>
+      <td>
+        {{
+if(it.user.id==user.id){
+
+}}
+        <a href="#" class="btn btn-success btn-sm mb-3" disabled>active</a>
+        {{}
+else{
+}}
+
+        <a href="#" class="btn btn-dark btn-sm mb-3" onclick="edituser({{=user.id}})">Edit</a>
+        <a href="#" class="btn btn-danger btn-sm mb-3" onclick="hapus({{=user.id}})">hapus</a>
+        {{
+}
+}}
+
+
+
+      </td>
+    </tr>
+    {{ } }}
+  </tbody>
+</table>
+
+<script>
+  window.onload = function() {
+
+    const table = new DataTable('#utable', {
+      pageLength: 4,
+      lengthMenu: [
+        [3, 4, 5, 10, 12],
+        [3, 4, 5, 10, 12]
+      ],
+      layout: {
+        topStart: 'pageLength',
+      }
+    });
+    $("#dt-search-0").off().on("keyup", function() {
+      table.column(1).search(this.value).draw()
+    })
+  }
+</script>

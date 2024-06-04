@@ -1,0 +1,84 @@
+<!-- @format -->
+
+{{ layout("./layout/admin") }}
+<main id="content">
+  <div
+    class="page-header align-items-start m-3 border-radius-lg opacity-8"
+    style="background: url('../images/banner-images/banner-image-2.jpg')">
+    <div class="col-12 text-center">
+      <h2 class="text-white mb-2 mt-5">Welcome!</h2>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
+      <div class="col-xl-4 col-lg-6 col-md-7 col-10 mx-auto">
+        <div class="card z-index-0">
+          <div class="card-header text-center pt-4">
+            <h3>Onegai Shelter</h3>
+          </div>
+          <div class="card-body justify-content-center">
+            <form method="post" action="/login-auth">
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="UName"
+                  name="uname"
+                  aria-label="Name"
+                  required />
+              </div>
+              <div class="mb-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                  name="password"
+                  aria-label="Password"
+                  required />
+              </div>
+              <!-- <div class="form-check text-start" style="margin-left: 13px">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  checked />
+                <label class="form-check-label" for="flexCheckDefault">
+                  <b>Ingat saya</b>
+                </label>
+              </div> -->
+              <div class="text-center mt-3">
+                <input
+                  type="submit"
+                  class="form-control  py-3"
+                  class="btn bg-danger w-100 my-4 mb-2 text-white"
+                  value="MASUK" />
+              </div>
+
+              <p class="text-sm mt-3 mb-0">
+                Already have an account?
+                <a href="javascript:;" class="text-dark font-weight-bolder"
+                  >Sign in</a
+                >
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+  {{ if(it.status){
+  if(it.status=="error")
+    }}
+    Swal.fire({
+      icon: "error",
+      title: "gagal masuk",
+      text:"username / password salah",
+      showConfirmButton: false,
+      timer: 2800
+    });
+  {{
+  }
+    }}
+</script>
