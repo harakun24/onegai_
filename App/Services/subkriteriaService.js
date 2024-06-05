@@ -2,6 +2,7 @@
 import base from "./baseService.js";
 
 const { view, db } = base
+const parent = await db.Kriteria.findMany();
 class service extends base {
     constructor() {
         super("subkriteria")
@@ -9,11 +10,15 @@ class service extends base {
     async main(req, res) {
         let id = req.flash("subs") - 0;
 
-        const find = id ? await db.Kriteria.findUnique({ where: { k_id: id } }) : await db.Kriteria.findFirst();
+        if (!parent.length) {
+            req.flash("nosubs", true);
+            return res.redirect("/panel-admin/kriteria")
+        }
+        const find = id ? await db.Kriteria.findFirst({ where: { k_id: id } }) : await db.Kriteria.findFirst();
 
 
         if (!find) {
-            req.flash("nosubs", true)
+            req.flash("nosubs", true);
             return res.redirect("/panel-admin/kriteria")
         }
 
@@ -27,8 +32,11 @@ class service extends base {
                 k_id: req.params.id - 0
             }
         })
-        if (!status)
-            return res.redirect("/panel-admin/sub")
+        if (!status) {
+            req.flash("nosubs", true);
+
+            return res.redirect("/panel-admin/kriteria")
+        }
         res.send(view.render("sub", {
             title: "Sub Kriteria",
             create: req.flash("create"),
@@ -43,7 +51,7 @@ class service extends base {
                 }
             }),
             krit: req.params.id,
-            parent: await db.Kriteria.findMany(),
+            parent,
             side: "subkriteria",
         }))
     }

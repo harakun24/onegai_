@@ -12,9 +12,8 @@
   {{
       }
         }}
-  {{ if(it.nosubs){
+  {{ if(it.nosubs[0]){
       }}
-
   Swal.fire({
   icon: "error",
   title: "Kriteria kosong",

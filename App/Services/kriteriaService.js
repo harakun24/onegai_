@@ -7,6 +7,7 @@ class service extends base {
         super("kriteria")
     }
     async main(req, res) {
+
         res.send(view.render("kriteria", {
             title: "Kriteria",
             create: req.flash("create"),
