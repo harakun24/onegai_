@@ -15,3 +15,16 @@ model User {
   uname    String @unique
   password String
 }
+
+model Kriteria {
+  k_id Int            @id @default(autoincrement())
+  nama String
+  sub  Sub_kriteria[]
+}
+
+model Sub_kriteria {
+  sk_id    Int      @id @default(autoincrement())
+  nama     String
+  kriteria Kriteria @relation(fields: [k], references: [k_id], onDelete: Cascade)
+  k        Int
+}

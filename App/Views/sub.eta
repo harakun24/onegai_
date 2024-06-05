@@ -1,0 +1,28 @@
+{{ layout("./layout/admin.eta",{
+  ...it,
+  script:"sub-script"
+}) }}
+
+<div class="card mb-4">
+  <div class="card-header pb-0 d-flex justify-content-between">
+    <div class="d-flex justify-content-between align-items-center" style="width: 23%">
+      <h6 class="d-lg-block d-none">Tabel Subkriteria</h6>
+      <a href="#" class="btn btn-primary btn-sm mb-3" onclick="adddata()"> Tambah</a>
+    </div>
+    <div class="col-4">
+      <label for="kat">Kriteria</label>
+      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="kat" onchange="pages(this)">
+        {{for(const k of it.parent){
+        }}
+         <option value="{{=k.k_id}}" {{=it.krit==k.k_id?"selected":""}}>{{=k.nama}}</option>
+        {{
+        } }}
+      </select>
+    </div>
+  </div>
+  <div class="card-body pt-0 pb-2" style="padding-left:10px;padding-right:10px">
+    <div class="table-responsive p-0">
+      {{~ include("./component/sub-table.eta",{...it})}}
+    </div>
+  </div>
+</div>

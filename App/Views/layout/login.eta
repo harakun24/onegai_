@@ -1,0 +1,124 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html>
+
+  <head lang="en">
+    <meta charset="UTF-8" />
+
+    <!--Page Title-->
+    <title>OSS - {{=it.title}}</title>
+
+    <!--Meta Keywords and Description-->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/images/onegai.png" title="Favicon" />
+
+    <!-- Main CSS Files -->
+    <link rel="stylesheet" href="/assets/css/style.css" />
+
+    <link href="/assets/css/datatable.css" rel="stylesheet" />
+    <!-- Namari Color CSS -->
+    <link rel="stylesheet" href="/assets/css/namari-color.css" />
+
+    <!--Icon Fonts - Font Awesome Icons-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css" />
+
+    <!-- Animate CSS-->
+    <link href="/assets/css/animate.css" rel="stylesheet" type="text/css" />
+
+    <!--Google Webfonts-->
+    <link href="/assets/css/google.font.css" rel="stylesheet" type="text/css" />
+
+    {{ /* loopo */ }}
+    <link href="/assets/admin/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/admin/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="/assets/admin/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link id="pagestyle" href="/assets/admin/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+    <link href="/assets/css/swal2.css" rel="stylesheet" />
+    <script src="/assets/js/swal2.js"></script>
+    <script src="/assets/js/htmx.js"></script>
+    <style>
+      .dt-paging-button {
+        box-shadow: 0 !important;
+        border: 0 !important;
+        padding: 3px !important
+      }
+
+      .current {
+        box-shadow: 0 !important;
+        border: 1px solid black !important;
+        padding: 0px 8px 0px 8px !important;
+        outline: none !important;
+      }
+
+      .dt-input {
+        outline: none !important;
+        border: 1px solid black !important;
+        font-size: 60%;
+      }
+
+      .dt-info {
+        font-size: 70% !important;
+      }
+      select, input {
+      height:auto;
+      padding:0;
+      }
+    </style>
+  </head>
+
+  <body style="background: #f0efef">
+    <!-- Preloader -->
+    <div id="preloader">
+      <div id="status" class="la-ball-triangle-path">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <!--End of Preloader-->
+    <!-- 
+    <div class="page-border" data-wow-duration="0.7s" data-wow-delay="0.2s">
+      <div
+        class="top-border wow fadeInDown"
+        style="visibility: visible; animation-name: fadeInDown"></div>
+      <div
+        class="right-border wow fadeInRight"
+        style="visibility: visible; animation-name: fadeInRight"></div>
+      <div
+        class="bottom-border wow fadeInUp"
+        style="visibility: visible; animation-name: fadeInUp"></div>
+      <div
+        class="left-border wow fadeInLeft"
+        style="visibility: visible; animation-name: fadeInLeft"></div>
+    </div> -->
+
+    <div id="wrapper" style="background: #f0efef">
+      <!--Main Content Area-->
+      {{~ it.body }}
+
+      <!--End Main Content Area-->
+
+      <!--Footer-->
+
+      <!--End of Footer-->
+    </div>
+
+    <!-- include JavaScript resources -->
+    {{~ include("../component/script.eta") }}
+    
+    <script src="/assets/admin/js/core/popper.min.js"></script>
+    <script src="/assets/admin/js/core/bootstrap.min.js"></script>
+    <script src="/assets/admin/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="/assets/admin/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="/assets/admin/js/plugins/chartjs.min.js"></script>
+  </body>
+
+</html>

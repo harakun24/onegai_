@@ -7,6 +7,7 @@ import { env, session_cache } from "./App/.config.js";
 import collectorRoute from "./App/Routes/collector-routes.js";
 import "./App/Routes/collector-routes.js"
 const server = express();
+
 console.log("\n---------------------------")
 
 session_cache(server)

@@ -1,0 +1,64 @@
+<table class="table align-items-center p-4" id="utable">
+  <thead class="text-center">
+    <tr>
+      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+        id
+      </th>
+      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+        kriteria
+      </th>
+      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+        aksi
+      </th>
+    </tr>
+  </thead>
+  <tbody class="text-center">
+    {{if(it.list_user.length)
+       for(const user of it.list_user){ 
+                  }}
+    <tr>
+      <td>
+        <p class="text-sm font-weight-bold mb-0">
+          {{= user.k_id}}
+        </p>
+      </td>
+      <td>
+        <p class="text-sm  mb-0">
+          {{= user.nama}}
+        </p>
+      </td>
+      <td>
+
+        <a href="#" class="btn btn-dark btn-sm mb-3" onclick="editdata({{=user.k_id}})">Edit</a>
+        <a href="#" class="btn btn-danger btn-sm mb-3" onclick="hapus({{=user.k_id}})">hapus</a>
+
+
+      </td>
+    </tr>
+    {{ } }}
+  </tbody>
+</table>
+
+<script>
+  window.onload = function() {
+
+    const table = new DataTable('#utable', {
+      pageLength: 3,
+      lengthMenu: [
+        [3, 4, 5, 10, 12],
+        [3, 4, 5, 10, 12]
+      ],
+      layout: {
+        topStart: 'pageLength',
+      }
+    });
+    $("#dt-search-0").off().on("keyup", function() {
+      try {
+        table.column(1).search(this.value).draw()
+
+      } catch {
+
+      }
+    })
+  }
+</script>

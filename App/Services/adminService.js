@@ -1,7 +1,7 @@
 
 import base from "./baseService.js";
 import crypto from "crypto-js";
-import { env, logger } from "../.config.js";
+import { env } from "../.config.js";
 
 const { view, db } = base
 class service extends base {
@@ -9,7 +9,7 @@ class service extends base {
         super("admin")
     }
     async main(req, res) {
-        res.send(view.render("template", {
+        res.send(view.render("dashboard", {
             title: "Dashboard",
             create: req.flash("create"),
             user: req.session.user,
@@ -72,21 +72,7 @@ class service extends base {
         req.flash("update", status ? "success" : "error");
         res.redirect("/panel-admin")
     }
-    keluar(req, res) {
-        try {
-            const { token } = req.session.user
-            logger(".out", token)
-            req.session.destroy(function (err) {
-                console.log()
-                console.log("Destroying session for: ", { token })
-                console.log()
-            })
 
-        } catch (error) {
-            console.log("error " + error)
-        }
-        res.redirect("/panel-admin")
-    }
 }
 
 export default new service();
