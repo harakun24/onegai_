@@ -1,18 +1,24 @@
-{{ layout("./layout/admin.eta",{
-  ...it,
-  script:"kriteria-script"
-}) }}
+#! layout("./layout/admin.eta",{
+...it,
+script:"kriteria-script"
+}) !!
 
 <div class="card mb-4">
   <div class="card-header pb-0">
-    <div class="d-flex justify-content-between align-items-center" style="width: 23%">
-      <h6 class="d-lg-block d-none">Tabel kriteria</h6>
-      <a href="#" class="btn btn-primary btn-sm mb-3" onclick="adddata()"> Tambah</a>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+      <h6 class="d-lg-block d-none">Tabel kriteria </h6>
+      <a href="#" class="btn btn-primary btn-sm mb-3" style="margin-left:10px" onclick="adddata()"> Tambah</a>
+      </div>
+      <div>
+
+        <a href="/panel-admin/kriteria/matriks" class="btn btn-success btn-sm mb-3">Matriks</a>
+      </div>
     </div>
   </div>
   <div class="card-body pt-0 pb-2" style="padding-left:10px;padding-right:10px">
-    <div class="table-responsive p-0">
-      {{~ include("./component/kriteria-table.eta",{...it})}}
+    <div class="table-responsive">
+      #!~ include("./component/kriteria-table.eta",{...it})!!
     </div>
   </div>
 </div>

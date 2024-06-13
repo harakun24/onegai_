@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
 
     <!--Page Title-->
-    <title>OSS - {{=it.title}}</title>
+    <title>OSS - #!=it.title!!</title>
 
     <!--Meta Keywords and Description-->
     <meta name="keywords" content="" />
@@ -33,7 +33,7 @@
     <!--Google Webfonts-->
     <link href="/assets/css/google.font.css" rel="stylesheet" type="text/css" />
 
-    {{ /* loopo */ }}
+    #! /* loopo */ !!
     <link href="/assets/admin/css/nucleo-icons.css" rel="stylesheet" />
     <link href="/assets/admin/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
@@ -102,7 +102,7 @@
 
     <div id="wrapper" style="background: #f0efef">
       <!--Main Content Area-->
-      {{~ it.body }}
+      #!~ it.body !!
 
       <!--End Main Content Area-->
 
@@ -112,7 +112,7 @@
     </div>
 
     <!-- include JavaScript resources -->
-    {{~ include("../component/script.eta") }}
+    #!~ include("../component/script.eta") !!
     
     <script src="/assets/admin/js/core/popper.min.js"></script>
     <script src="/assets/admin/js/core/bootstrap.min.js"></script>

@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="/assets/admin/img/apple-icon.png">
     <link rel="icon" type="image/png" href="/assets/images/onegai.png">
     <title>
-      OSS - {{=it.title}}
+      OSS - #!=it.title!!
     </title>
     <!--     Fonts and icons     -->
     <link href="/assets/css/google.font.css" rel="stylesheet" />
@@ -73,13 +73,31 @@
         height: auto;
         padding: 0;
       }
+
+      .nt {
+        background-color: #ff909040 !important;
+        color:rgba(0, 0, 0, 0.623);
+      }
+      table{
+        color:rgba(0, 0, 0, 0.623) !important;
+      }
+      .nts {
+        background-color: #ff9090f5 !important;
+      }
+      .tn {
+        border: 1px solid rgb(153, 43, 43)
+      }
+      body{
+        min-width:270px
+      }
     </style>
+
   </head>
 
   <body class="g-sidenav-show   bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
     <!-- sidebar -->
-    {{~ include("../component/side-menu.eta",{...it})}}
+    #!~ include("../component/side-menu.eta",{...it})!!
     <main class="main-content position-relative border-radius-lg ">
       <!-- Navbar -->
       <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
@@ -89,7 +107,7 @@
               <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Admin</a></li>
               <li class="breadcrumb-item text-sm text-white active" aria-current="page">Panel</li>
             </ol>
-            <h6 class="font-weight-bolder text-white mb-0">{{=it.side.toUpperCase()}}</h6>
+            <h6 class="font-weight-bolder text-white mb-0">#!=it.side.toUpperCase()!!</h6>
           </nav>
           <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <div class="opacity-0 ms-md-auto pe-md-3 d-flex align-items-center">
@@ -120,7 +138,7 @@
       <div class="container-fluid py-4">
         <div class="row">
           <div class="col-12">
-            {{~ it.body}}
+            #!~ it.body!!
           </div>
         </div>
         <footer class="footer pt-3  ">
@@ -141,7 +159,7 @@
         </footer>
       </div>
     </main>
-    {{~ include(`../component/${it.script}.eta`,{...it})}}
+    #!~ include(`../component/${it.script}.eta`,{...it})!!
     <!--   Core JS Files   -->
     <script src="/assets/admin/js/core/popper.min.js"></script>
     <script src="/assets/admin/js/core/bootstrap.min.js"></script>

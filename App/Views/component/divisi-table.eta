@@ -1,0 +1,64 @@
+<table class="table tn table-bordered align-items-center p-4" id="utable">
+  <thead class="text-center">
+    <tr>
+      <th class="nt text-sm text-center" style="width: 1%;">
+        id
+      </th>
+      <th class="nt text-sm text-center">
+        divisi
+      </th>
+      <th class="nt text-sm text-center" style="width:1%">
+        aksi
+      </th>
+    </tr>
+  </thead>
+  <tbody class="text-center">
+    #!if(it.list_user.length)
+       for(const user of it.list_user){ 
+                  !!
+    <tr>
+      <td>
+        <p class="text-sm px-4 font-weight-bold mb-0">
+          DIV-#!= `${("000000"+user.div_id).split("").reverse().join("").substr(0,5).split("").reverse().join("")}`!!
+        </p>
+      </td>
+      <td>
+        <p class="text-sm  mb-0">
+          #!= user.nama!!
+        </p>
+      </td>
+      <td class="d-flex justify-content-between" style="border: 0;">
+
+          <a href="#" class="btn btn-dark btn-sm mb-3 mx-1" onclick="editdata(#!=user.div_id!!)">Edit</a>
+          <a href="#" class="btn btn-danger btn-sm mb-3 mx-1" onclick="hapus(#!=user.div_id!!)">hapus</a>
+
+
+      </td>
+    </tr>
+    #! } !!
+  </tbody>
+</table>
+
+<script>
+  window.onload = function() {
+
+    const table = new DataTable('#utable', {
+      pageLength: 4,
+      lengthMenu: [
+        [3, 4, 5, 10, 12],
+        [3, 4, 5, 10, 12]
+      ],
+      layout: {
+        topStart: 'pageLength',
+      }
+    });
+    $("#dt-search-0").off().on("keyup", function() {
+      try {
+        table.column(1).search(this.value).draw()
+
+      } catch {
+
+      }
+    })
+  }
+</script>

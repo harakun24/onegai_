@@ -10,11 +10,11 @@ class service extends base {
         super("default")
     }
     main(req, res) {
-        if (req.session.user != null)
-            res.redirect("/panel-admin")
         res.send(view.render("index"))
     }
     login_panel(req, res) {
+        if (req.session.user)
+            return res.redirect("/panel-admin")
         res.send(view.render("login", { status: req.flash("status"), title: "Log in" }))
     }
     async login_auth(req, res) {
@@ -48,7 +48,8 @@ class service extends base {
         user.id = found.id;
         req.session.user = user;
         logger(".in", user.token)
-        res.redirect('/panel-admin');
+        // res.redirect('/panel-admin');
+        res.redirect('/panel-admin/');
     }
 }
 

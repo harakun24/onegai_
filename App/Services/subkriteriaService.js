@@ -52,6 +52,7 @@ class service extends base {
             }),
             krit: req.params.id,
             parent,
+            status,
             side: "subkriteria",
         }))
     }

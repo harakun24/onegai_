@@ -6,7 +6,7 @@ import session from "express-session";
 const env = process.env;
 
 const view = new Eta({
-    tags: ["{{", "}}"],
+    tags: ["#!", "!!"],
     views: path.join(import.meta.dirname, "Views"),
     // cache: true
 })

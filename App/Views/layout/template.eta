@@ -32,14 +32,16 @@
     <!--Google Webfonts-->
     <link href="/assets/css/google.font.css" rel="stylesheet" type="text/css" />
 
-    {{ /* loopo */ }}
-    {{ /* <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+    #! /* loopo */ !!
+    #! /*
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" /> */ }}
-    {{ /* <!-- CSS Files -->
-    <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" /> */ }}
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" /> */ !!
+    #! /*
+    <!-- CSS Files -->
+    <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" /> */ !!
   </head>
 
   <body>
@@ -66,12 +68,12 @@
 
 
       <!--Main Content Area-->
-      {{~ it.body }}
+      #!~ it.body !!
 
       <!--End Main Content Area-->
 
       <!--Footer-->
-      {{~ include("../component/footer.eta") }}
+      #!~ include("../component/footer.eta") !!
 
 
 
@@ -79,8 +81,8 @@
     </div>
 
     <!-- include JavaScript resources -->
-    {{~ include("../component/script.eta") }}
-    
+    #!~ include("../component/script.eta") !!
+
     <script src="/assets/js/core/popper.min.js"></script>
     <script src="/assets/js/core/bootstrap.min.js"></script>
     <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>

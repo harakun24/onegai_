@@ -1,0 +1,75 @@
+#! layout("../layout/admin.eta",{
+...it,
+script:"mkriteria-script"
+}) !!
+
+<div class="card mb-4">
+  <div class="card-header pb-0">
+    <div class="d-flex justify-content-between align-items-center">
+      <h6 class="d-lg-block d-none">Matriks Kriteria</h6>
+      <a href="/panel-admin/kriteria" class="btn btn-dark btn-sm mb-3"> Kembali</a>
+    </div>
+  </div>
+  <div class="card-body pt-0 pb-2" style="padding-left:10px;padding-right:10px">
+    <div class="row">
+      <div class="col-lg-4 col-md-3 col-12 d-flex justify-content-center align-items-start">
+        <table>
+
+          #! for(const m of it.mKriteria){
+         
+          !!
+          <tr>
+            <td class="py-3">
+
+              <label class="form-label">#!= m.kriteria.nama !!</label>
+            </td>
+            <td>
+              <form>
+                <select class="form-select" aria-label="pilihan"
+               
+                hx-get="/panel-admin/kriteria/matriks/update/#!=m.mk_id!!" hx-include="this"
+                hx-trigger="change changed"
+                hx-target="#targetTable"
+                name="val"
+                >
+                  <option value="9" #!=m.val==9?'selected':''!!>9 - mutlak penting dari </option>
+                  <option value="8" #!=m.val==8?'selected':''!!>8 - mendekati mutlak penting dari</option>
+                  <option value="7" #!=m.val==7?'selected':''!!>7 - sangat penting dari</option>
+                  <option value="6" #!=m.val==6?'selected':''!!>6 - mendekati sangat penting dari</option>
+                  <option value="5" #!=m.val==5?'selected':''!!>5 - lebih penting dari</option>
+                  <option value="4" #!=m.val==4?'selected':''!!>4 - mendekati lebih penting dari</option>
+                  <option value="3" #!=m.val==3?'selected':''!!>3 - sedikit penting dari</option>
+                  <option value="2" #!=m.val==2?'selected':''!!>2 - mendekati sedikit penting dari</option>
+                  <option value="1" #!=m.val==1?'selected':''!!>1 - sama penting</option>
+                  <option value="-2" #!=m.val==0.5?'selected':''!!>1/2 - mendekati sedikit tidak penting dari</option>
+                  <option value="-3" #!=m.val>(1/4)&&m.val<0.5?'selected':''!!>1/3 - sedikit tidak penting dari</option>
+                  <option value="-4" #!=m.val==(1/4)?'selected':''!!>1/4 -mendekati lebih tidak penting dari</option>
+                  <option value="-5" #!=m.val==0.2?'selected':''!!>1/5 - lebih tidak penting dari</option>
+                  <option value="-6" #!=m.val>(1/7)&&m.val<(1/5)?'selected':''!!>1/6 - mendekati sangat tidak penting dari</option>
+                  <option value="-7" #!=m.val>(1/8)&&m.val<(1/6)?'selected':''!!>1/7 - sangat tidak penting dari</option>
+                  <option value="-8" #!=m.val==(1/8)?'selected':''!!>1/8 - mendekati mutlak tidak penting dari</option>
+                  <option value="-9" #!=m.val<(1/8)&&m.val>(1/10)?'selected':''!!>1/9 - mutlak tidak penting dari</option>
+                </select>
+              </form>
+
+            </td>
+            <td>
+
+              <label class="form-label">#!= m.kriteria2.nama !!</label>
+            </td>
+          </tr>
+
+          #!
+          } !!
+        </table>
+
+      </div>
+      <div class="col-lg-8 col-md-9 col-12 text-sm" id="targetTable">
+
+       <div hx-get="/panel-admin/kriteria/matriks/table" hx-trigger="load" hx-swap="outerHTML"></div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

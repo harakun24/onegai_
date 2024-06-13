@@ -19,12 +19,63 @@ model User {
 model Kriteria {
   k_id Int            @id @default(autoincrement())
   nama String
-  sub  Sub_kriteria[]
+  sub  Sub_kriteria[] @relation("k")
+  k1   mKriteria[]    @relation("k1")
+  k2   mKriteria[]    @relation("k2")
 }
 
 model Sub_kriteria {
   sk_id    Int      @id @default(autoincrement())
   nama     String
-  kriteria Kriteria @relation(fields: [k], references: [k_id], onDelete: Cascade)
+  kriteria Kriteria @relation(name: "k", fields: [k], references: [k_id], onDelete: Cascade)
   k        Int
+  sk1      mSub[]   @relation("sk1")
+  sk2      mSub[]   @relation("sk2")
+}
+
+model mKriteria {
+  mk_id     Int      @id @default(autoincrement())
+  k1        Int
+  k2        Int
+  kriteria  Kriteria @relation(name: "k1", fields: [k1], references: [k_id], onDelete: Cascade)
+  kriteria2 Kriteria @relation(name: "k2", fields: [k2], references: [k_id], onDelete: Cascade)
+  val       Float
+}
+
+model mSub {
+  mk_id Int          @id @default(autoincrement())
+  k1    Int
+  k2    Int
+  sub   Sub_kriteria @relation(name: "sk1", fields: [k1], references: [sk_id], onDelete: Cascade)
+  sub2  Sub_kriteria @relation(name: "sk2", fields: [k2], references: [sk_id], onDelete: Cascade)
+  val   Float
+}
+
+model Visitor {
+  v_id     Int    @id @default(autoincrement())
+  nim      String @unique
+  password String
+  nama     String
+}
+
+model Divisi {
+  div_id Int     @id @default(autoincrement())
+  nama   String
+  jawab  Jawab[] @relation("div")
+}
+
+model Tanya {
+  t_id       Int     @id @default(autoincrement())
+  pertanyaan String
+  jawab      Jawab[] @relation("ask")
+}
+
+model Jawab {
+  j_id    Int    @id @default(autoincrement())
+  jawaban String
+  nilai   Int
+  d_key   Int
+  t_key   Int
+  divisi  Divisi @relation(name: "div", fields: [d_key], references: [div_id], onDelete: Cascade)
+  tanya   Tanya  @relation(name: "ask", fields: [t_key], references: [t_id], onDelete: Cascade)
 }

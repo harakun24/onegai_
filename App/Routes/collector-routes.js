@@ -1,6 +1,6 @@
 import express from "express";
 import * as bundle from "./bundle.routes.js";
-
+import "colors"
 
 console.log("\n---------------------------")
 const listRouter = [...Object.entries(bundle)].map(e => e[1].default);
@@ -30,7 +30,7 @@ function routeMapping(route) {
         }
         else
             for (const response of route.method[m]) {
-                console.log(`  ${m.toLocaleUpperCase()}\t ${"[ " + route.path + " ]\t" + response[0]}`)
+                console.log(` ${"[ " + route.path.brightBlue + " ]" + " --".brightYellow + `${(m.toLocaleUpperCase() + "-----").substr(0, 4).brightYellow}` + "--| ".brightYellow + (response[0] == "/" ? "main".brightRed : response[0].substr(1, response[0].length - 1).brightCyan)}`)
                 result[1][m](response[0], response[1])
             }
     }

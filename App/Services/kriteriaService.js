@@ -24,7 +24,7 @@ class service extends base {
         if (!found)
             return res.redirect("/panel-admin/kriteria")
         const deluser = await db.Kriteria.delete({ where: { k_id: req.params.id - 0 } })
-        req.flash("hapus", deluser.id);
+        req.flash("hapus", deluser.k_id);
 
         res.redirect("/panel-admin/kriteria")
     }

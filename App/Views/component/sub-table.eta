@@ -1,41 +1,49 @@
-<table class="table align-items-center p-4" id="utable">
+<table class="table tn table-bordered align-items-center p-4" id="utable">
   <thead class="text-center">
     <tr>
-      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+      <th class="text-sm nt text-center" style="width:1%">
         id
       </th>
-      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-        kriteria
+      <th class="text-sm nt text-center">
+        Subkriteria
       </th>
-      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+      <th class="text-sm nt text-center">
+        Kriteria
+      </th>
+      <th class="text-sm nt text-center" style="width:1%">
         aksi
       </th>
     </tr>
   </thead>
   <tbody class="text-center">
-    {{if(it.list_user.length)
+    #!if(it.list_user.length)
        for(const user of it.list_user){ 
-                  }}
+                  !!
     <tr>
       <td>
-        <p class="text-sm font-weight-bold mb-0">
-          {{= user.sk_id}}
+        <p class="text-sm font-weight-bold mb-0 px-4">
+          SK-#!= `${it.status.k_id}/${("000000"+user.sk_id).split("").reverse().join("").substr(0,5).split("").reverse().join("")}`!!
         </p>
       </td>
       <td>
         <p class="text-sm  mb-0">
-          {{= user.nama}}
+          #!= user.nama!!
         </p>
       </td>
       <td>
+        <p class="text-sm  mb-0">
+          #!= it.status.nama!!
+        </p>
+      </td>
+      <td class=" w-auto">
 
-        <a href="#" class="btn btn-dark btn-sm mb-3" onclick="editdata({{=user.sk_id}})">Edit</a>
-        <a href="#" class="btn btn-danger btn-sm mb-3" onclick="hapus({{=user.sk_id}})">hapus</a>
+        <a href="#" class="btn btn-dark btn-sm mb-3" onclick="editdata(#!=user.sk_id!!)">Edit</a>
+        <a href="#" class="btn btn-danger btn-sm mb-3" onclick="hapus(#!=user.sk_id!!)">hapus</a>
 
 
       </td>
     </tr>
-    {{ } }}
+    #! } !!
   </tbody>
 </table>
 

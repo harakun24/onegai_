@@ -1,3 +1,4 @@
+import "colors"
 export default class Router {
     path = "/";
     method = {
@@ -9,6 +10,6 @@ export default class Router {
     }
     constructor(route) {
         this.path += route == "/" ? "" : route;
-        console.log(` # Route ${this.path}`)
+        console.log(` # Route `.yellow + `${this.path}`.brightYellow)
     }
 }

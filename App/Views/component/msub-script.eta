@@ -1,0 +1,5 @@
+  <script>
+  setTimeout(()=>{
+    document.getElementById("alert").remove()
+  },1200)
+  </script>

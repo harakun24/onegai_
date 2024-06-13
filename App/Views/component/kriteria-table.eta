@@ -1,41 +1,42 @@
-<table class="table align-items-center p-4" id="utable">
+<table class="table tn table-bordered align-items-center p-4" id="utable">
   <thead class="text-center">
     <tr>
-      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+      <th class="nt text-sm text-center" style="width: 1%;">
         id
       </th>
-      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+      <th class="nt text-sm text-center">
         kriteria
       </th>
-      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+      <th class="nt text-sm text-center" style="width:1%">
         aksi
       </th>
     </tr>
   </thead>
   <tbody class="text-center">
-    {{if(it.list_user.length)
+    #!if(it.list_user.length)
        for(const user of it.list_user){ 
-                  }}
+                  !!
     <tr>
       <td>
-        <p class="text-sm font-weight-bold mb-0">
-          {{= user.k_id}}
+        <p class="text-sm px-4 font-weight-bold mb-0">
+          K-#!= `${("000000"+user.k_id).split("").reverse().join("").substr(0,5).split("").reverse().join("")}`!!
         </p>
       </td>
       <td>
         <p class="text-sm  mb-0">
-          {{= user.nama}}
+          #!= user.nama!!
         </p>
       </td>
-      <td>
+      <td class="d-flex justify-content-between" style="border: 0;">
+        <a href="/panel-admin/sub/matriks/#!=user.k_id!!" class="py-2 btn btn-secondary btn-sm mb-3 mx-1">matriks | <i class="fa fa-table fa-xl"></i></a>
 
-        <a href="#" class="btn btn-dark btn-sm mb-3" onclick="editdata({{=user.k_id}})">Edit</a>
-        <a href="#" class="btn btn-danger btn-sm mb-3" onclick="hapus({{=user.k_id}})">hapus</a>
+          <a href="#" class="btn btn-dark btn-sm mb-3 mx-1" onclick="editdata(#!=user.k_id!!)">Edit</a>
+          <a href="#" class="btn btn-danger btn-sm mb-3 mx-1" onclick="hapus(#!=user.k_id!!)">hapus</a>
 
 
       </td>
     </tr>
-    {{ } }}
+    #! } !!
   </tbody>
 </table>
 

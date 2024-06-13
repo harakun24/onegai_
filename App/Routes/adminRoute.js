@@ -2,6 +2,8 @@
 import base from "./baseRoute.js";
 import service from "../Services/adminService.js";
 import kriteria from "./kriteriaRoute.js";
+import divisi from "./divisiRoute.js";
+import visitor from "./visitorRoute.js";
 import subkriteria from "./subkriteriaRoute.js";
 
 class router extends base {
@@ -21,7 +23,9 @@ class router extends base {
             ],
             sub: [
                 ["/kriteria", kriteria],
-                ["/sub", subkriteria]
+                ["/sub", subkriteria],
+                ["/divisi", divisi],
+                ["/visitor", visitor],
             ]
         }
     }

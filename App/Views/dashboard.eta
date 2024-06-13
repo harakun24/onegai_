@@ -1,7 +1,7 @@
-{{ layout("./layout/admin.eta",{
-  ...it,
-  script:"admin-script"
-}) }}
+#! layout("./layout/admin.eta",{
+...it,
+script:"admin-script"
+}) !!
 
 <div class="card mb-4">
   <div class="card-header pb-0">
@@ -12,7 +12,7 @@
   </div>
   <div class="card-body pt-0 pb-2" style="padding-left:10px;padding-right:10px">
     <div class="table-responsive p-0">
-      {{~ include("./component/user-table.eta",{list_user:it.list_user,user:it.user})}}
+      #!~ include("./component/user-table.eta",{list_user:it.list_user,user:it.user})!!
     </div>
   </div>
 </div>

@@ -1,6 +1,7 @@
 <!-- @format -->
 
-{{ layout("./layout/login") }}
+#! layout("./layout/login") !!
+
 <main id="content">
   <div class="page-header align-items-start m-3 border-radius-lg opacity-8" style="background: url('../images/banner-images/banner-image-2.jpg')">
     <div class="col-12 text-center">
@@ -48,19 +49,18 @@
   </div>
 </main>
 <script>
+  #!
 
-{{ if(it.status){
-  if(it.status=="error")
-    }}
-Swal.fire({
-icon: "error",
-title: "gagal masuk",
-text:"username / password salah",
-showConfirmButton: false,
-timer: 2800
-});
-
-{{
-  }
-    }}
+  if (it.status) {
+    if (it.status == "error")
+      !!
+      Swal.fire({
+        icon: "error",
+        title: "gagal masuk",
+        text: "username / password salah",
+        showConfirmButton: false,
+        timer: 2800
+      });
+    #!
+  }!!
 </script>
