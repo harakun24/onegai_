@@ -52,10 +52,10 @@ model mSub {
 }
 
 model Visitor {
-  v_id     Int    @id @default(autoincrement())
-  nim      String @unique
-  password String
-  nama     String
+  v_id  Int     @id @default(autoincrement())
+  nim   String  @unique
+  nama  String
+  hasil String?
 }
 
 model Divisi {

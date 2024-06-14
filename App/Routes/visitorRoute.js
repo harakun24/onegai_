@@ -7,9 +7,15 @@ class router extends base {
 
         this.method = {
             get: [
-                ["/", (req, res) => res.send("new route /visitor")],
+                ["/", service.main],
+                ["/:id(\\d+)", service.show_visitor],
+                ["/:id(\\d+)/hapus", service.hapus_visitor],
 
-            ]
+            ],
+            post: [
+                ["/tambah", service.tambah_visitor],
+                ["/:id(\\d+)/ubah", service.edit_visitor],
+            ],
         }
     }
 }

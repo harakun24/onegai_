@@ -1,5 +1,6 @@
   <script>
     #! if(it.deluser>0){
+
     !!
 
     Swal.fire({
@@ -11,13 +12,13 @@
     });
     #!
     }!!
-    #!
+     #!
       if (it.create == "success") {
         !!
 
         Swal.fire({
           icon: "success",
-          title: "berhasil menambah Divisi",
+          title: "berhasil menambah Visitor",
           text: "operasi berhasil",
           showConfirmButton: false,
           timer: 2800
@@ -41,7 +42,7 @@
 
         Swal.fire({
           icon: "success",
-          title: "berhasil mengubah Divisi",
+          title: "berhasil mengubah Visitor",
           text: "data berhasil diubah",
           showConfirmButton: false,
           timer: 2800
@@ -68,10 +69,13 @@
       <h3>Tambah data</h3>
     </div>
     <div class="card-body justify-content-center">
-      <form method="post" action="/panel-admin/divisi/tambah">
+      <form method="post" action="/panel-admin/visitor/tambah">
         <div class="mb-3">
-          <input type="text" class="form-control" placeholder="Divisi" name="nama" aria-label="Name" required />
+          <input type="text" class="form-control" placeholder="NIM" name="nim" aria-label="Name" required />
         </div>
+        <div class="mb-3">
+        <input type="text" class="form-control" placeholder="visitor" name="nama" aria-label="Name" required />
+      </div>
 
         <div class="text-center mt-3">
           <input type="submit" class="form-control py-3" class="btn bg-danger w-100 my-4 mb-2 text-white" value="SUBMIT" />
@@ -86,7 +90,7 @@
     }
 
     function editdata(id) {
-      fetch("/panel-admin/divisi/" + id).
+      fetch("/panel-admin/visitor/" + id).
       then(e => e.json()).then(e => {
 
         Swal.fire({
@@ -96,9 +100,12 @@
       <h3>Edit data</h3>
     </div>
     <div class="card-body justify-content-center">
-      <form method="post" action="/panel-admin/divisi/${e.div_id}/ubah">
+      <form method="post" action="/panel-admin/visitor/${e.v_id}/ubah">
         <div class="mb-3">
-          <input type="text" class="form-control" placeholder="Divisi" name="nama" aria-label="Name" value="${e.nama}" required />
+          <input type="text" class="form-control" placeholder="NIM" name="nim" aria-label="Name" value="${e.nim}" required />
+        </div>
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="visitor" name="nama" aria-label="Name" value="${e.nama}" required />
         </div>
         <div class="text-center mt-3">
           <input type="submit" class="form-control  py-3" class="btn bg-danger w-100 my-4 mb-2 text-white" value="SUBMIT" />
@@ -126,7 +133,7 @@
         cancelButtonText: "Batal",
       }).then((result) => {
         if (result.isConfirmed) {
-          document.location.replace(`/panel-admin/divisi/${id}/hapus`);
+          document.location.replace(`/panel-admin/visitor/${id}/hapus`);
         }
       });
     }

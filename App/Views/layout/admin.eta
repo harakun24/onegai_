@@ -137,7 +137,7 @@
       <!-- End Navbar -->
       <div class="container-fluid py-4">
         <div class="row">
-          <div class="col-12">
+          <div class="col-12" style="min-height: 275px;">
             #!~ it.body!!
           </div>
         </div>

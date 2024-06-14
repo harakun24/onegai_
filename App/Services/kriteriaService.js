@@ -20,7 +20,7 @@ class service extends base {
         }))
     }
     async hapus_kriteria(req, res) {
-        const found = await db.Kriteria.findUnique({ where: { k_id: req.params.id - 0 } })
+        const found = await db.Kriteria.findFirst({ where: { k_id: req.params.id - 0 } })
         if (!found)
             return res.redirect("/panel-admin/kriteria")
         const deluser = await db.Kriteria.delete({ where: { k_id: req.params.id - 0 } })
@@ -46,7 +46,7 @@ class service extends base {
         res.redirect("/panel-admin/kriteria")
     }
     async show_kriteria(req, res) {
-        const user = await db.Kriteria.findUnique({ where: { k_id: req.params.id - 0 } });
+        const user = await db.Kriteria.findFirst({ where: { k_id: req.params.id - 0 } });
         res.json(user || { res: false })
     }
     async edit_kriteria(req, res) {

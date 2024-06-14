@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50000,
+            "driver": "SQLite",
+            "name": "conn",
+            "database": "A:\\onegai_\\only-session.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}

@@ -54,7 +54,7 @@
                         #! for(const t of it.table){
                         if(k.k_id==t.k1){
                         !!
-                        <td>#!=t.val.toFixed(2)!!</td>
+                        <td>#!=t.val.toFixed(2)*1!!</td>
                         #!}
                         } !!
                       </tr>
@@ -68,7 +68,7 @@
                         !!
                         <td>
                           <b>
-                            #!=t.toFixed(2)!!
+                            #!=t.toFixed(2)*1!!
                           </b>
                         </td>
                         #!
@@ -119,14 +119,18 @@
                         <th class="nt">#!=k.nama !!</th>
                         #! for(let j=0;j
 
-                        < it.eigen[i].length;j++){ const e=it.eigen[i][j]; !! <td class="text-#!=j==it.kriteria.length?'primary':j==it.kriteria.length+1?'black':'black'!!" style="background:#!=j==it.kriteria.length?'#fdb0af':j==it.kriteria.length+1?'':'#ffffff'!! !important;">#!=e.toFixed(2)!!</td>
+                        < it.eigen[i].length;j++){ const e=it.eigen[i][j]; !! <td class="text-#!=j==it.kriteria.length?'primary':j==it.kriteria.length+1?'black':'black'!!" style="background:#!=j==it.kriteria.length?'#fdb0af':j==it.kriteria.length+1?'':'#ffffff'!! !important;">#!=e.toFixed(2)*1!!</td>
                           #!
                           } !!
                       </tr>
                       #!
                       i++;
                       } !!
-                      <tr></tr>
+                      <tr>
+                        <th class="bg-primary text-white">Total</th>
+                        <td colspan="4"></td>
+                        <td>#!=it.eigen.map(m=>m[4]).reduce((a,b)=>a+b).toFixed(2)*1 !!</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -152,22 +156,22 @@
                   <tr>
                     <td><b>λmax</b></td>
                     <td>=</td>
-                    <td>#!= it.konsis.lmax !!</td>
+                    <td>#!= it.konsis.lmax.toFixed(3) !!</td>
                   </tr>
                   <tr>
                     <td><b>CI</b></td>
                     <td>=</td>
-                    <td>#!= it.konsis.ci !!</td>
+                    <td>#!= it.konsis.ci.toFixed(3) !!</td>
                   </tr>
                   <tr>
                     <td><b>RI</b></td>
                     <td>=</td>
-                    <td>#!= it.konsis.ri !!</td>
+                    <td>#!= it.konsis.ri.toFixed(3) !!</td>
                   </tr>
                   <tr>
                     <td><b>CR</b></td>
                     <td>=</td>
-                    <td>#!= it.konsis.cr !!</td>
+                    <th>#!= it.konsis.cr.toFixed(3)*1 !!</th>
                   </tr>
                 </table>
                 <p class="opacity-7 bg-#!=it.konsis.cr<=0.1?'success':'danger'!! text-white p-3"><i class="fa fa-#!=it.konsis.cr<=0.1?'check':'close'!!"></i> #!=it.konsis.cr<=0.1?"M":"Tidak m" !!emenuhi standar rasio </p>

@@ -3,16 +3,17 @@ import { Eta } from "eta";
 import path from "path";
 import session from "express-session";
 
-const env = process.env;
 
+const env = process.env;
 const view = new Eta({
     tags: ["#!", "!!"],
     views: path.join(import.meta.dirname, "Views"),
     // cache: true
 })
-const session_cache = (app) => {
+const session_cache = (app, store) => {
 
     app.use(session({
+        store,
         resave: false,
         saveUninitialized: true,
         secret: "osay",

@@ -23763,8 +23763,16 @@ hr.horizontal.gray-light {
 
 .navbar-vertical.bg-white .navbar-nav > .nav-item .nav-link.active {
   background-color: #f6f9fc;
+  border:1px solid #3caf1321;
   box-shadow: none;
+  margin-left: -15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
+.navbar-vertical.bg-white .navbar-nav>.nav-item .nav-link {
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+}
+
 
 .navbar-vertical .navbar-nav .nav-link.active {
   font-weight: 600;
