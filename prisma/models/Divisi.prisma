@@ -1,0 +1,8 @@
+model Divisi {
+  div_id Int     @id @default(autoincrement())
+  nama   String
+  alias  String?
+  jawab  Jawab[] @relation("div")
+  d1     mDiv[]  @relation("d1")
+  d2     mDiv[]  @relation("d2")
+}

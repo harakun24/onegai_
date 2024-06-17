@@ -10,19 +10,28 @@
       <th class="text-sm nt text-center">
         Kriteria
       </th>
+      #! if(it.status.tipe=="NILAI"){
+
+      !!
+      <th class="text-sm nt text-center">
+        Matriks
+      </th>
+
+      #!
+      }!!
       <th class="text-sm nt text-center" style="width:1%">
         aksi
       </th>
     </tr>
   </thead>
   <tbody class="text-center">
-    #!if(it.list_user.length)
-       for(const user of it.list_user){ 
-                  !!
+    #!let o=1; if(it.list_user.length)
+    for(const user of it.list_user){
+    !!
     <tr>
       <td>
         <p class="text-sm font-weight-bold mb-0 px-4">
-          SK-#!= `${it.status.k_id}/${("000000"+user.sk_id).split("").reverse().join("").substr(0,5).split("").reverse().join("")}`!!
+          SK-#!= `${it.status.k_id}---${("00000"+o++).split("").reverse().join("").substr(0,5).split("").reverse().join("")}`!!
         </p>
       </td>
       <td>
@@ -35,6 +44,17 @@
           #!= it.status.nama!!
         </p>
       </td>
+       #! if(it.status.tipe=="NILAI"){
+
+      !!
+      <td class="text-sm mb-0 text-center">
+        <a href="#" class="btn btn-success btn-sm mb-3" onclick="goto_m(#!=user.sk_id!!)">
+          <i class="fa fa-external-link"></i>
+        </a>
+      </td>
+
+      #!
+      }!!
       <td class=" w-auto">
 
         <a href="#" class="btn btn-dark btn-sm mb-3" onclick="editdata(#!=user.sk_id!!)">Edit</a>
@@ -51,7 +71,7 @@
   window.onload = function() {
 
     const table = new DataTable('#utable', {
-      pageLength: 3,
+      pageLength: 4,
       lengthMenu: [
         [3, 4, 5, 10, 12],
         [3, 4, 5, 10, 12]

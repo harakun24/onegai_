@@ -1,0 +1,8 @@
+model Kriteria {
+    k_id Int            @id @default(autoincrement())
+    nama String
+    tipe String
+    sub  Sub_kriteria[] @relation("k")
+    k1   mKriteria[]    @relation("k1")
+    k2   mKriteria[]    @relation("k2")
+}

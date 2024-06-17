@@ -6,67 +6,96 @@ class service extends base {
     constructor() {
         super("kriteria")
     }
-    async main(req, res) {
 
-        res.send(view.render("kriteria", {
-            title: "Kriteria",
-            create: req.flash("create"),
-            user: req.session.user,
-            update: req.flash("update"),
-            deluser: req.flash("hapus"),
-            list_user: await db.Kriteria.findMany(),
-            nosubs: req.flash("nosubs"),
-            side: "kriteria",
-        }))
-    }
-    async hapus_kriteria(req, res) {
-        const found = await db.Kriteria.findFirst({ where: { k_id: req.params.id - 0 } })
-        if (!found)
-            return res.redirect("/panel-admin/kriteria")
-        const deluser = await db.Kriteria.delete({ where: { k_id: req.params.id - 0 } })
-        req.flash("hapus", deluser.k_id);
-
-        res.redirect("/panel-admin/kriteria")
-    }
-    async tambah_kriteria(req, res) {
-        let status = false
-        const user = req.body;
-        if (!user)
-            return res.redirect("/panel-admin/kriteria")
-        try {
-            await db.Kriteria.create({
-                data: user
+    main(req, res) {
+        db.Kriteria
+            .findMany()
+            .then(data => {
+                res.send(
+                    view.render("kriteria", {
+                        title: "Kriteria",
+                        create: req.flash("create"),
+                        user: req.session.user,
+                        update: req.flash("update"),
+                        deluser: req.flash("hapus"),
+                        list_user: data,
+                        nosubs: req.flash("nosubs"),
+                        side: "kriteria",
+                    })
+                )
             })
-            status = true
-        } catch (error) {
-            console.log("Error creating kriteria " + error)
-            status = false;
-        }
-        req.flash("create", status ? "success" : "error");
-        res.redirect("/panel-admin/kriteria")
     }
-    async show_kriteria(req, res) {
-        const user = await db.Kriteria.findFirst({ where: { k_id: req.params.id - 0 } });
-        res.json(user || { res: false })
+
+    hapus_kriteria(req, res) {
+        db.Kriteria
+            .findFirst({ where: { k_id: req.params.id - 0 } })
+            .then(found => {
+                if (!found)
+                    return res.redirect("/panel-admin/kriteria")
+            })
+            .then(() => {
+                db.Kriteria
+                    .delete({
+                        where: { k_id: req.params.id - 0 }
+                    })
+                    .then(deluser => {
+                        req.flash("hapus", deluser.k_id);
+                        res.redirect("/panel-admin/kriteria")
+                    })
+            })
     }
-    async edit_kriteria(req, res) {
+
+    tambah_kriteria(req, res) {
         let status = false
         const user = req.body;
+
         if (!user)
             return res.redirect("/panel-admin/kriteria")
-        try {
 
-            await db.Kriteria.update({
+        db.Kriteria
+            .create({ data: user })
+            .then(() => status = true)
+            .catch(error => {
+                console.log("Error creating kriteria " + error)
+                status = false;
+            })
+            .finally(() => {
+                req.flash("create", status ? "success" : "error");
+                res.redirect("/panel-admin/kriteria")
+            })
+    }
+
+    show_kriteria(req, res) {
+        db.Kriteria
+            .findFirst({ where: { k_id: req.params.id - 0 } })
+            .then(user =>
+                res.json(user || { res: false })
+            )
+    }
+
+    edit_kriteria(req, res) {
+        let status = false
+        const user = req.body;
+
+        if (!user)
+            return res.redirect("/panel-admin/kriteria")
+
+        db.Kriteria
+            .update({
                 where: { k_id: req.params.id - 0 },
                 data: user
             })
-            status = true
-        } catch (error) {
-            console.log("Error updating kriteria " + error)
-            status = false;
-        }
-        req.flash("update", status ? "success" : "error");
-        res.redirect("/panel-admin/kriteria")
+            .then(() => {
+                status = true
+            })
+            .catch(error => {
+                console.log("Error updating kriteria " + error)
+                status = false;
+            })
+            .finally(() => {
+                req.flash("update", status ? "success" : "error");
+                res.redirect("/panel-admin/kriteria")
+            })
     }
 
 }

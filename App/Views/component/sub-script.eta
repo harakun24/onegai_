@@ -73,7 +73,7 @@
         <div class="mb-3">
           <input type="text" class="form-control" placeholder="subkriteria" name="nama" aria-label="Name" required />
         </div>
-      
+
         <div class="text-center mt-3">
           <input type="submit" class="form-control py-3" class="btn bg-danger w-100 my-4 mb-2 text-white" value="SUBMIT" />
           <input type="number" class="form-control opacity-0" placeholder="kriteria" name="k" aria-label="Name" value="#!=it.krit!!" required />
@@ -134,6 +134,9 @@
       });
     }
 
+    function goto_m(id){
+      document.location.replace(`/panel-admin/divisi/matriks/${id}`);
+    }
     function pages(t) {
       document.location.replace("/panel-admin/sub/kriteria/" + t.value)
     }

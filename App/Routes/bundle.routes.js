@@ -4,3 +4,5 @@ export * as admin from "./adminRoute.js";
 // export * as subkriteria from "./subkriteriaRoute.js";
 // export * as divisi from "./divisiRoute.js";
 // export * as visitor from "./visitorRoute.js";
+// export * as tanya from "./tanyaRoute.js";
+// export * as mDiv from "./mDivRoute.js";

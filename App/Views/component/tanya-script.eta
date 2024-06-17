@@ -13,23 +13,12 @@
     #!
     }!!
     #!
-      if (it.nosubs[0]) {
-        !!
-        Swal.fire({
-          icon: "error",
-          title: "Kriteria kosong",
-          text: "silahkan tambahkan kriteria terlebih dahulu",
-          showConfirmButton: false,
-          timer: 2800
-        });
-        #!
-      }!! #!
       if (it.create == "success") {
         !!
 
         Swal.fire({
           icon: "success",
-          title: "berhasil menambah Kriteria",
+          title: "berhasil menambah Pertanyaan",
           text: "operasi berhasil",
           showConfirmButton: false,
           timer: 2800
@@ -53,7 +42,7 @@
 
         Swal.fire({
           icon: "success",
-          title: "berhasil mengubah Kriteria",
+          title: "berhasil mengubah Pertanyaan",
           text: "data berhasil diubah",
           showConfirmButton: false,
           timer: 2800
@@ -80,17 +69,9 @@
       <h3>Tambah data</h3>
     </div>
     <div class="card-body justify-content-center">
-      <form method="post" action="/panel-admin/kriteria/tambah">
+      <form method="post" action="/panel-admin/pertanyaan/tambah">
         <div class="mb-3">
-          <input type="text" class="form-control" placeholder="Kriteria" name="nama" aria-label="Name" required />
-        </div>
-        <div class="mb-3">
-           <select class="form-select" aria-label="pilihan"
-                name="tipe"
-                >
-                  <option value="MINAT" >MINAT </option>
-                  <option value="NILAI" >NILAI </option>
-                </select>
+          <input type="text" class="form-control" placeholder="Pertanyaan" name="pertanyaan" aria-label="Name" required />
         </div>
 
         <div class="text-center mt-3">
@@ -106,7 +87,7 @@
     }
 
     function editdata(id) {
-      fetch("/panel-admin/kriteria/" + id).
+      fetch("/panel-admin/pertanyaan/" + id).
       then(e => e.json()).then(e => {
 
         Swal.fire({
@@ -116,17 +97,9 @@
       <h3>Edit data</h3>
     </div>
     <div class="card-body justify-content-center">
-      <form method="post" action="/panel-admin/kriteria/${e.k_id}/ubah">
+      <form method="post" action="/panel-admin/pertanyaan/${e.t_id}/ubah">
         <div class="mb-3">
-          <input type="text" class="form-control" placeholder="kriteria" name="nama" aria-label="Name" value="${e.nama}" required />
-        </div>
-        <div class="mb-3">
-           <select class="form-select" aria-label="pilihan"
-                name="tipe"
-                >
-                  <option value="MINAT" ${e.tipe=="MINAT"?"selected":""} >MINAT </option>
-                  <option value="NILAI" ${e.tipe=="NILAI"?"selected":""}>NILAI </option>
-                </select>
+          <input type="text" class="form-control" placeholder="Pertanyaan" name="pertanyaan" aria-label="Name" value="${e.pertanyaan}" required />
         </div>
         <div class="text-center mt-3">
           <input type="submit" class="form-control  py-3" class="btn bg-danger w-100 my-4 mb-2 text-white" value="SUBMIT" />
@@ -154,7 +127,7 @@
         cancelButtonText: "Batal",
       }).then((result) => {
         if (result.isConfirmed) {
-          document.location.replace(`/panel-admin/kriteria/${id}/hapus`);
+          document.location.replace(`/panel-admin/pertanyaan/${id}/hapus`);
         }
       });
     }

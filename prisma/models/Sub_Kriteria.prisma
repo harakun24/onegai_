@@ -1,0 +1,10 @@
+model Sub_kriteria {
+    sk_id    Int      @id @default(autoincrement())
+    nama     String
+    kriteria Kriteria @relation(name: "k", fields: [k], references: [k_id], onDelete: Cascade)
+    k        Int
+    sk1      mSub[]   @relation("sk1")
+    sk2      mSub[]   @relation("sk2")
+    skd      mDiv[]   @relation("skd")
+    j        Jawab[]  @relation("subkey")
+}

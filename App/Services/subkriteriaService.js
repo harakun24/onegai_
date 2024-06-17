@@ -3,112 +3,144 @@ import base from "./baseService.js";
 
 const { view, db } = base
 const parent = await db.Kriteria.findMany();
+
 class service extends base {
     constructor() {
         super("subkriteria")
     }
-    async main(req, res) {
+
+    main(req, res) {
         let id = req.flash("subs") - 0;
 
         if (!parent.length) {
             req.flash("nosubs", true);
             return res.redirect("/panel-admin/kriteria")
         }
-        const find = id ? await db.Kriteria.findFirst({ where: { k_id: id } }) : await db.Kriteria.findFirst();
 
-
-        if (!find) {
-            req.flash("nosubs", true);
-            return res.redirect("/panel-admin/kriteria")
-        }
-
-        res.redirect(`/panel-admin/sub/kriteria/${find.k_id}`)
+        db.Kriteria
+            .findFirst(id ? { where: { k_id: id } } : {})
+            .then(find => {
+                console.log({ find })
+                if (!find) {
+                    req.flash("nosubs", true);
+                    return res.redirect("/panel-admin/kriteria")
+                }
+                else
+                    res.redirect(`/panel-admin/sub/kriteria/${find.k_id}`)
+            })
     }
-    async kriteria(req, res) {
+
+    kriteria(req, res) {
         if (!req.params.id)
             return res.redirect("/panel-admin/sub")
-        const status = await db.Kriteria.findFirst({
-            where: {
-                k_id: req.params.id - 0
-            }
-        })
-        if (!status) {
-            req.flash("nosubs", true);
 
-            return res.redirect("/panel-admin/kriteria")
-        }
-        res.send(view.render("sub", {
-            title: "Sub Kriteria",
-            create: req.flash("create"),
-            user: req.session.user,
-            update: req.flash("update"),
-            deluser: req.flash("hapus"),
-            list_user: await db.Sub_kriteria.findMany({
-                where: {
-                    kriteria: {
-                        k_id: req.params.id - 0
-                    }
-                }
-            }),
-            krit: req.params.id,
-            parent,
-            status,
-            side: "subkriteria",
-        }))
-    }
-    async hapus_sub(req, res) {
-        const found = await db.Sub_kriteria.findUnique({ where: { sk_id: req.params.id - 0 } })
-        if (!found)
-            return res.redirect("/panel-admin/sub")
-        const deluser = await db.Sub_kriteria.delete({ where: { sk_id: req.params.id - 0 } })
-        req.flash("hapus", deluser.sk_id);
-        req.flash("subs", deluser.k);
-
-        res.redirect("/panel-admin/sub/kriteria/" + deluser.k)
-    }
-    async tambah_sub(req, res) {
-        let status = false
-        const user = req.body;
-        if (!user)
-            return res.redirect("/panel-admin/sub")
-        try {
-            user.k = user.k - 0
-            await db.Sub_kriteria.create({
-                data: user
+        db.Kriteria
+            .findFirst({
+                where: { k_id: req.params.id - 0 }
             })
-            status = true
-        } catch (error) {
-            console.log("Error creating Sub kriteria " + error)
-            status = false;
-        }
-        req.flash("create", status ? "success" : "error");
-        req.flash("subs", user.k);
-        res.redirect("/panel-admin/sub")
+            .then(status => {
+                if (!status) {
+                    req.flash("nosubs", true);
+                    return res.redirect("/panel-admin/kriteria")
+                }
+                return status
+            })
+            .then((status) => {
+                db.Sub_kriteria
+                    .findMany({
+                        where: { kriteria: { k_id: req.params.id - 0 } }
+                    })
+                    .then(data => {
+                        console.log({ status })
+                        res.send(
+                            view.render("sub", {
+                                create: req.flash("create"),
+                                update: req.flash("update"),
+                                deluser: req.flash("hapus"),
+                                user: req.session.user,
+                                krit: req.params.id,
+                                title: "Sub Kriteria",
+                                side: "subkriteria",
+                                list_user: data,
+                                parent,
+                                status,
+                            }))
+                    })
+            })
     }
-    async show_sub(req, res) {
-        const user = await db.Sub_kriteria.findUnique({ where: { sk_id: req.params.id - 0 } });
-        res.json(user || { res: false })
+
+    hapus_sub(req, res) {
+
+        db.Sub_kriteria
+            .findFirst({ where: { sk_id: req.params.id - 0 } })
+            .then(found => {
+                if (!found)
+                    return res.redirect("/panel-admin/sub")
+            })
+            .then(() => {
+                db.Sub_kriteria
+                    .delete({ where: { sk_id: req.params.id - 0 } })
+                    .then(deluser => {
+                        req.flash("hapus", deluser.sk_id);
+                        req.flash("subs", deluser.k);
+
+                        res.redirect("/panel-admin/sub/kriteria/" + deluser.k)
+                    })
+            })
     }
-    async edit_sub(req, res) {
+
+    tambah_sub(req, res) {
+        let status = false
+        const user = req.body;
+        if (!user)
+            return res.redirect("/panel-admin/sub")
+
+        user.k = user.k - 0
+
+        db.Sub_kriteria
+            .create({ data: user })
+            .then(() => status = true)
+            .catch(error => {
+                console.log("Error creating Sub kriteria " + error)
+                status = false;
+            })
+            .finally(() => {
+                req.flash("create", status ? "success" : "error");
+                req.flash("subs", user.k);
+                res.redirect("/panel-admin/sub")
+            })
+    }
+    show_sub(req, res) {
+        db.Sub_kriteria
+            .findFirst({ where: { sk_id: req.params.id - 0 } })
+            .then(user =>
+                res.json(user || { res: false })
+            )
+
+    }
+    edit_sub(req, res) {
         let status = false
         const user = req.body;
         if (!user)
             return res.redirect("/panel-admin/kriteria")
-        try {
-            req.flash("subs", req.body.k);
 
-            delete user.k
-            await db.Sub_kriteria.update({
+        req.flash("subs", req.body.k);
+        delete user.k
+
+        db.Sub_kriteria
+            .update({
                 where: { sk_id: req.params.id - 0 },
                 data: user
             })
-            status = true
-        } catch (error) {
-            console.log("Error updating subkriteria " + error)
-            status = false;
-        }
-        req.flash("update", status ? "success" : "error");
-        res.redirect("/panel-admin/sub")
+            .then(() => status = true)
+            .catch(error => {
+                console.log("Error updating subkriteria " + error)
+                status = false;
+            })
+            .finally(() => {
+                req.flash("update", status ? "success" : "error");
+                res.redirect("/panel-admin/sub")
+            })
     }
 }
 

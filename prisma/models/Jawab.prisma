@@ -1,0 +1,11 @@
+model Jawab {
+  j_id    Int          @id @default(autoincrement())
+  jawaban String
+  nilai   Int
+  d_key   Int
+  t_key   Int
+  s_key   Int
+  divisi  Divisi       @relation(name: "div", fields: [d_key], references: [div_id], onDelete: Cascade)
+  tanya   Tanya        @relation(name: "ask", fields: [t_key], references: [t_id], onDelete: Cascade)
+  sub     Sub_kriteria @relation(name: "subkey", fields: [s_key], references: [sk_id], onDelete: Cascade)
+}

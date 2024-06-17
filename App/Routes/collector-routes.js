@@ -31,7 +31,11 @@ function routeMapping(route) {
         else
             for (const response of route.method[m]) {
                 console.log(` ${"[ " + route.path.brightBlue + " ]" + " --".brightYellow + `${(m.toLocaleUpperCase() + "-----").substr(0, 4).brightYellow}` + "--| ".brightYellow + (response[0] == "/" ? "main".brightRed : response[0].substr(1, response[0].length - 1).brightCyan)}`)
-                result[1][m](response[0], response[1])
+
+                // if (response[1] instanceof Array)
+                //     else
+                result[1][m](...response)
+                // result[1][m](response[0], response[1])
             }
     }
     return result;

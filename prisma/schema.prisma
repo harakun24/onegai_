@@ -10,27 +10,45 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       Int    @id @default(autoincrement())
-  uname    String @unique
-  password String
+model Divisi {
+  div_id Int     @id @default(autoincrement())
+  nama   String
+  alias  String?
+  jawab  Jawab[] @relation("div")
+  d1     mDiv[]  @relation("d1")
+  d2     mDiv[]  @relation("d2")
+}
+
+model Jawab {
+  j_id    Int          @id @default(autoincrement())
+  jawaban String
+  nilai   Int
+  d_key   Int
+  t_key   Int
+  s_key   Int
+  divisi  Divisi       @relation(name: "div", fields: [d_key], references: [div_id], onDelete: Cascade)
+  tanya   Tanya        @relation(name: "ask", fields: [t_key], references: [t_id], onDelete: Cascade)
+  sub     Sub_kriteria @relation(name: "subkey", fields: [s_key], references: [sk_id], onDelete: Cascade)
 }
 
 model Kriteria {
-  k_id Int            @id @default(autoincrement())
-  nama String
-  sub  Sub_kriteria[] @relation("k")
-  k1   mKriteria[]    @relation("k1")
-  k2   mKriteria[]    @relation("k2")
+    k_id Int            @id @default(autoincrement())
+    nama String
+    tipe String
+    sub  Sub_kriteria[] @relation("k")
+    k1   mKriteria[]    @relation("k1")
+    k2   mKriteria[]    @relation("k2")
 }
 
-model Sub_kriteria {
-  sk_id    Int      @id @default(autoincrement())
-  nama     String
-  kriteria Kriteria @relation(name: "k", fields: [k], references: [k_id], onDelete: Cascade)
-  k        Int
-  sk1      mSub[]   @relation("sk1")
-  sk2      mSub[]   @relation("sk2")
+model mDiv {
+  mk_id Int          @id @default(autoincrement())
+  k1    Int
+  k2    Int
+  sub   Int
+  subs  Sub_kriteria @relation(name: "skd", fields: [sub], references: [sk_id], onDelete: Cascade)
+  div   Divisi       @relation(name: "d1", fields: [k1], references: [div_id], onDelete: Cascade)
+  div2  Divisi       @relation(name: "d2", fields: [k2], references: [div_id], onDelete: Cascade)
+  val   Float
 }
 
 model mKriteria {
@@ -51,17 +69,15 @@ model mSub {
   val   Float
 }
 
-model Visitor {
-  v_id  Int     @id @default(autoincrement())
-  nim   String  @unique
-  nama  String
-  hasil String?
-}
-
-model Divisi {
-  div_id Int     @id @default(autoincrement())
-  nama   String
-  jawab  Jawab[] @relation("div")
+model Sub_kriteria {
+    sk_id    Int      @id @default(autoincrement())
+    nama     String
+    kriteria Kriteria @relation(name: "k", fields: [k], references: [k_id], onDelete: Cascade)
+    k        Int
+    sk1      mSub[]   @relation("sk1")
+    sk2      mSub[]   @relation("sk2")
+    skd      mDiv[]   @relation("skd")
+    j        Jawab[]  @relation("subkey")
 }
 
 model Tanya {
@@ -70,12 +86,16 @@ model Tanya {
   jawab      Jawab[] @relation("ask")
 }
 
-model Jawab {
-  j_id    Int    @id @default(autoincrement())
-  jawaban String
-  nilai   Int
-  d_key   Int
-  t_key   Int
-  divisi  Divisi @relation(name: "div", fields: [d_key], references: [div_id], onDelete: Cascade)
-  tanya   Tanya  @relation(name: "ask", fields: [t_key], references: [t_id], onDelete: Cascade)
+model User {
+  id       Int    @id @default(autoincrement())
+  uname    String @unique
+  password String
 }
+
+model Visitor {
+  v_id  Int     @id @default(autoincrement())
+  nim   String  @unique
+  nama  String
+  hasil String?
+}
+

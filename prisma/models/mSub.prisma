@@ -1,0 +1,8 @@
+model mSub {
+  mk_id Int          @id @default(autoincrement())
+  k1    Int
+  k2    Int
+  sub   Sub_kriteria @relation(name: "sk1", fields: [k1], references: [sk_id], onDelete: Cascade)
+  sub2  Sub_kriteria @relation(name: "sk2", fields: [k2], references: [sk_id], onDelete: Cascade)
+  val   Float
+}

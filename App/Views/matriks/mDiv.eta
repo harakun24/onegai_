@@ -6,14 +6,14 @@ script:"mkriteria-script"
 <div class="card mb-4">
   <div class="card-header pb-0">
     <div class="d-flex justify-content-between align-items-center">
-      <h6 class="d-lg-block d-none">Matriks Kriteria</h6>
-      <a href="/panel-admin/kriteria" class="btn btn-dark btn-sm mb-3"> Kembali</a>
+      <h6 class="d-lg-block d-none">Matriks Divisi #!=it.idn.nama.toUpperCase()!!</h6>
+      <a href="/panel-admin/sub/kriteria/#!=it.idn.k!!" class="btn btn-dark btn-sm mb-3"> Kembali</a>
     </div>
   </div>
   <div class="card-body pt-0 pb-2" style="padding-left:10px;padding-right:10px">
     <div class="row">
       <div class="col-lg-4 col-md-3 col-12 d-flex justify-content-center align-items-start">
-        <table id="tbl-ch" class="p-4" style="transition: cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.7s;">
+        <table id="tbl-ch" style="transition: cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.7s;">
 
           #! for(const m of it.mKriteria){
 
@@ -21,13 +21,13 @@ script:"mkriteria-script"
           <tr>
             <td class="py-3">
 
-              <label class="form-label">#!= m.kriteria.nama !!</label>
+              <label class="form-label">#!= m.div.nama !!</label>
             </td>
             <td>
               <form>
                 <select class="form-select" aria-label="pilihan"
 
-                hx-get="/panel-admin/kriteria/matriks/update/#!=m.mk_id!!" hx-include="this"
+                hx-get="/panel-admin/divisi/matriks/#!=it.idk!!/update/#!=m.mk_id!!" hx-include="this"
                 hx-trigger="change changed"
                 hx-target="#targetTable"
                 name="val"
@@ -55,7 +55,7 @@ script:"mkriteria-script"
             </td>
             <td>
 
-              <label class="form-label">#!= m.kriteria2.nama !!</label>
+              <label class="form-label">#!= m.div2.nama !!</label>
             </td>
           </tr>
 
@@ -64,9 +64,9 @@ script:"mkriteria-script"
         </table>
 
       </div>
-      <div class="col-lg-8 col-md-9 col-12 text-sm" id="targetTable" >
+      <div class="col-lg-8 col-md-9 col-12 text-sm" id="targetTable">
 
-       <div hx-get="/panel-admin/kriteria/matriks/table" hx-trigger="load" hx-swap="outerHTML"></div>
+       <div hx-get="/panel-admin/divisi/matriks/#!=it.idk!!/table" hx-trigger="load" hx-swap="outerHTML"></div>
 
 
       </div>

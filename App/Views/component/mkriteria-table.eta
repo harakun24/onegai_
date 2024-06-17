@@ -128,8 +128,8 @@
                       } !!
                       <tr>
                         <th class="bg-primary text-white">Total</th>
-                        <td colspan="4"></td>
-                        <td>#!=it.eigen.map(m=>m[4]).reduce((a,b)=>a+b).toFixed(2)*1 !!</td>
+                        <td colspan="#!=it.eigen[i-1].length-1!!"></td>
+                        <td>#!=it.eigen.map(m=>m[it.eigen[i-1].length-1]).reduce((a,b)=>a+b).toFixed(2)*1 !!</td>
                       </tr>
                     </tbody>
                   </table>

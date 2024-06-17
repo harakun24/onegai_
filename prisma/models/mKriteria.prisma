@@ -1,0 +1,8 @@
+model mKriteria {
+  mk_id     Int      @id @default(autoincrement())
+  k1        Int
+  k2        Int
+  kriteria  Kriteria @relation(name: "k1", fields: [k1], references: [k_id], onDelete: Cascade)
+  kriteria2 Kriteria @relation(name: "k2", fields: [k2], references: [k_id], onDelete: Cascade)
+  val       Float
+}

@@ -5,6 +5,7 @@ import kriteria from "./kriteriaRoute.js";
 import divisi from "./divisiRoute.js";
 import visitor from "./visitorRoute.js";
 import subkriteria from "./subkriteriaRoute.js";
+import tanya from "./tanyaRoute.js";
 
 class router extends base {
     constructor() {
@@ -26,6 +27,7 @@ class router extends base {
                 ["/sub", subkriteria],
                 ["/divisi", divisi],
                 ["/visitor", visitor],
+                ["/pertanyaan", tanya],
             ]
         }
     }

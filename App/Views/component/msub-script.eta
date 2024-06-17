@@ -2,4 +2,15 @@
   setTimeout(()=>{
     document.getElementById("alert").remove()
   },1200)
+
+  window.onscroll = function() {
+     var myDiv = document.getElementById('tbl-ch');
+    // Menghitung panjang scroll
+    let totalScroll = window.scrollY; // Menggunakan window.scrollY
+    // totalScroll = document.documentElement.scrollTop; // Atau menggunakan document.documentElement.scrollTop
+
+    // Tampilkan panjang scroll di console
+    myDiv.style.marginTop = totalScroll + "px";
+    console.log("Total panjang scroll: " + totalScroll + " piksel");
+};
   </script>

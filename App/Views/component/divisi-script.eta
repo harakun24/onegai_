@@ -72,6 +72,9 @@
         <div class="mb-3">
           <input type="text" class="form-control" placeholder="Divisi" name="nama" aria-label="Name" required />
         </div>
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Alias" name="alias" aria-label="Name" required />
+        </div>
 
         <div class="text-center mt-3">
           <input type="submit" class="form-control py-3" class="btn bg-danger w-100 my-4 mb-2 text-white" value="SUBMIT" />
@@ -99,6 +102,9 @@
       <form method="post" action="/panel-admin/divisi/${e.div_id}/ubah">
         <div class="mb-3">
           <input type="text" class="form-control" placeholder="Divisi" name="nama" aria-label="Name" value="${e.nama}" required />
+        </div>
+         <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Alias" name="alias" aria-label="Name" value="${e.alias || ''}" required />
         </div>
         <div class="text-center mt-3">
           <input type="submit" class="form-control  py-3" class="btn bg-danger w-100 my-4 mb-2 text-white" value="SUBMIT" />

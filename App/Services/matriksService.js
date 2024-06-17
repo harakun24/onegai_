@@ -15,6 +15,7 @@ class service {
     sintesis(data, key, sample) {
         const dupe = [];
         let reverse = data.map(m => ({ [key[0]]: m[key[1]], [key[1]]: m[key[0]], val: 1 / m.val }));
+
         for (const s of sample) {
             dupe.push({ [key[0]]: s[key[2]], [key[1]]: s[key[2]], val: 1 })
         }
@@ -23,19 +24,19 @@ class service {
         return result;
     }
     total(data, sample, key) {
-
         const result = [];
         const group = [];
+
         for (const s of sample) {
             result.push(0);
             let temp = [];
+
             for (const d of data) {
                 if (d[key[0]] == s[key[1]]) {
                     temp.push(d.val);
                 }
             }
             group.push(temp)
-            // result.push(temp)
         }
         for (let i = 0; i < sample.length; i++) {
             for (let j = 0; j < sample.length; j++)
@@ -45,13 +46,16 @@ class service {
     }
     eigen(data, total, key) {
         const result = [];
+        const group = [];
+        const eigen = [];
         const s = new Set();
+
         for (const d of data)
             s.add(d[key])
 
-        const group = [];
         for (const ss of s) {
             const temp = [];
+
             for (const d of data)
                 if (d[key] == ss)
                     temp.push(d)
@@ -62,11 +66,11 @@ class service {
             result.push(temp)
 
         }
-        const eigen = [];
         for (let i = 0; i < group.length; i++) {
             let temp = []
             for (let j = 0; j < group.length; j++)
                 temp.push(result[j][i])
+
             const total = temp.reduce((a, b) => a + b, 0)
             temp = [...temp, total, total / group.length]
             eigen.push(temp)
@@ -77,11 +81,13 @@ class service {
     uji(total, eigen) {
         const result = [];
         const pv = [];
+
         for (const e of eigen)
             pv.push(e[total.length + 1])
-        // console.log({ total, pv })
+
         for (let i = 0; i < total.length; i++)
             result.push(total[i] * pv[i])
+
         const lmax = result.reduce((a, b) => a + b)
         const ci = (lmax - total.length) / (total.length - 1)
         const table_ri = [

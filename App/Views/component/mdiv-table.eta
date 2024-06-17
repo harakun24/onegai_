@@ -37,7 +37,7 @@
 
                   <table class="table tn table-bordered text-center text-black table">
                     <thead>
-                      <th style="width:1%">Sub</th>
+                      <th style="width:1%">Divisi</th>
                       #! for(const k of it.kriteria){
 
                       !!
@@ -52,7 +52,7 @@
                       <tr>
                         <th class="nt">#!=k.nama !!</th>
                         #! for(const t of it.table){
-                        if(k.sk_id==t.k1){
+                        if(k.div_id==t.k1){
                         !!
                         <td>#!=t.val.toFixed(2)*1!!</td>
                         #!}

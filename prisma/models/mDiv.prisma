@@ -1,0 +1,10 @@
+model mDiv {
+  mk_id Int          @id @default(autoincrement())
+  k1    Int
+  k2    Int
+  sub   Int
+  subs  Sub_kriteria @relation(name: "skd", fields: [sub], references: [sk_id], onDelete: Cascade)
+  div   Divisi       @relation(name: "d1", fields: [k1], references: [div_id], onDelete: Cascade)
+  div2  Divisi       @relation(name: "d2", fields: [k2], references: [div_id], onDelete: Cascade)
+  val   Float
+}
