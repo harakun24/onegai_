@@ -1,15 +1,24 @@
 
 import base from "./baseService.js";
 
-const { view, db } = base
+let view, db = null
+
 class service extends base {
     constructor() {
         super("tanya")
+        view = this.view
+        db = this.db
     }
     main(req, res) {
-        db.Tanya
-            .findMany()
-            .then(data => {
+        db.tanya
+            .findMany({
+                include: {
+                    jawab_tanya: {
+                        include: { jawab_sub: true, jawab_divisi: true, }
+                    }
+                }
+            })
+            .then(async data => {
                 res.send(view.render("tanya", {
                     title: "Pertanyaan",
                     create: req.flash("create"),
@@ -17,21 +26,23 @@ class service extends base {
                     update: req.flash("update"),
                     deluser: req.flash("hapus"),
                     list_user: data,
+                    sub: await db.sub_kriteria.findMany({
+                        where: { kriteria: { tipe: "NILAI" } }
+                    }),
+                    div: await db.Divisi.findMany(),
                     side: "pertanyaan",
                 }))
             })
     }
     hapus_tanya(req, res) {
-        db.Tanya
-            .findFirst({
-                where: { t_id: req.params.id - 0 }
-            })
+        db.tanya
+            .findFirst({ where: { t_id: req.params.id - 0 } })
             .then(found => {
                 if (!found)
                     return res.redirect("/panel-admin/pertanyaan")
             })
             .then(() => {
-                db.Tanya
+                db.tanya
                     .delete({ where: { t_id: req.params.id - 0 } })
                     .then(deluser => {
                         req.flash("hapus", deluser.t_id);
@@ -46,7 +57,7 @@ class service extends base {
         if ((!user))
             return res.redirect("/panel-admin/pertanyaan")
 
-        db.Tanya
+        db.tanya
             .create({ data: user })
             .then(() => status = true)
             .catch(error => {
@@ -59,10 +70,8 @@ class service extends base {
             })
     }
     show_tanya(req, res) {
-        db.Tanya
-            .findFirst({
-                where: { t_id: req.params.id - 0 }
-            })
+        db.tanya
+            .findFirst({ where: { t_id: req.params.id - 0 } })
             .then(user => res.json(user || { res: false }))
     }
     edit_tanya(req, res) {
@@ -72,11 +81,8 @@ class service extends base {
         if (!user)
             return res.redirect("/panel-admin/pertanyaan")
 
-        db.Tanya
-            .update({
-                where: { t_id: req.params.id - 0 },
-                data: user
-            })
+        db.tanya
+            .update({ where: { t_id: req.params.id - 0 }, data: user })
             .then(() => { status = true })
             .catch(error => {
                 console.log("Error updating pertanyaan " + error)

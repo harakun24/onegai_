@@ -81,6 +81,11 @@
         background-color: #ff909040 !important;
         color:rgba(0, 0, 0, 0.623);
       }
+
+      .ntt {
+        background-color: #90f8ff40 !important;
+        color:rgba(0, 0, 0, 0.623);
+      }
       table{
         color:rgba(0, 0, 0, 0.623) !important;
       }
@@ -90,28 +95,27 @@
       .tn {
         border: 1px solid rgb(153, 43, 43)
       }
+         .tnn {
+        border: 1px solid rgba(243, 243, 248, 0.897);
+        box-shadow:0px 0px 13px rgba(0, 0, 0, 0.541)
+      }
       body{
         min-width:270px
       }
     </style>
-
+    <script src="/assets/js/html2canvas.js"></script>
+    <script src="/assets/js/jspdf.js"></script>
+    <script src="/assets/js/html2pdf.js"></script>
   </head>
 
   <body class="g-sidenav-show   bg-gray-100">
-    <div class="min-height-300 bg-primary position-fixed w-100"></div>
+    <div class="min-height-300 bg-success position-fixed w-100"></div>
     <!-- sidebar -->
-    #!~  include("../component/side-menu.eta",{...it}) !!
+
     <main class="main-content position-relative border-radius-lg ">
       <!-- Navbar -->
-      <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+      <nav class="navbar opacity-0 navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
         <div class="container-fluid py-1 px-3">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-              <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Admin</a></li>
-              <li class="breadcrumb-item text-sm text-white active" aria-current="page">Panel</li>
-            </ol>
-            <h6 class="font-weight-bolder text-white mb-0">#!=it.side.toUpperCase()!!</h6>
-          </nav>
           <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <div class="opacity-0 ms-md-auto pe-md-3 d-flex align-items-center">
               <div class="input-group">
@@ -140,7 +144,7 @@
       <!-- End Navbar -->
       <div class="container-fluid py-4">
         <div class="row">
-          <div class="col-12" style="min-height: 275px;">
+          <div class="col-12 d-flex justify-content-center" style="min-height: 275px;">
             #!~ it.body!!
           </div>
         </div>
@@ -179,6 +183,7 @@
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="/assets/admin/js/argon-dashboard.min.js?v=2.0.4"></script>
   </body>

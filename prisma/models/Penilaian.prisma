@@ -1,0 +1,10 @@
+model Penilaian{
+  p_id              Int           @id @default(autoincrement())
+  visitor           Int
+  divisi            Int
+  sub               Int
+  penilaian_visitor Visitor      @relation(name: "penilaian_visitor", fields: [visitor], references: [v_id], onDelete: Cascade)
+  penilaian_sub     Sub_kriteria @relation(name: "penilaian_sub", fields: [sub], references: [sk_id], onDelete: Cascade)
+  penilaian_divisi  Divisi       @relation(name: "penilaian_divisi", fields: [divisi], references: [div_id], onDelete: Cascade)
+  val               Int
+}

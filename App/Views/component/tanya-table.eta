@@ -1,36 +1,74 @@
-<table class="table tn table-bordered align-items-center p-4" id="utable">
+<style>
+  td table tr:not(:nth-last-child(1)){
+  border-bottom: 1px solid rgba(181, 20, 20, 0.576);
+  }
+  td table tr:nth-child(1){
+  border-top: 1px solid rgba(181, 20, 20, 0.576);
+  }
+
+</style>
+<table class="table tn table-bordered align-items-center p-4 col-sm-12" id="utable">
   <thead class="text-center">
     <tr>
       <th class="nt text-sm text-center" style="width: 1%;">
         id
       </th>
       <th class="nt text-sm text-center">
-        kriteria
+        pertanyaan
+      </th>
+      <th class="nt text-sm text-center">
+        jawaban
       </th>
       <th class="nt text-sm text-center" style="width:1%">
         aksi
       </th>
     </tr>
   </thead>
-  <tbody class="text-center">
+  <tbody>
     #!if(it.list_user.length)
-       for(const user of it.list_user){ 
-                  !!
+    var i=1;
+    for(const user of it.list_user){
+    !!
     <tr>
       <td>
         <p class="text-sm px-4 font-weight-bold mb-0">
-          Q-#!= `${("000000"+user.t_id).split("").reverse().join("").substr(0,5).split("").reverse().join("")}`!!
+          Q-#!= `${("000000"+i++).split("").reverse().join("").substr(0,5).split("").reverse().join("")}`!!
         </p>
       </td>
-      <td>
-        <p class="text-sm  mb-0">
+      <td style="width: 25%;">
+        <p class="text-sm  mb-0 text-wrap">
           #!= user.pertanyaan!!
         </p>
       </td>
-      <td class="d-flex justify-content-between" style="border: 0;">
+      <td style="width: 1%;">
+        <a href="#" class="btn btn-success btn-sm mb-3 mx-1 py-1 px-2" onclick="addanswer(#!=user.t_id!!)"><i class="fa fa-plus"></i></a>
+        <div class="text-sm text-left">
+          <table style="width: 100%;">
+            #!for(const j of user.jawab_tanya){
 
-          <a href="#" class="btn btn-dark btn-sm mb-3 mx-1" onclick="editdata(#!=user.t_id!!)">Edit</a>
-          <a href="#" class="btn btn-danger btn-sm mb-3 mx-1" onclick="hapus(#!=user.t_id!!)">hapus</a>
+            !!
+            <tr>
+              <td style="width:1%">&nbsp;
+                <b class="text-danger">[#!=j.jawab_divisi.nama!!]</b>
+              </td>
+              <td>
+                #!=`${j.jawaban} `!! <b>#!=` -- (${j.nilai})`!!</b>
+              </td>
+              <td class="justify-content-end d-flex">
+                &nbsp;
+                <a href="#" class="btn btn-outline-dark btn-xs py-1 px-2 mt-3" style="margin-right: 5px;" onclick="editanswer(#!=j.j_id!!)"><i class="fa fa-pencil"></i></a>
+                <a href="#" class="btn btn-outline-danger btn-xs py-1 px-2 mt-3" onclick="hapusanswer(#!=j.j_id!!)"><i class="fa fa-trash-alt"></i></a>
+              </td>
+            </tr>
+            #!
+            }!!
+          </table>
+        </div>
+      </td>
+      <td class="d-flex justify-content-between flex-column" style="border: 0;margin-top:55%">
+
+        <a href="#" class="btn btn-dark btn-sm mb-3 mx-1" onclick="editdata(#!=user.t_id!!)" style="padding: 15px !important;">Edit</a>
+        <a href="#" class="btn btn-danger btn-sm mb-3 mx-1" onclick="hapus(#!=user.t_id!!)" style="padding: 15px !important;">Hapus</a>
 
 
       </td>
@@ -43,7 +81,7 @@
   window.onload = function() {
 
     const table = new DataTable('#utable', {
-      pageLength: 5,
+      pageLength: 3,
       lengthMenu: [
         [3, 4, 5, 10, 12],
         [3, 4, 5, 10, 12]

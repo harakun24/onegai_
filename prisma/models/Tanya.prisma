@@ -1,5 +1,5 @@
 model Tanya {
-  t_id       Int     @id @default(autoincrement())
-  pertanyaan String
-  jawab      Jawab[] @relation("ask")
+  t_id        Int      @id @default(autoincrement())
+  pertanyaan  String
+  jawab_tanya Jawab[] @relation("jawab_tanya")
 }

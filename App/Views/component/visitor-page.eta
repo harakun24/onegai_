@@ -1,0 +1,21 @@
+#!var i=1;
+for(const t of it.tanya){
+!!
+<div class="card m-2 col-md-5 col-10" style="border: 1.5px solid rgba(154, 44, 44, 0.537);">
+  <div class="card-header">
+    <h6>#!=`${i++}. `+t.pertanyaan!!</h6>
+  </div>
+  <div class="card-body">
+    <select name="#!=t.t_id!!" class="form-select" required>
+        <option value="" disabled selected>---Pilih salah satu opsi---</option>
+      #!for(const j of t.jawab_tanya){
+      !!
+      <option value="#!=`${j.sub};${j.divisi};${j.nilai}`!!">#!=j.jawaban!!</option>
+      #!
+      }!!
+    </select>
+  </div>
+</div>
+#!
+}
+!!

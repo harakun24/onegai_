@@ -1,0 +1,163 @@
+<!-- @format -->
+<script>
+  function hapusanswer(id) {
+    Swal.fire({
+      title: "Yakin ingin hapus data?",
+      text: "data yang dihapus tidak dapat dipulihkan",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Tetap hapus",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.location.replace(`/panel-admin/pertanyaan/jawab/${id}/hapus`);
+      }
+    });
+  }
+
+  function addanswer(id) {
+    Swal.fire({
+      html: `
+    <div class="card z-index-0">
+      <div class="card-header text-center pt-4">
+        <h3>Tambah data</h3>
+      </div>
+      <div class="card-body justify-content-center">
+        <form method="post" action="/panel-admin/pertanyaan/jawab/tambah">
+          <div class="mb-3 d-flex">
+            <label class="p-2 col-3" style="text-align:right">Jawaban </label>
+            <input type="text" class="form-control" placeholder="Jawaban" name="jawaban" aria-label="Name" required />
+          </div>
+
+          <div class="mb-3 d-flex">
+            <label class="p-2 col-3" style="text-align:right">Subkriteria </label>
+             <select class="form-select" aria-label="pilihan"
+                  name="sub"
+                  >
+                  #!  for(const s of it.sub){
+                    !!
+                    <option value="#!=s.sk_id!!">#!=s.nama!!</option>
+                    #!
+
+                  }!!
+                </select>
+          </div>
+          <div class="mb-3 d-flex">
+            <label class="p-2 col-3" style="text-align:right">Divisi </label>
+             <select class="form-select" aria-label="pilihan"
+                  name="divisi"
+                  >
+                  #!  for(const s of it.div){
+                    !!
+                    <option value="#!=s.div_id!!">#!=s.nama!!</option>
+                    #!
+
+                  }!!
+                </select>
+          </div>
+          <div class="mb-3 d-flex">
+            <label class="p-2 col-3" style="text-align:right">Nilai </label>
+            <input type="number" class="form-control" placeholder="Nilai" name="nilai" aria-label="Name" value="0" step="5" min="0" required />
+          </div>
+            <input type="hidden" name="tanya" aria-label="Name" value="${id}" required />
+          <div class="text-center mt-3">
+            <input type="submit" class="form-control py-3" class="btn btn-danger w-100 my-4 mb-2 text-white" value="SUBMIT" />
+          </div>
+        </form>
+      </div>
+    </div>
+    `,
+      showCloseButton: false,
+      showConfirmButton: false
+    });
+  }
+
+  function editanswer(id) {
+    fetch("/panel-admin/pertanyaan/jawab/" + id).
+    then(e => e.json()).then(e => {
+      Swal.fire({
+        html: `
+    <div class="card z-index-0">
+      <div class="card-header text-center pt-4">
+        <h3>Edit data</h3>
+      </div>
+      <div class="card-body justify-content-center">
+        <form method="post" action="/panel-admin/pertanyaan/jawab/${e.j_id}/ubah">
+          <div class="mb-3 d-flex">
+            <label class="p-2 col-3" style="text-align:right">Jawaban </label>
+            <input type="text" class="form-control" placeholder="Jawaban" name="jawaban" aria-label="Name" value="${e.jawaban}" required />
+          </div>
+
+          <div class="mb-3 d-flex">
+            <label class="p-2 col-3" style="text-align:right">Subkriteria </label>
+             <select class="form-select" aria-label="pilihan"
+                  name="sub" id="editsub"
+                  >
+                  #!  for(const s of it.sub){
+                    !!
+                    <option value="#!=s.sk_id!!">#!=s.nama!!</option>
+                    #!
+
+                  }!!
+                </select>
+          </div>
+          <div class="mb-3 d-flex">
+            <label class="p-2 col-3" style="text-align:right">Divisi </label>
+             <select class="form-select" aria-label="pilihan"
+                  name="divisi" id="editdiv"
+                  >
+                  #!  for(const s of it.div){
+                    !!
+                    <option value="#!=s.div_id!!">#!=s.nama!!</option>
+                    #!
+
+                  }!!
+                </select>
+          </div>
+          <div class="mb-3 d-flex">
+            <label class="p-2 col-3" style="text-align:right">Nilai </label>
+            <input type="number" class="form-control" placeholder="Nilai" name="nilai" aria-label="Name" step="5" value="${e.nilai}" min="0" required />
+          </div>
+            <input type="hidden" name="tanya" aria-label="Name" value="${e.tanya}" required />
+          <div class="text-center mt-3">
+            <input type="submit" class="form-control py-3" class="btn btn-danger w-100 my-4 mb-2 text-white" value="SUBMIT" />
+          </div>
+        </form>
+      </div>
+    </div>`,
+        showCloseButton: false,
+        showConfirmButton: false
+      });
+
+      const selectElement = document.getElementById("editsub");
+      const selectElement2 = document.getElementById("editdiv");
+      for (const option of selectElement.options) {
+        console.log({
+          e: e.sub,
+          v: option.value,
+          status:e.sub==option.value
+
+        })
+        if (option.value == e.sub) {
+          option.setAttribute("selected", "selected");
+          break;
+        }
+      }
+      for (const option of selectElement2.options) {
+        console.log({
+          e: e.divisi,
+          v: option.value,
+          status:e.divisi==option.value
+        })
+        if (option.value == e.divisi) {
+          option.setAttribute("selected", "selected");
+          break;
+        }
+      }
+    })
+
+
+  }
+</script>

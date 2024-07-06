@@ -1,14 +1,17 @@
 import base from "./baseService.js";
 
-const { view, db } = base
+let view, db = null
+
 class service extends base {
 
     constructor() {
         super("divisi")
+        view = this.view
+        db = this.db
     }
 
     main(req, res) {
-        db.Divisi
+        db.divisi
             .findMany()
             .then(data => {
                 res.send(
@@ -26,16 +29,14 @@ class service extends base {
     }
 
     hapus_divisi(req, res) {
-        db.Divisi
-            .findFirst({
-                where: { div_id: req.params.id - 0 }
-            })
+        db.divisi
+            .findFirst({ where: { div_id: req.params.id - 0 } })
             .then(found => {
                 if (!found)
                     return res.redirect("/panel-admin/kriteria")
             })
             .then(() => {
-                db.Divisi
+                db.divisi
                     .delete({ where: { div_id: req.params.id - 0 } })
                     .then(deluser => {
                         req.flash("hapus", deluser.div_id);
@@ -51,7 +52,7 @@ class service extends base {
         if (!user)
             return res.redirect("/panel-admin/divisi")
 
-        db.Divisi
+        db.divisi
             .create({ data: user })
             .then(() => status = true)
             .catch(error => {
@@ -65,7 +66,7 @@ class service extends base {
     }
 
     show_divisi(req, res) {
-        db.Divisi
+        db.divisi
             .findFirst({ where: { div_id: req.params.id - 0 } })
             .then(user =>
                 res.json(user || { res: false })
@@ -79,11 +80,8 @@ class service extends base {
         if (!user)
             return res.redirect("/panel-admin/divisi")
 
-        db.Divisi
-            .update({
-                where: { div_id: req.params.id - 0 },
-                data: user
-            })
+        db.divisi
+            .update({ where: { div_id: req.params.id - 0 }, data: user })
             .then(() => { status = true })
             .catch(error => {
                 console.log("Error updating kriteria " + error)

@@ -1,0 +1,103 @@
+  <script>
+    function generatePDF() {
+      const doc = new jspdf.jsPDF({
+        orientation: 'landscape'
+      });
+      doc.setFontSize(12);
+      // Menyimpan elemen HTML ke dalam variabel
+      const content2 = document.querySelector("#tbl");
+      const content3 = content2.cloneNode(true);
+      const content = document.createElement('div');
+      const container = document.createElement('div');
+      const header = document.createElement("h4");
+      const header2 = document.createElement("i");
+      const footer = document.createElement("p");
+      const footer2 = document.createElement("p");
+      const icon = document.createElement("img");
+      icon.src = "/assets/images/onegai.png";
+      let addr = "#!=it.title!!";
+      header.innerText = `Hasil Perankingan ${addr.split("- ")[1].toUpperCase()}`;
+      header2.innerHTML = `<b>File:</b> tabel_ranking_${addr.split(" -")[0].split(".").join("")}_${Date.now()}`;
+      footer.innerText = `Onegai Shelter  © ${new Date().getFullYear()}`;
+
+      header.style.textAlign = 'center';
+      //<!-- header2.style.textAlign = 'center'; -->
+      footer.style.textAlign = 'center';
+      footer.style.marginTop = "12%"
+      footer2.style.marginTop = "7%"
+      icon.style.width = "8%"
+      icon.style.opacity = "0.7"
+      container.style.width = "100%"
+      //container.style.marginBottom = "%"
+      header.style.marginBottom = "4%"
+      header2.style.marginLeft = "2%"
+      header2.style.marginTop = "0px"
+      //header2.style.paddingBottom = "2%"
+      container.style.display = "flex"
+      container.style.alignItems = "center"
+      container.style.marginBottom = "3%";
+      container.style.borderBottom = "1px solid #bbbec37a";
+      container.style.paddingBottom = "2%";
+      content3.style.padding = "3%";
+      const tbody = content3.getElementsByTagName("td")
+      const tbody2 = content3.getElementsByTagName("th")
+      const tbody3 = content3.getElementsByTagName("tr")
+      tbody.forEach(m=>{
+        m.style.paddingTop = "14px";
+        m.style.paddingBottom = "14px";
+        m.style.border = "0.7px solid #bbbec37a";
+      })
+      tbody2.forEach(m=>{
+        m.style.paddingTop = "24px";
+        m.style.paddingBottom = "24px";
+        m.style.border = "0.7px solid #bbbec37a";
+      })
+      tbody3.forEach(m=>{
+        m.style.border = "none";
+      })
+     //content3.tbody = tbody
+console.log(content3);
+      //header2.style.borderBottom = "1px solid black"
+
+      container.appendChild(icon)
+      container.appendChild(header2)
+      content.appendChild(container)
+      content.appendChild(header)
+      content.appendChild(content3)
+      content.appendChild(footer)
+      content.appendChild(footer2)
+      content.style.padding = "3%";
+      content.style.height = "100%";
+      //content.style.position = "absolute";
+      content.style.zIndex = "999";
+      //content.style.border = "8px solid #d5d6d7";
+      var opt = {
+        margin: 0,
+        filename: `tabel_ranking_${addr.split(" -")[0].split(".").join("")}_${Date.now()}.pdf`,
+        image: {
+          type: 'svg',
+          quality: 1
+        },
+        html2canvas: {
+          scale: 2
+        },
+        jsPDF: {
+          unit: 'in',
+          format: "a4",
+          orientation: 'landscape',
+          floatPrecision: 16
+        },
+
+      };
+
+      html2pdf().set(opt).from(content).save();
+      Swal.fire({
+      icon: "info",
+      title: "Memproses",
+      text: "Menyiapkan dokumen untuk disimpan",
+      showConfirmButton: false,
+      timer: 2800
+    });
+
+    }
+  </script>

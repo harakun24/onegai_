@@ -17,12 +17,13 @@
   </thead>
   <tbody class="text-center">
     #!if(it.list_user.length)
+    var i=1;
        for(const user of it.list_user){
                   !!
     <tr>
       <td>
         <p class="text-sm px-4 font-weight-bold mb-0">
-          K-#!= `${("000000"+user.k_id).split("").reverse().join("").substr(0,5).split("").reverse().join("")}`!!
+          K-#!= `${("000000"+i++).split("").reverse().join("").substr(0,5).split("").reverse().join("")}`!!
         </p>
       </td>
       <td>
@@ -39,7 +40,7 @@
         <a href="/panel-admin/sub/matriks/#!=user.k_id!!" class="py-2 btn btn-secondary btn-sm mb-3 mx-1">matriks | <i class="fa fa-table fa-xl"></i></a>
 
           <a href="#" class="btn btn-dark btn-sm mb-3 mx-1" onclick="editdata(#!=user.k_id!!)">Edit</a>
-          <a href="#" class="btn btn-danger btn-sm mb-3 mx-1" onclick="hapus(#!=user.k_id!!)">hapus</a>
+          <a href="#" class="btn btn-danger btn-sm mb-3 mx-1" onclick="hapus(#!=user.k_id!!)">Hapus</a>
 
 
       </td>

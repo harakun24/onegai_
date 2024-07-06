@@ -3,15 +3,18 @@ import { PrismaClient } from "@prisma/client";
 import "colors";
 
 export default class {
-    static view = view
-    static db = new PrismaClient();
+    view = view
+    db = new PrismaClient();
     constructor(name) {
+
         console.log(`    -- Service `.green + `${name}`.cyan)
     }
     keluar(req, res) {
         try {
             const { token } = req.session.user
+
             logger(".out", token)
+
             req.session.destroy(function (err) {
                 console.log()
                 console.log("Destroying session for: ", { token })

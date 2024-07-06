@@ -12,7 +12,7 @@ script:"mkriteria-script"
   </div>
   <div class="card-body pt-0 pb-2" style="padding-left:10px;padding-right:10px">
     <div class="row">
-      <div class="col-lg-4 col-md-3 col-12 d-flex justify-content-center align-items-start">
+      <div class="col-lg-4 col-md-3 col-12 d-flex justify-content-center align-items-start" id="tbl-p">
         <table id="tbl-ch" style="transition: cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.7s;">
 
           #! for(const m of it.mKriteria){
@@ -21,7 +21,7 @@ script:"mkriteria-script"
           <tr>
             <td class="py-3">
 
-              <label class="form-label">#!= m.div.nama !!</label>
+              <label class="form-label">#!= m.mdiv_k1.nama !!</label>
             </td>
             <td>
               <form>
@@ -55,7 +55,7 @@ script:"mkriteria-script"
             </td>
             <td>
 
-              <label class="form-label">#!= m.div2.nama !!</label>
+              <label class="form-label">#!= m.mdiv_k2.nama !!</label>
             </td>
           </tr>
 

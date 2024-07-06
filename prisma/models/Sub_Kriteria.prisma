@@ -1,10 +1,13 @@
 model Sub_kriteria {
-    sk_id    Int      @id @default(autoincrement())
-    nama     String
-    kriteria Kriteria @relation(name: "k", fields: [k], references: [k_id], onDelete: Cascade)
-    k        Int
-    sk1      mSub[]   @relation("sk1")
-    sk2      mSub[]   @relation("sk2")
-    skd      mDiv[]   @relation("skd")
-    j        Jawab[]  @relation("subkey")
+  sk_id         Int          @id @default(autoincrement())
+  nama          String
+  kriteria      Kriteria    @relation(name: "k", fields: [k], references: [k_id], onDelete: Cascade)
+  k             Int
+  msub_k1       mSub[]      @relation("msub_k1")
+  msub_k2       mSub[]      @relation("msub_k2")
+  mdiv_sub      mDiv[]      @relation("mdiv_sub")
+  jawab_sub     Jawab[]     @relation("jawab_sub")
+  peminatan_sub Peminatan[] @relation("peminatan_sub")
+  penilaian_sub Penilaian[] @relation("penilaian_sub")
+
 }

@@ -58,7 +58,7 @@
       <td class=" w-auto">
 
         <a href="#" class="btn btn-dark btn-sm mb-3" onclick="editdata(#!=user.sk_id!!)">Edit</a>
-        <a href="#" class="btn btn-danger btn-sm mb-3" onclick="hapus(#!=user.sk_id!!)">hapus</a>
+        <a href="#" class="btn btn-danger btn-sm mb-3" onclick="hapus(#!=user.sk_id!!)">Hapus</a>
 
 
       </td>

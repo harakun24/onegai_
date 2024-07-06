@@ -1,13 +1,16 @@
 import base from "../baseService.js";
 import matriksService from "../matriksService.js";
 
-const { view, db } = base
+let view, db = null
+
 class service extends base {
     constructor() {
         super("mKriteria")
+        view = this.view
+        db = this.db
     }
     main(req, res) {
-        db.Kriteria
+        db.kriteria
             .findFirst()
             .then(async k_temp => {
 
@@ -17,8 +20,8 @@ class service extends base {
 
                 const join = {
                     include: {
-                        kriteria: true,
-                        kriteria2: true,
+                        mkriteria_k1: true,
+                        mkriteria_k2: true,
                     }
                 }
                 const pair = matriksService.pair(kriteria, "k_id")
@@ -52,8 +55,8 @@ class service extends base {
             .then(async kriteria => {
                 const join = {
                     include: {
-                        kriteria: true,
-                        kriteria2: true,
+                        mkriteria_k1: true,
+                        mkriteria_k2: true,
                     }
                 }
                 const pair = matriksService.pair(kriteria, "k_id")
@@ -94,9 +97,7 @@ class service extends base {
                 .update({
                     data: {
                         val: (req.query.val - 0) < 0 ? 1 / ((req.query.val - 0) * -1) : req.query.val - 0
-                    }, where: {
-                        mk_id: req.params.id - 0
-                    }
+                    }, where: { mk_id: req.params.id - 0 }
                 })
                 .then(() => status = "true")
                 .catch(error => console.log(error))

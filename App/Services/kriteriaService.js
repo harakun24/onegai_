@@ -1,14 +1,18 @@
 
 import base from "./baseService.js";
 
-const { view, db } = base
+let view, db = null
+
 class service extends base {
     constructor() {
         super("kriteria")
+        view = this.view
+        db = this.db
+
     }
 
     main(req, res) {
-        db.Kriteria
+        db.kriteria
             .findMany()
             .then(data => {
                 res.send(
@@ -27,17 +31,15 @@ class service extends base {
     }
 
     hapus_kriteria(req, res) {
-        db.Kriteria
+        db.kriteria
             .findFirst({ where: { k_id: req.params.id - 0 } })
             .then(found => {
                 if (!found)
                     return res.redirect("/panel-admin/kriteria")
             })
             .then(() => {
-                db.Kriteria
-                    .delete({
-                        where: { k_id: req.params.id - 0 }
-                    })
+                db.kriteria
+                    .delete({ where: { k_id: req.params.id - 0 } })
                     .then(deluser => {
                         req.flash("hapus", deluser.k_id);
                         res.redirect("/panel-admin/kriteria")
@@ -52,7 +54,7 @@ class service extends base {
         if (!user)
             return res.redirect("/panel-admin/kriteria")
 
-        db.Kriteria
+        db.kriteria
             .create({ data: user })
             .then(() => status = true)
             .catch(error => {
@@ -66,7 +68,7 @@ class service extends base {
     }
 
     show_kriteria(req, res) {
-        db.Kriteria
+        db.kriteria
             .findFirst({ where: { k_id: req.params.id - 0 } })
             .then(user =>
                 res.json(user || { res: false })
@@ -80,11 +82,8 @@ class service extends base {
         if (!user)
             return res.redirect("/panel-admin/kriteria")
 
-        db.Kriteria
-            .update({
-                where: { k_id: req.params.id - 0 },
-                data: user
-            })
+        db.kriteria
+            .update({ where: { k_id: req.params.id - 0 }, data: user })
             .then(() => {
                 status = true
             })

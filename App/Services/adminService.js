@@ -3,17 +3,27 @@ import base from "./baseService.js";
 import crypto from "crypto-js";
 import { env } from "../.config.js";
 
-const { view, db } = base
+let view, db = null
+
 class service extends base {
 
     constructor() {
         super("admin")
+        view = this.view
+        db = this.db
     }
 
     main(req, res) {
-        db.User
+        db.user
             .findMany()
-            .then(data => {
+            .then(async data => {
+                const count = {
+                    kriteria: await db.kriteria.aggregate({ _count: { k_id: true } }),
+                    sub: await db.sub_kriteria.aggregate({ _count: { sk_id: true } }),
+                    divisi: await db.divisi.aggregate({ _count: { div_id: true } }),
+                    visitor: await db.visitor.aggregate({ _count: { v_id: true } }),
+
+                }
                 res.send(
                     view.render("dashboard", {
                         title: "Dashboard",
@@ -23,25 +33,22 @@ class service extends base {
                         deluser: req.flash("hapus"),
                         list_user: data,
                         side: "dashboard",
+                        count,
                     })
                 )
             })
     }
 
     hapus_user(req, res) {
-        db.User
-            .findFirst({
-                where: { id: req.params.id - 0 }
-            })
+        db.user
+            .findFirst({ where: { id: req.params.id - 0 } })
             .then(found => {
                 if (!found)
                     return res.redirect("/panel-admin")
             })
             .then(() => {
-                db.User
-                    .delete({
-                        where: { id: req.params.id - 0 }
-                    })
+                db.user
+                    .delete({ where: { id: req.params.id - 0 } })
                     .then(deluser => {
                         req.flash("hapus", deluser.id);
                         console.log({ deluser })
@@ -58,7 +65,8 @@ class service extends base {
             return res.redirect("/panel-admin")
 
         user.password = crypto.Rabbit.encrypt(user.password, env.SECRET_KEY).toString()
-        db.User
+
+        db.user
             .create({ data: user })
             .then(() => status = true)
             .catch(error => {
@@ -72,10 +80,8 @@ class service extends base {
     }
 
     show_user(req, res) {
-        db.User
-            .findFirst({
-                where: { id: req.params.id - 0 }
-            })
+        db.user
+            .findFirst({ where: { id: req.params.id - 0 } })
             .then(user => res.json(user || { res: false }))
     }
 
@@ -89,11 +95,8 @@ class service extends base {
         if (req.body.password != "")
             user.password = crypto.Rabbit.encrypt(user.password, env.SECRET_KEY).toString()
 
-        db.User
-            .update({
-                where: { id: req.params.id - 0 },
-                data: user
-            })
+        db.user
+            .update({ where: { id: req.params.id - 0 }, data: user })
             .then(() => { status = true })
             .catch(error => {
                 console.log("Error updating user " + error)

@@ -2,28 +2,28 @@
 import base from "../baseService.js";
 import matriksService from "../matriksService.js";
 
-const { view, db } = base
+let view, db = null
+
 class service extends base {
     constructor() {
         super("mDivisi")
+        view = this.view
+        db = this.db
     }
     main(req, res) {
         if (!req.params.id)
             return res.redirect("/panel-admin/sub");
 
-        db.Sub_kriteria
+        db.sub_kriteria
             .findFirst({
-                where: {
-                    sk_id: req.params.id - 0
-                }
+                where: { sk_id: req.params.id - 0 }
             })
             .then(k_temp => {
                 if (!k_temp)
                     return res.redirect("/panel-admin/sub");
             })
             .then(async () => {
-                let k_temp = await db.Divisi
-                    .findMany();
+                let k_temp = await db.Divisi.findMany();
 
                 if (k_temp.length < 1)
                     return res.redirect("/panel-admin/sub")
@@ -32,29 +32,26 @@ class service extends base {
 
                 const join = {
                     where: {
-                        subs: {
-                            sk_id: req.params.id - 0
-                        }
+                        mdiv_sub: { sk_id: req.params.id - 0 }
                     },
                     include: {
-                        div: true,
-                        div2: true,
-                        subs: true,
+                        mdiv_k1: true,
+                        mdiv_k2: true,
+                        mdiv_sub: true,
                     }
                 }
                 const pair = matriksService.pair(kriteria, "div_id")
                 let mpair = await db.mDiv.findMany(join);
 
                 if (mpair.length == 0)
-                    await db.mDiv
-                        .createMany({
-                            data: pair.map(m => ({
-                                k1: m[0].div_id,
-                                k2: m[1].div_id,
-                                sub: req.params.id - 0,
-                                val: 2
-                            }))
-                        })
+                    await db.mDiv.createMany({
+                        data: pair.map(m => ({
+                            k1: m[0].div_id,
+                            k2: m[1].div_id,
+                            sub: req.params.id - 0,
+                            val: 2
+                        }))
+                    })
 
                 mpair = await db.mDiv.findMany(join);
 
@@ -64,7 +61,7 @@ class service extends base {
                         user: req.session.user,
                         kriteria,
                         idk: req.params.id,
-                        idn: await db.Sub_kriteria
+                        idn: await db.sub_kriteria
                             .findFirst({
                                 where: { sk_id: req.params.id - 0 }
                             }),
@@ -77,19 +74,17 @@ class service extends base {
 
     getTable(req, res) {
 
-        db.Divisi
+        db.divisi
             .findMany()
             .then(async (kriteria) => {
                 const join = {
                     where: {
-                        subs: {
-                            sk_id: req.params.id - 0
-                        }
+                        mdiv_sub: { sk_id: req.params.id - 0 }
                     },
                     include: {
-                        div: true,
-                        div2: true,
-                        subs: true,
+                        mdiv_k1: true,
+                        mdiv_k2: true,
+                        mdiv_sub: true,
                     }
                 }
 
@@ -97,15 +92,14 @@ class service extends base {
                 let mpair = await db.mDiv.findMany(join);
 
                 if (mpair.length == 0)
-                    await db.mDiv
-                        .createMany({
-                            data: pair.map(m => ({
-                                k1: m[0].div_id,
-                                k2: m[1].div_id,
-                                sub: req.params.id - 0,
-                                val: 2
-                            }))
-                        })
+                    await db.mDiv.createMany({
+                        data: pair.map(m => ({
+                            k1: m[0].div_id,
+                            k2: m[1].div_id,
+                            sub: req.params.id - 0,
+                            val: 2
+                        }))
+                    })
 
                 mpair = await db.mDiv.findMany(join);
 

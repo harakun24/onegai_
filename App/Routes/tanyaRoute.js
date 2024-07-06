@@ -1,6 +1,7 @@
 
 import base from "./baseRoute.js";
 import service from "../Services/tanyaService.js";
+import sub_route from "./jawabRoute.js";
 class router extends base {
     constructor() {
         super("tanya");
@@ -15,6 +16,9 @@ class router extends base {
                 ["/tambah", service.tambah_tanya],
                 ["/:id(\\d+)/ubah", service.edit_tanya],
             ],
+            sub: [
+                ["/jawab", sub_route]
+            ]
         }
     }
 }

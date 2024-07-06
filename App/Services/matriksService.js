@@ -1,7 +1,5 @@
 
-import base from "./baseService.js";
 
-const { view, db } = base
 class service {
     pair(data, key) {
         const result = [];
@@ -12,17 +10,18 @@ class service {
 
         return result
     }
+
     sintesis(data, key, sample) {
         const dupe = [];
         let reverse = data.map(m => ({ [key[0]]: m[key[1]], [key[1]]: m[key[0]], val: 1 / m.val }));
 
-        for (const s of sample) {
+        for (const s of sample)
             dupe.push({ [key[0]]: s[key[2]], [key[1]]: s[key[2]], val: 1 })
-        }
 
         const result = [...dupe, ...reverse, ...data].sort((a, b) => a[key[0]] - b[key[0]] || a[key[1]] - b[key[1]]);
         return result;
     }
+
     total(data, sample, key) {
         const result = [];
         const group = [];
@@ -31,17 +30,16 @@ class service {
             result.push(0);
             let temp = [];
 
-            for (const d of data) {
-                if (d[key[0]] == s[key[1]]) {
+            for (const d of data)
+                if (d[key[0]] == s[key[1]])
                     temp.push(d.val);
-                }
-            }
+
             group.push(temp)
         }
-        for (let i = 0; i < sample.length; i++) {
+        for (let i = 0; i < sample.length; i++)
             for (let j = 0; j < sample.length; j++)
                 result[i] += group[j][i];
-        }
+
         return result;
     }
     eigen(data, total, key) {

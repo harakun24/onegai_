@@ -1,8 +1,10 @@
 model Divisi {
-  div_id Int     @id @default(autoincrement())
-  nama   String
-  alias  String?
-  jawab  Jawab[] @relation("div")
-  d1     mDiv[]  @relation("d1")
-  d2     mDiv[]  @relation("d2")
+  div_id           Int          @id @default(autoincrement())
+  nama             String
+  alias            String?
+  jawab_divisi     Jawab[]     @relation("jawab_divisi")
+  mdiv_k1          mDiv[]      @relation("mdiv_k1")
+  mdiv_k2          mDiv[]      @relation("mdiv_k2")
+  peminatan_divisi Peminatan[] @relation("peminatan_divisi")
+  penilaian_divisi Penilaian[] @relation("penilaian_divisi")
 }

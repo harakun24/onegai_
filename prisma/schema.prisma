@@ -5,97 +5,137 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+  includeRelationFromFields = true
+  output = "ERD.svg"
+  tableOnly = false
+  theme = "forest"
+}
+
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 model Divisi {
-  div_id Int     @id @default(autoincrement())
-  nama   String
-  alias  String?
-  jawab  Jawab[] @relation("div")
-  d1     mDiv[]  @relation("d1")
-  d2     mDiv[]  @relation("d2")
+  div_id           Int          @id @default(autoincrement())
+  nama             String
+  alias            String?
+  jawab_divisi     Jawab[]     @relation("jawab_divisi")
+  mdiv_k1          mDiv[]      @relation("mdiv_k1")
+  mdiv_k2          mDiv[]      @relation("mdiv_k2")
+  peminatan_divisi Peminatan[] @relation("peminatan_divisi")
+  penilaian_divisi Penilaian[] @relation("penilaian_divisi")
 }
 
 model Jawab {
-  j_id    Int          @id @default(autoincrement())
-  jawaban String
-  nilai   Int
-  d_key   Int
-  t_key   Int
-  s_key   Int
-  divisi  Divisi       @relation(name: "div", fields: [d_key], references: [div_id], onDelete: Cascade)
-  tanya   Tanya        @relation(name: "ask", fields: [t_key], references: [t_id], onDelete: Cascade)
-  sub     Sub_kriteria @relation(name: "subkey", fields: [s_key], references: [sk_id], onDelete: Cascade)
+  j_id         Int           @id @default(autoincrement())
+  jawaban      String
+  nilai        Int
+  tanya        Int
+  sub          Int
+  divisi       Int
+  jawab_divisi Divisi       @relation(name: "jawab_divisi", fields: [divisi], references: [div_id], onDelete: Cascade)
+  jawab_tanya  Tanya        @relation(name: "jawab_tanya", fields: [tanya], references: [t_id], onDelete: Cascade)
+  jawab_sub    Sub_kriteria @relation(name: "jawab_sub", fields: [sub], references: [sk_id], onDelete: Cascade)
 }
 
 model Kriteria {
-    k_id Int            @id @default(autoincrement())
-    nama String
-    tipe String
-    sub  Sub_kriteria[] @relation("k")
-    k1   mKriteria[]    @relation("k1")
-    k2   mKriteria[]    @relation("k2")
+  k_id               Int             @id @default(autoincrement())
+  nama               String
+  tipe               String
+  sub                Sub_kriteria[] @relation("k")
+  mkriteria_k1       mKriteria[]    @relation("mkriteria_k1")
+  mkriteria_k2       mKriteria[]    @relation("mkriteria_k2")
+  peminatan_kriteria Peminatan[]    @relation("peminatan_kriteria")
 }
 
 model mDiv {
-  mk_id Int          @id @default(autoincrement())
-  k1    Int
-  k2    Int
-  sub   Int
-  subs  Sub_kriteria @relation(name: "skd", fields: [sub], references: [sk_id], onDelete: Cascade)
-  div   Divisi       @relation(name: "d1", fields: [k1], references: [div_id], onDelete: Cascade)
-  div2  Divisi       @relation(name: "d2", fields: [k2], references: [div_id], onDelete: Cascade)
-  val   Float
+  mk_id    Int           @id @default(autoincrement())
+  k1       Int
+  k2       Int
+  sub      Int
+  mdiv_sub Sub_kriteria @relation(name: "mdiv_sub", fields: [sub], references: [sk_id], onDelete: Cascade)
+  mdiv_k1  Divisi       @relation(name: "mdiv_k1", fields: [k1], references: [div_id], onDelete: Cascade)
+  mdiv_k2  Divisi       @relation(name: "mdiv_k2", fields: [k2], references: [div_id], onDelete: Cascade)
+  val      Float
 }
 
 model mKriteria {
-  mk_id     Int      @id @default(autoincrement())
-  k1        Int
-  k2        Int
-  kriteria  Kriteria @relation(name: "k1", fields: [k1], references: [k_id], onDelete: Cascade)
-  kriteria2 Kriteria @relation(name: "k2", fields: [k2], references: [k_id], onDelete: Cascade)
-  val       Float
+  mk_id        Int       @id @default(autoincrement())
+  k1           Int
+  k2           Int
+  mkriteria_k1 Kriteria @relation(name: "mkriteria_k1", fields: [k1], references: [k_id], onDelete: Cascade)
+  mkriteria_k2 Kriteria @relation(name: "mkriteria_k2", fields: [k2], references: [k_id], onDelete: Cascade)
+  val          Float
 }
 
 model mSub {
-  mk_id Int          @id @default(autoincrement())
-  k1    Int
-  k2    Int
-  sub   Sub_kriteria @relation(name: "sk1", fields: [k1], references: [sk_id], onDelete: Cascade)
-  sub2  Sub_kriteria @relation(name: "sk2", fields: [k2], references: [sk_id], onDelete: Cascade)
-  val   Float
+  mk_id   Int           @id @default(autoincrement())
+  k1      Int
+  k2      Int
+  msub_k1 Sub_kriteria @relation(name: "msub_k1", fields: [k1], references: [sk_id], onDelete: Cascade)
+  msub_k2 Sub_kriteria @relation(name: "msub_k2", fields: [k2], references: [sk_id], onDelete: Cascade)
+  val     Float
+}
+
+model Peminatan{
+  p_id                Int           @id @default(autoincrement())
+  visitor             Int
+  kriteria            Int
+  divisi              Int
+  sub                 Int
+  peminatan_visitor   Visitor      @relation(name: "peminatan_visitor", fields: [visitor], references: [v_id], onDelete: Cascade)
+  pemminatan_kriteria Kriteria     @relation(name: "peminatan_kriteria", fields: [kriteria], references: [k_id], onDelete: Cascade)
+  peminatan_divisi    Divisi       @relation(name: "peminatan_divisi", fields: [divisi], references: [div_id], onDelete: Cascade)
+  peminatan_sub       Sub_kriteria @relation(name: "peminatan_sub", fields: [sub], references: [sk_id], onDelete: Cascade)
+}
+
+model Penilaian{
+  p_id              Int           @id @default(autoincrement())
+  visitor           Int
+  divisi            Int
+  sub               Int
+  penilaian_visitor Visitor      @relation(name: "penilaian_visitor", fields: [visitor], references: [v_id], onDelete: Cascade)
+  penilaian_sub     Sub_kriteria @relation(name: "penilaian_sub", fields: [sub], references: [sk_id], onDelete: Cascade)
+  penilaian_divisi  Divisi       @relation(name: "penilaian_divisi", fields: [divisi], references: [div_id], onDelete: Cascade)
+  val               Int
 }
 
 model Sub_kriteria {
-    sk_id    Int      @id @default(autoincrement())
-    nama     String
-    kriteria Kriteria @relation(name: "k", fields: [k], references: [k_id], onDelete: Cascade)
-    k        Int
-    sk1      mSub[]   @relation("sk1")
-    sk2      mSub[]   @relation("sk2")
-    skd      mDiv[]   @relation("skd")
-    j        Jawab[]  @relation("subkey")
+  sk_id         Int          @id @default(autoincrement())
+  nama          String
+  kriteria      Kriteria    @relation(name: "k", fields: [k], references: [k_id], onDelete: Cascade)
+  k             Int
+  msub_k1       mSub[]      @relation("msub_k1")
+  msub_k2       mSub[]      @relation("msub_k2")
+  mdiv_sub      mDiv[]      @relation("mdiv_sub")
+  jawab_sub     Jawab[]     @relation("jawab_sub")
+  peminatan_sub Peminatan[] @relation("peminatan_sub")
+  penilaian_sub Penilaian[] @relation("penilaian_sub")
+
 }
 
 model Tanya {
-  t_id       Int     @id @default(autoincrement())
-  pertanyaan String
-  jawab      Jawab[] @relation("ask")
+  t_id        Int      @id @default(autoincrement())
+  pertanyaan  String
+  jawab_tanya Jawab[] @relation("jawab_tanya")
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  uname    String @unique
+  id       Int     @id @default(autoincrement())
+  uname    String  @unique
   password String
 }
 
 model Visitor {
-  v_id  Int     @id @default(autoincrement())
-  nim   String  @unique
-  nama  String
-  hasil String?
+  v_id              Int          @id @default(autoincrement())
+  nim               String       @unique
+  nama              String
+  hasil             String?
+  peminatan_visitor Peminatan[] @relation("peminatan_visitor")
+  penilaian_visitor Penilaian[] @relation("penilaian_visitor")
+
 }
 

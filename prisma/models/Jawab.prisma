@@ -1,11 +1,11 @@
 model Jawab {
-  j_id    Int          @id @default(autoincrement())
-  jawaban String
-  nilai   Int
-  d_key   Int
-  t_key   Int
-  s_key   Int
-  divisi  Divisi       @relation(name: "div", fields: [d_key], references: [div_id], onDelete: Cascade)
-  tanya   Tanya        @relation(name: "ask", fields: [t_key], references: [t_id], onDelete: Cascade)
-  sub     Sub_kriteria @relation(name: "subkey", fields: [s_key], references: [sk_id], onDelete: Cascade)
+  j_id         Int           @id @default(autoincrement())
+  jawaban      String
+  nilai        Int
+  tanya        Int
+  sub          Int
+  divisi       Int
+  jawab_divisi Divisi       @relation(name: "jawab_divisi", fields: [divisi], references: [div_id], onDelete: Cascade)
+  jawab_tanya  Tanya        @relation(name: "jawab_tanya", fields: [tanya], references: [t_id], onDelete: Cascade)
+  jawab_sub    Sub_kriteria @relation(name: "jawab_sub", fields: [sub], references: [sk_id], onDelete: Cascade)
 }

@@ -1,12 +1,17 @@
 
 import base from "./baseService.js";
 
-const { view, db } = base
-const parent = await db.Kriteria.findMany();
+let view, db = null
+
+let parent;
 
 class service extends base {
     constructor() {
         super("subkriteria")
+        view = this.view
+        db = this.db
+
+        db.kriteria.findMany().then(data => { parent = data; });
     }
 
     main(req, res) {
@@ -35,9 +40,7 @@ class service extends base {
             return res.redirect("/panel-admin/sub")
 
         db.Kriteria
-            .findFirst({
-                where: { k_id: req.params.id - 0 }
-            })
+            .findFirst({ where: { k_id: req.params.id - 0 } })
             .then(status => {
                 if (!status) {
                     req.flash("nosubs", true);
@@ -46,10 +49,8 @@ class service extends base {
                 return status
             })
             .then((status) => {
-                db.Sub_kriteria
-                    .findMany({
-                        where: { kriteria: { k_id: req.params.id - 0 } }
-                    })
+                db.sub_kriteria
+                    .findMany({ where: { kriteria: { k_id: req.params.id - 0 } } })
                     .then(data => {
                         console.log({ status })
                         res.send(
@@ -71,14 +72,14 @@ class service extends base {
 
     hapus_sub(req, res) {
 
-        db.Sub_kriteria
+        db.sub_kriteria
             .findFirst({ where: { sk_id: req.params.id - 0 } })
             .then(found => {
                 if (!found)
                     return res.redirect("/panel-admin/sub")
             })
             .then(() => {
-                db.Sub_kriteria
+                db.sub_kriteria
                     .delete({ where: { sk_id: req.params.id - 0 } })
                     .then(deluser => {
                         req.flash("hapus", deluser.sk_id);
@@ -97,7 +98,7 @@ class service extends base {
 
         user.k = user.k - 0
 
-        db.Sub_kriteria
+        db.sub_kriteria
             .create({ data: user })
             .then(() => status = true)
             .catch(error => {
@@ -111,7 +112,7 @@ class service extends base {
             })
     }
     show_sub(req, res) {
-        db.Sub_kriteria
+        db.sub_kriteria
             .findFirst({ where: { sk_id: req.params.id - 0 } })
             .then(user =>
                 res.json(user || { res: false })
@@ -127,11 +128,8 @@ class service extends base {
         req.flash("subs", req.body.k);
         delete user.k
 
-        db.Sub_kriteria
-            .update({
-                where: { sk_id: req.params.id - 0 },
-                data: user
-            })
+        db.sub_kriteria
+            .update({ where: { sk_id: req.params.id - 0 }, data: user })
             .then(() => status = true)
             .catch(error => {
                 console.log("Error updating subkriteria " + error)

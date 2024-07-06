@@ -2,64 +2,54 @@
 import base from "../baseService.js";
 import matriksService from "../matriksService.js";
 
-const { view, db } = base
+let view, db = null
+
 class service extends base {
     constructor() {
         super("mSubkriteria")
+        view = this.view
+        db = this.db
     }
     main(req, res) {
         if (!req.params.id)
             return res.redirect("/panel-admin/kriteria");
 
         db.kriteria
-            .findFirst({
-                where: {
-                    k_id: req.params.id - 0
-                }
-            })
+            .findFirst({ where: { k_id: req.params.id - 0 } })
             .then(k_temp => {
                 if (!k_temp)
                     return res.redirect("/panel-admin/kriteria");
             })
             .then(async () => {
-                let k_temp = await db.sub_kriteria
-                    .findMany({
-                        where: { k: req.params.id - 0 }
-                    });
+                let k_temp = await db.sub_kriteria.findMany({
+                    where: { k: req.params.id - 0 }
+                });
 
                 if (k_temp.length < 1)
                     return res.redirect("/panel-admin/kriteria")
 
-                const kriteria = await db.sub_kriteria
-                    .findMany({
-                        where: {
-                            k: req.params.id - 0
-                        }
-                    });
+                const kriteria = await db.sub_kriteria.findMany({
+                    where: { k: req.params.id - 0 }
+                });
 
                 const join = {
-                    where: {
-                        sub: {
-                            k: req.params.id - 0
-                        }
-                    },
+                    where: { msub_k1: { k: req.params.id - 0 } },
                     include: {
-                        sub: true,
-                        sub2: true,
+                        msub_k1: true,
+                        msub_k2: true,
                     }
                 }
                 const pair = matriksService.pair(kriteria, "sk_id")
                 let mpair = await db.mSub.findMany(join);
 
                 if (mpair.length == 0)
-                    await db.mSub
-                        .createMany({
-                            data: pair.map(m => ({
-                                k1: m[0].sk_id,
-                                k2: m[1].sk_id,
-                                val: 2
-                            }))
-                        })
+                    await db.mSub.createMany({
+                        data: pair.map(m => ({
+                            k1: m[0].sk_id,
+                            k2: m[1].sk_id,
+                            val: 2
+                        }))
+                    })
 
                 mpair = await db.mSub.findMany(join);
 
@@ -69,10 +59,9 @@ class service extends base {
                         user: req.session.user,
                         kriteria,
                         idk: req.params.id,
-                        idn: await db.kriteria
-                            .findFirst({
-                                where: { k_id: req.params.id - 0 }
-                            }),
+                        idn: await db.kriteria.findFirst({
+                            where: { k_id: req.params.id - 0 }
+                        }),
                         mKriteria: mpair,
                         side: "subkriteria",
                     })
@@ -86,14 +75,10 @@ class service extends base {
             .findMany({ where: { k: req.params.id - 0 } })
             .then(async (kriteria) => {
                 const join = {
-                    where: {
-                        sub: {
-                            k: req.params.id - 0
-                        }
-                    },
+                    where: { msub_k1: { k: req.params.id - 0 } },
                     include: {
-                        sub: true,
-                        sub2: true,
+                        msub_k1: true,
+                        msub_k2: true,
                     }
                 }
 
@@ -101,14 +86,13 @@ class service extends base {
                 let mpair = await db.mSub.findMany(join);
 
                 if (mpair.length == 0)
-                    await db.mSub
-                        .createMany({
-                            data: pair.map(m => ({
-                                k1: m[0].sk_id,
-                                k2: m[1].sk_id,
-                                val: 2
-                            }))
-                        })
+                    await db.mSub.createMany({
+                        data: pair.map(m => ({
+                            k1: m[0].sk_id,
+                            k2: m[1].sk_id,
+                            val: 2
+                        }))
+                    })
 
                 mpair = await db.mSub.findMany(join);
 
@@ -138,9 +122,7 @@ class service extends base {
                 .update({
                     data: {
                         val: (req.query.val - 0) < 0 ? 1 / ((req.query.val - 0) * -1) : req.query.val - 0
-                    }, where: {
-                        mk_id: req.params.id - 0
-                    }
+                    }, where: { mk_id: req.params.id - 0 }
                 })
                 .then(() => status = "true")
                 .catch(error => console.log(error))

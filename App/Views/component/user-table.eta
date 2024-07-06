@@ -16,8 +16,8 @@
     </tr>
   </thead>
   <tbody class="text-center">
-   
-    #! for(const user of it.list_user){ const id=("00000"+(user.id-1)).split("").reverse().join("").substr(0,4).split("").reverse().join("") !! <tr>
+
+    #!var i=1; for(const user of it.list_user){ const id=("00000"+(i++)).split("").reverse().join("").substr(0,4).split("").reverse().join("") !! <tr>
       <td>
         <p class="text-sm px-4 font-weight-bold mb-0">
           #!= `OS-${id}`!!
@@ -42,7 +42,7 @@
         !!
 
         <a href="#" class="btn btn-dark btn-sm mb-3" onclick="edituser(#!=user.id!!)">Edit</a>
-        <a href="#" class="btn btn-danger btn-sm mb-3" onclick="hapus(#!=user.id!!)">hapus</a>
+        <a href="#" class="btn btn-danger btn-sm mb-3" onclick="hapus(#!=user.id!!)">Hapus</a>
         #!
         }
         !!

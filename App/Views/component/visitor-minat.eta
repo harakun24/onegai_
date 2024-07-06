@@ -1,0 +1,27 @@
+#!var i=1;var j=1;
+for(const t of it.kriteria){
+
+!!
+<div class="my-3 col-12"></div>
+#!
+for(const d of it.divisi){
+!!
+
+<div class="card m-2 col-md-5 col-10 card-success" style="border: 2.5px solid #!=i==1?'rgba(154, 44, 44, 0.537)':'rgb(76 175 97)'!!;">
+  <div class="card-header">
+    <h6 class="text-sm">#!=j++!!#!=i==1?`. Seberapa antusias anda tentang '${d.alias}'?`:`. Seberapa baik kemampuan '${d.alias}' anda?`!!</h6>
+  </div>
+  <div class="card-body">
+    <select name="#!=`${t.k_id};${d.div_id}`!!" class="form-select" required>
+      <option value="" disabled selected>---Pilih salah satu opsi---</option>
+      #! for(const s of t.sub){
+      !!
+      <option value="#!=`${t.k_id};${d.div_id};${s.sk_id}`!!">#!=s.nama!!</option>
+      #! }!!
+
+    </select>
+  </div>
+</div>
+#!}
+i++}
+!!
