@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>instruksi</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><p>Untuk menerapkan pengaturan kualitas JPEG sebesar 50% dari awal dalam proyek Blazor menggunakan <strong>ImageSharp</strong>, Anda perlu memasang paket ImageSharp dan kemudian membuat atau menyesuaikan kelas yang akan menangani pengolahan gambar. Berikut langkah-langkahnya:</p>
+<h3 id="langkah-1-instalasi-paket-imagesharp">Langkah 1: Instalasi Paket ImageSharp</h3>
+<p>Pastikan Anda telah menambahkan paket ImageSharp ke proyek Blazor Anda. Buka terminal dan jalankan perintah berikut:</p>
+<pre class=" language-bash"><code class="prism  language-bash">dotnet add package SixLabors.ImageSharp
+</code></pre>
+<h3 id="langkah-2-buat-atau-sunting-kelas-imageservice">Langkah 2: Buat atau Sunting Kelas ImageService</h3>
+<p>Anda perlu membuat atau mengubah kelas <code>ImageService</code> untuk menangani kompresi gambar dengan kualitas JPEG 50%. Berikut adalah contoh lengkap dari kelas <code>ImageService</code>:</p>
+<pre class=" language-csharp"><code class="prism  language-csharp"><span class="token keyword">using</span> SixLabors<span class="token punctuation">.</span>ImageSharp<span class="token punctuation">;</span>
+<span class="token keyword">using</span> SixLabors<span class="token punctuation">.</span>ImageSharp<span class="token punctuation">.</span>Processing<span class="token punctuation">;</span>
+<span class="token keyword">using</span> SixLabors<span class="token punctuation">.</span>ImageSharp<span class="token punctuation">.</span>Formats<span class="token punctuation">.</span>Jpeg<span class="token punctuation">;</span>
+<span class="token keyword">using</span> System<span class="token punctuation">.</span>IO<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ImageService</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">CompressImageToHalfQuality</span><span class="token punctuation">(</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> imageData<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">using</span> <span class="token punctuation">(</span>MemoryStream inStream <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MemoryStream</span><span class="token punctuation">(</span>imageData<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">using</span> <span class="token punctuation">(</span>Image image <span class="token operator">=</span> Image<span class="token punctuation">.</span><span class="token function">Load</span><span class="token punctuation">(</span>inStream<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">using</span> <span class="token punctuation">(</span>MemoryStream outStream <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MemoryStream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                <span class="token comment">// Encode image to JPEG with 50% quality</span>
+                image<span class="token punctuation">.</span><span class="token function">Save</span><span class="token punctuation">(</span>outStream<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">JpegEncoder</span> <span class="token punctuation">{</span> Quality <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">return</span> outStream<span class="token punctuation">.</span><span class="token function">ToArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="penjelasan-singkat">Penjelasan Singkat:</h3>
+<ul>
+<li><strong><code>CompressImageToHalfQuality</code></strong>: Metode ini mengambil byte array dari gambar sebagai input (<code>imageData</code>), memuatnya ke objek <code>Image</code>, dan kemudian menyimpannya kembali ke dalam <code>MemoryStream</code> dengan menggunakan <code>JpegEncoder</code> dari ImageSharp. Parameter <code>Quality</code> pada <code>JpegEncoder</code> diatur ke 50%, yang menghasilkan gambar dengan kualitas JPEG yang lebih rendah (lebih tinggi kompresi) dan ukuran file yang lebih kecil.</li>
+</ul>
+<h3 id="penggunaan-di-aplikasi-blazor">Penggunaan di Aplikasi Blazor</h3>
+<p>Setelah Anda membuat <code>ImageService</code>, Anda dapat menginjeksinya ke komponen Blazor atau layanan lain di mana Anda perlu mengompresi gambar dengan kualitas JPEG 50%. Berikut adalah contoh sederhana bagaimana Anda bisa menggunakannya dalam komponen Blazor:</p>
+<pre class=" language-csharp"><code class="prism  language-csharp">@page <span class="token string">"/compress-image"</span>
+
+@inject ImageService imageService
+
+<span class="token operator">&lt;</span>h3<span class="token operator">&gt;</span>Compressed <span class="token function">Image</span> <span class="token punctuation">(</span><span class="token number">50</span><span class="token operator">%</span> Quality<span class="token punctuation">)</span><span class="token operator">&lt;</span><span class="token operator">/</span>h3<span class="token operator">&gt;</span>
+
+@<span class="token keyword">if</span> <span class="token punctuation">(</span>compressedImage <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token operator">&lt;</span>img src<span class="token operator">=</span><span class="token string">"@($"</span>data<span class="token punctuation">:</span>image<span class="token operator">/</span>jpeg<span class="token punctuation">;</span>base64<span class="token punctuation">,</span><span class="token punctuation">{</span>Convert<span class="token punctuation">.</span><span class="token function">ToBase64String</span><span class="token punctuation">(</span>compressedImage<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token string">")"</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
+<span class="token punctuation">}</span>
+
+@code <span class="token punctuation">{</span>
+    <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> originalImage<span class="token punctuation">;</span>
+    <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> compressedImage<span class="token punctuation">;</span>
+
+    <span class="token keyword">protected</span> <span class="token keyword">override</span> <span class="token keyword">async</span> Task <span class="token function">OnInitializedAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">// Example: Load image bytes from somewhere (replace with your logic)</span>
+        originalImage <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">LoadImageBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// Compress image with 50% quality using ImageService</span>
+        compressedImage <span class="token operator">=</span> imageService<span class="token punctuation">.</span><span class="token function">CompressImageToHalfQuality</span><span class="token punctuation">(</span>originalImage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">async</span> Task<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span> <span class="token function">LoadImageBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">// Example: Load image bytes from a file in wwwroot (replace with your logic)</span>
+        <span class="token comment">// This is just a placeholder, replace with actual implementation</span>
+        <span class="token keyword">var</span> imageUrl <span class="token operator">=</span> <span class="token string">"example.jpg"</span><span class="token punctuation">;</span> <span class="token comment">// Replace with your image file name in wwwroot</span>
+        <span class="token keyword">return</span> <span class="token keyword">await</span> <span class="token function">LoadImageFromUrl</span><span class="token punctuation">(</span>imageUrl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">async</span> Task<span class="token operator">&lt;</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span> <span class="token function">LoadImageFromUrl</span><span class="token punctuation">(</span><span class="token keyword">string</span> imageUrl<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment">// Example: Load image bytes from wwwroot using HttpClient</span>
+        <span class="token keyword">var</span> httpClient <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HttpClient</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> response <span class="token operator">=</span> <span class="token keyword">await</span> httpClient<span class="token punctuation">.</span><span class="token function">GetAsync</span><span class="token punctuation">(</span>imageUrl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>response<span class="token punctuation">.</span>IsSuccessStatusCode<span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">await</span> response<span class="token punctuation">.</span>Content<span class="token punctuation">.</span><span class="token function">ReadAsByteArrayAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span>
+        <span class="token punctuation">{</span>
+            <span class="token comment">// Handle error if needed</span>
+            <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="penjelasan-singkat-penggunaan-di-aplikasi-blazor">Penjelasan Singkat Penggunaan di Aplikasi Blazor:</h3>
+<ul>
+<li>
+<p><strong><code>OnInitializedAsync</code></strong>: Metode ini dipanggil saat komponen Blazor diinisialisasi. Di sini, <code>LoadImageBytes</code> digunakan untuk memuat byte array dari gambar (dari sumber daya seperti file di <code>wwwroot</code> atau dari API) dan kemudian <code>CompressImageToHalfQuality</code> dari <code>ImageService</code> digunakan untuk mengompresi gambar dengan kualitas JPEG 50%.</p>
+</li>
+<li>
+<p><strong><code>LoadImageFromUrl</code></strong>: Metode ini menunjukkan bagaimana Anda dapat memuat byte array dari gambar yang ada di dalam proyek Blazor Anda. Dalam contoh ini, kita menggunakan <code>HttpClient</code> untuk mengambil gambar dari <code>wwwroot</code>.</p>
+</li>
+</ul>
+<p>Dengan mengikuti langkah-langkah di atas, Anda dapat dengan mudah menerapkan pengaturan kualitas JPEG sebesar 50% menggunakan <strong>ImageSharp</strong> dalam proyek Blazor Anda. Pastikan untuk menyesuaikan lokasi dan cara memuat gambar serta logika aplikasi sesuai dengan kebutuhan spesifik Anda.</p>
+</div>
+</body>
+
+</html>
