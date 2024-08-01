@@ -2,6 +2,7 @@ model Visitor {
   v_id              Int          @id @default(autoincrement())
   nim               String       @unique
   nama              String
+  password          String
   hasil             String?
   peminatan_visitor Peminatan[] @relation("peminatan_visitor")
   penilaian_visitor Penilaian[] @relation("penilaian_visitor")

@@ -1,24 +1,29 @@
-#! layout("./layout/template") !!
-#!~ include("./component/header") !!
+<!-- @format -->
+
+#! layout("./layout/template") !! #!~ include("./component/header") !!
 <main id="content">
   <!--Introduction-->
   <section id="about" class="introduction scrollto">
     <div class="row clearfix">
       <div class="col-3">
         <div class="section-heading">
-          <h3 style="color: rgba(0, 0, 0, 0.651) !important;">Divisi dan Pengertian</h3>
-          <h2 class="section-title">
-            Divisi
-          </h2>
-          <p class="section-subtitle"  style="color: rgba(0, 0, 0, 0.651) !important;">
-            Onegai memiliki 4 Divisi dengan bidang yang berbeda beda 
+          <h3 style="color: rgba(0, 0, 0, 0.651) !important">
+            Divisi dan Pengertian
+          </h3>
+          <h2 class="section-title">Divisi</h2>
+          <p
+            class="section-subtitle"
+            style="color: rgba(0, 0, 0, 0.651) !important">
+            Onegai memiliki 4 Divisi dengan bidang yang berbeda beda
           </p>
         </div>
       </div>
 
       <div class="col-2-3">
         <!--Icon Block-->
-        <div class="col-2 icon-block icon-top wow fffInUp" data-wow-delay="0.1s">
+        <div
+          class="col-2 icon-block icon-top wow fffInUp"
+          data-wow-delay="0.1s">
           <!--Icon-->
           <div class="icon">
             <i class="fa fa-paint-brush fa-2x"></i>
@@ -26,15 +31,19 @@
           <!--Icon Block Description-->
           <div class="icon-block-description">
             <h4>Byoga</h4>
-            <p style="text-align: justify;">
-              Divisi ini berfokus pada kegiatan Pembuatan Ilustrasi, FanArt, maupun gambar tradisional yang memiliki style anime serta beberapa adaptasi style dari berbagai jenis ilustrasi
+            <p style="text-align: justify">
+              Divisi ini berfokus pada kegiatan Pembuatan Ilustrasi, FanArt,
+              maupun gambar tradisional yang memiliki style anime serta beberapa
+              adaptasi style dari berbagai jenis ilustrasi
             </p>
           </div>
         </div>
         <!--End of Icon Block-->
 
         <!--Icon Block-->
-        <div class="col-2 icon-block icon-top wow fffInUp" data-wow-delay="0.3s">
+        <div
+          class="col-2 icon-block icon-top wow fffInUp"
+          data-wow-delay="0.3s">
           <!--Icon-->
           <div class="icon">
             <i class="fa fa-modx fa-2x"></i>
@@ -42,15 +51,20 @@
           <!--Icon Block Description-->
           <div class="icon-block-description">
             <h4>Crafting</h4>
-            <p style="text-align: justify;">
-             Divisi ini berfokus pada Teknik Pembuatan Karya seni seperti clay atau origami serta divisi juga bergerak dibidang cosplay maker yang berfokus pada pembuatan property seperti weapon , armor, atau aksesoris dari suatu karakter tertentu
+            <p style="text-align: justify">
+              Divisi ini berfokus pada Teknik Pembuatan Karya seni seperti clay
+              atau origami serta divisi juga bergerak dibidang cosplay maker
+              yang berfokus pada pembuatan property seperti weapon , armor, atau
+              aksesoris dari suatu karakter tertentu
             </p>
           </div>
         </div>
         <!--End of Icon Block-->
 
         <!--Icon Block-->
-        <div class="col-2 icon-block icon-top wow fffInUp" data-wow-delay="0.5s">
+        <div
+          class="col-2 icon-block icon-top wow fffInUp"
+          data-wow-delay="0.5s">
           <!--Icon-->
           <div class="icon">
             <i class="fa fa-film fa-2x"></i>
@@ -58,15 +72,18 @@
           <!--Icon Block Description-->
           <div class="icon-block-description">
             <h4>2D Animation</h4>
-            <p style="text-align: justify;">
-             Divisi ini berfokus pada Pembuatan Animasi 2 dimensi  dengan style atau gaya yang berfokus pada look industri animasi jepang
+            <p style="text-align: justify">
+              Divisi ini berfokus pada Pembuatan Animasi 2 dimensi dengan style
+              atau gaya yang berfokus pada look industri animasi jepang
             </p>
           </div>
         </div>
         <!--End of Icon Block-->
 
         <!--Icon Block-->
-        <div class="col-2 icon-block icon-top wow fffInUp" data-wow-delay="0.5s">
+        <div
+          class="col-2 icon-block icon-top wow fffInUp"
+          data-wow-delay="0.5s">
           <!--Icon-->
           <div class="icon">
             <i class="fa fa-spinner fa-2x"></i>
@@ -74,8 +91,10 @@
           <!--Icon Block Description-->
           <div class="icon-block-description">
             <h4>VFX</h4>
-            <p style="text-align: justify;">
-              Divisi ini berfokus pada pembuatan VFX yang digunakan pada series sentai atau yang biasa disebut disini sebagai efek visual yang digunakan pada series kamen rider mapun power ranger 
+            <p style="text-align: justify">
+              Divisi ini berfokus pada pembuatan VFX yang digunakan pada series
+              sentai atau yang biasa disebut disini sebagai efek visual yang
+              digunakan pada series kamen rider mapun power ranger
             </p>
           </div>
         </div>
@@ -86,13 +105,53 @@
   <!--End of Introduction-->
 
   <!--Gallery-->
-  <aside id="gallery" class="row text-center scrollto clearfix" data-featherlight-gallery data-featherlight-filter="a">
-    <a href="/assets/images/img1.jpg" data-featherlight="image" class="col-3 wow fffIn" data-wow-delay="0.1s"><img src="/assets/images/img1.jpg" alt="Landing Page" /></a>
-    <a href="/assets/images/img2.jpg" data-featherlight="image" class="col-3 wow fffIn" data-wow-delay="0.3s"><img src="/assets/images/img2.jpg" alt="Landing Page" /></a>
-    <a href="/assets/images/img3.jpg" data-featherlight="image" class="col-3 wow fffIn" data-wow-delay="0.5s"><img src="/assets/images/img3.jpg" alt="Landing Page" /></a>
-    <a href="/assets/images/img4.jpg" data-featherlight="image" class="col-3 wow fffIn" data-wow-delay="1.1s"><img src="/assets/images/img4.jpg" alt="Landing Page" /></a>
-    <a href="/assets/images/img6.jpg" data-featherlight="image" class="col-3 wow fffIn" data-wow-delay="0.9s"><img src="/assets/images/img6.jpg" alt="Landing Page" /></a>
-    <a href="/assets/images/img7.jpg" data-featherlight="image" class="col-3 wow fffIn" data-wow-delay="0.7s"><img src="/assets/images/img7.jpg" alt="Landing Page" /></a>
+  <aside
+    id="gallery"
+    class="row text-center scrollto clearfix"
+    data-featherlight-gallery
+    data-featherlight-filter="a">
+    <a
+      href="/assets/images/img1.jpg"
+      data-featherlight="image"
+      class="col-3 wow fffIn"
+      data-wow-delay="0.1s"
+      ><img src="/assets/images/img1.jpg" alt="Landing Page"
+    /></a>
+    <a
+      href="/assets/images/img2.jpg"
+      data-featherlight="image"
+      class="col-3 wow fffIn"
+      data-wow-delay="0.3s"
+      ><img src="/assets/images/img2.jpg" alt="Landing Page"
+    /></a>
+    <a
+      href="/assets/images/img3.jpg"
+      data-featherlight="image"
+      class="col-3 wow fffIn"
+      data-wow-delay="0.5s"
+      ><img src="/assets/images/img3.jpg" alt="Landing Page"
+    /></a>
+    <a
+      href="/assets/images/img4.jpg"
+      data-featherlight="image"
+      class="col-3 wow fffIn"
+      data-wow-delay="1.1s"
+      ><img src="/assets/images/img4.jpg" alt="Landing Page"
+    /></a>
+    <a
+      href="/assets/images/img6.jpg"
+      data-featherlight="image"
+      class="col-3 wow fffIn"
+      data-wow-delay="0.9s"
+      ><img src="/assets/images/img6.jpg" alt="Landing Page"
+    /></a>
+    <a
+      href="/assets/images/img7.jpg"
+      data-featherlight="image"
+      class="col-3 wow fffIn"
+      data-wow-delay="0.7s"
+      ><img src="/assets/images/img7.jpg" alt="Landing Page"
+    /></a>
   </aside>
   <!--End of Gallery-->
 
@@ -103,10 +162,8 @@
       <div class="col-3">
         <!--User Testimonial-->
         <blockquote class="testimonial text-right bigtest">
-          <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-            do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua</q>
-          <footer>— John Doe, Happy Customer</footer>
+          <q>𝐵𝑒𝓇𝒾𝓃𝑔𝒶𝓈𝓁𝒶𝒽 𝒹𝒶𝓁𝒶𝓂 𝐵𝑒𝓇𝓀𝒶𝓇𝓎𝒶</q>
+          <footer>— 𝐸𝓇𝓌𝒾𝓃 𝒜 𝒟</footer>
         </blockquote>
         <!-- End of Testimonial-->
       </div>
@@ -115,28 +172,35 @@
       <!--Content of the Right Side-->
       <div class="col-3">
         <div class="section-heading">
-          <h3>BELIEVING</h3>
-          <h2 class="section-title">Focusing On What Matters Most</h2>
-          <p class="section-subtitle">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-            do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam!
-          </p>
+          <h3></h3>
+          <h2 class="section-title">Aktivitas dan sejarah singkat</h2>
         </div>
         <p>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-          quae ab illo inventore veritatis et quasi architecto beatae
-          vitae dicta sunt explicabo.
+          Tahun 2005, Beberapa orang pemberani yang berencana mengumpulkan orang
+          orang terpilih (lebih tepatnya orang yang suka ngobrol di forum anime)
+          diantaranya kapten Farhan, kapten Yoga, kapten Agung, kapten Ingram,
+          kapten Deni dan beberapa kapten yang tidak dapat disebut satu persatu.
+          Guna mendirikan sebuah forum kecil di guild AMIKOM dengan nama ONEGAI
+          SHELTER. Dan pada tahun 2008 sampai sekarang , ONEGAI menetapkan
+          kedirgahayuannya tepatnya pada tanggal 10 juni.
         </p>
         <p>
-          Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit
-          aut fugit, sed quia consequuntur magni dolores eos qui ratione
-          voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem
-          ipsum quia dolor sit amet!
+          Onegai Memiliki 2 Aktivitas Utama yaitu CN dan juga Pelatihan. CN itu
+          sendiri adalah Singkatan dari Creative Night Yang biasanya diadakan
+          setiap sore atau malam pada hari rabu yang bertempat di area amikom
+          maupun sekitar nya, CN sendiri juga merupakan wadah bagi para anggota
+          bersilaturahmi atau tempat diskusi tentang project yang sedang mereka
+          buat. Pelatihan adalah Kegiatan untuk para anggota setiap Divisi
+          dimana kegiatan ini merupakan pelatihan dasar kemampuan setiap
+          konsentrasi setiap divisi dimana kegiatan ini biasa dilakukan setiap
+          sabtu di area amikom maupun sekitarnya.
         </p>
         <!-- Just replace the Video ID "UYJ5IjBRlW8" with the ID of your video on YouTube (Found within the URL) -->
-        <a href="#" data-videoid="UYJ5IjBRlW8" data-videosite="youtube" class="button video link-lightbox">
+        <a
+          href="#"
+          data-videoid="NXerREJY4aE"
+          data-videosite="youtube"
+          class="button video link-lightbox">
           WATCH VIDEO <i class="fa fa-play" aria-hidden="true"></i>
         </a>
       </div>
@@ -149,173 +213,5 @@
   </div>
   <!--End of Content Section-->
 
-  <!--Testimonials-->
-  <aside id="testimonials" class="scrollto text-center" data-enllax-ratio=".2">
-    <div class="row clearfix">
-      <div class="section-heading">
-        <h3>FEEDBACK</h3>
-        <h2 class="section-title">What our customers are saying</h2>
-      </div>
-
-      <!--User Testimonial-->
-      <blockquote class="col-3 testimonial classic">
-        <img src="/assets/images/user-images/user-1.jpg" alt="User" />
-        <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua</q>
-        <footer>John Doe - Happy Customer</footer>
-      </blockquote>
-      <!-- End of Testimonial-->
-
-      <!--User Testimonial-->
-      <blockquote class="col-3 testimonial classic">
-        <img src="/assets/images/user-images/user-2.jpg" alt="User" />
-        <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua</q>
-        <footer>Roslyn Doe - Happy Customer</footer>
-      </blockquote>
-      <!-- End of Testimonial-->
-
-      <!--User Testimonial-->
-      <blockquote class="col-3 testimonial classic">
-        <img src="/assets/images/user-images/user-3.jpg" alt="User" />
-        <q>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua</q>
-        <footer>Thomas Doe - Happy Customer</footer>
-      </blockquote>
-      <!-- End of Testimonial-->
-    </div>
-  </aside>
-  <!--End of Testimonials-->
-
-  <!--Clients-->
-  <section id="clients" class="scrollto clearfix">
-    <div class="row clearfix">
-      <div class="col-3">
-        <div class="section-heading">
-          <h3>TRUST</h3>
-          <h2 class="section-title">Companies who use our services</h2>
-          <p class="section-subtitle">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-            do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam!
-          </p>
-        </div>
-      </div>
-
-      <div class="col-2-3">
-        <a href="#" class="col-3">
-          <img src="/assets/images/company-images/company-logo1.png" alt="Company" />
-          <div class="client-overlay"><span>Tree</span></div>
-        </a>
-        <a href="#" class="col-3">
-          <img src="/assets/images/company-images/company-logo2.png" alt="Company" />
-          <div class="client-overlay"><span>Fingerprint</span></div>
-        </a>
-        <a href="#" class="col-3">
-          <img src="/assets/images/company-images/company-logo3.png" alt="Company" />
-          <div class="client-overlay"><span>The Man</span></div>
-        </a>
-        <a href="#" class="col-3">
-          <img src="/assets/images/company-images/company-logo4.png" alt="Company" />
-          <div class="client-overlay"><span>Mustache</span></div>
-        </a>
-        <a href="#" class="col-3">
-          <img src="/assets/images/company-images/company-logo5.png" alt="Company" />
-          <div class="client-overlay"><span>Goat</span></div>
-        </a>
-        <a href="#" class="col-3">
-          <img src="/assets/images/company-images/company-logo6.png" alt="Company" />
-          <div class="client-overlay"><span>Justice</span></div>
-        </a>
-        <a href="#" class="col-3">
-          <img src="/assets/images/company-images/company-logo7.png" alt="Company" />
-          <div class="client-overlay"><span>Ball</span></div>
-        </a>
-        <a href="#" class="col-3">
-          <img src="/assets/images/company-images/company-logo8.png" alt="Company" />
-          <div class="client-overlay"><span>Cold</span></div>
-        </a>
-
-        <a href="#" class="col-3">
-          <img src="/assets/images/company-images/company-logo9.png" alt="Company" />
-          <div class="client-overlay"><span>Cold</span></div>
-        </a>
-      </div>
-    </div>
-  </section>
-  <!--End of Clients-->
-
-  <!--Pricing Tables-->
-  <section id="pricing" class="secondary-color text-center scrollto clearfix">
-    <div class="row clearfix">
-      <div class="section-heading">
-        <h3>YOUR CHOICE</h3>
-        <h2 class="section-title">We have the right package for you</h2>
-      </div>
-
-      <!--Pricing Block-->
-      <div class="pricing-block col-3 wow fffInUp" data-wow-delay="0.4s">
-        <div class="pricing-block-content">
-          <h3>Personal</h3>
-          <p class="pricing-sub">The standard version</p>
-          <div class="pricing">
-            <div class="price"><span>$</span>19</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-          </div>
-          <ul>
-            <li>5 Downloads</li>
-            <li>2 Extensions</li>
-            <li>Tutorials</li>
-            <li>Forum Support</li>
-            <li>1 year free updates</li>
-          </ul>
-          <a href="#" class="button">BUY TODAY</a>
-        </div>
-      </div>
-      <!--End Pricing Block-->
-
-      <!--Pricing Block-->
-      <div class="pricing-block featured col-3 wow fffInUp" data-wow-delay="0.6s">
-        <div class="pricing-block-content">
-          <h3>Student</h3>
-          <p class="pricing-sub">Most popular choice</p>
-          <div class="pricing">
-            <div class="price"><span>$</span>29</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-          </div>
-          <ul>
-            <li>15 Downloads</li>
-            <li>5 Extensions</li>
-            <li>Tutorials with Files</li>
-            <li>Forum Support</li>
-            <li>2 years free updates</li>
-          </ul>
-          <a href="#" class="button">BUY TODAY</a>
-        </div>
-      </div>
-      <!--End Pricing Block-->
-
-      <!--Pricing Block-->
-      <div class="pricing-block col-3 wow fffInUp" data-wow-delay="0.8s">
-        <div class="pricing-block-content">
-          <h3>Business</h3>
-          <p class="pricing-sub">For the whole team</p>
-          <div class="pricing">
-            <div class="price"><span>$</span>49</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-          </div>
-          <ul>
-            <li>Unlimited Downloads</li>
-            <li>Unlimited Extensions</li>
-            <li>HD Video Tutorials</li>
-            <li>Chat Support</li>
-            <li>Lifetime free updates</li>
-          </ul>
-          <a href="#" class="button">BUY TODAY</a>
-        </div>
-      </div>
-      <!--End Pricing Block-->
-    </div>
-  </section>
   <!--End of Pricing Tables-->
 </main>

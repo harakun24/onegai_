@@ -15,7 +15,37 @@
     </div>
   </div>
 </div> -->
+<style>
+  .swal2-html-container {
+    padding: 30px;
+  }
+  .dt-container {
+    background: white;
+    padding: 20px;
+  }
+  option,
+  div:where(.swal2-container) .swal2-html-container {
+    color: #000;
+  }
+  /* Custom styles for DataTables pagination controls */
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: #333 !important;
+    background-color: #f8f9fa !important;
+    border: 1px solid #ddd !important;
+  }
 
+  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: #000 !important;
+    background-color: #e9ecef !important;
+    border: 1px solid #ccc !important;
+  }
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    color: #fff !important;
+    background-color: #007bff !important;
+    border: 1px solid #007bff !important;
+  }
+</style>
 <div class="row d-flex justify-content-around align-items-start">
   #! for(const c in it.count){ !!
   <div class="card mb-4" style="flex: 1; margin: 10px">
@@ -38,3 +68,105 @@
   </div>
   #! } !!
 </div>
+<div class="row">
+  <div class="card mb-4" style="flex: 1; margin: 10px">
+    <div class="card-header pb-0">
+      <h5>Hasil Kuesioner</h5>
+    </div>
+    <div class="card-body pt-0 pb-2 table-responsive">
+      <table class="table table-bordered text-center tn">
+        <thead>
+          <tr>
+            <th class="nt">Divisi</th>
+            <th class="nt">Total</th>
+            <th class="nt">Anggota</th>
+          </tr>
+        </thead>
+        <tbody>
+          #!for(const k in it.anggota){ !!
+          <tr>
+            <th>#!=k!!</th>
+            <td>#!=it.anggota[k].length!!</td>
+            <td>
+              <button
+                class="btn btn-warning py-2"
+                onclick="showAnggota(#!=JSON.stringify(it.anggota[k])!!)">
+                lihat anggota <i class="fa fa-external-link-alt"></i>
+              </button>
+            </td>
+          </tr>
+          #! }!!
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  function showAnggota(data) {
+    console.log(data);
+    const y = data;
+
+    let template = `<table class="table tn table-bordered align-items-center p-4" id="utable" style="background:white">
+    <thead class="text-center">
+      <tr>
+        <th class="nt text-sm text-center" style="width: 1%">id</th>
+        <th class="nt text-sm text-center">NIM</th>
+        <th class="nt text-sm text-center">visitor</th>
+        <th class="nt text-sm text-center" style="width: 1%">Hasil</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">`;
+    let i = 1;
+    for (const d of y) {
+      template += `
+         <tr>
+        <td >
+          <p class="text-sm px-4 font-weight-bold mb-0">
+            VST-${i++}
+          </p>
+        </td>
+        <td >
+          <p class="text-sm mb-0">${d.nim}</p>
+        </td>
+        <td >
+          <p class="text-sm mb-0">${d.nama}</p>
+        </td>
+        <td >
+          ${
+            d.hasil.nama != "Belum Kuesioner"
+              ? "<a href='/panel-admin/visitor/" +
+                d.nim +
+                "/perankingan' class='btn btn-secondary btn-sm mb-3 mx-1'>Hasil</a>"
+              : "Belum kuesioner"
+          }
+
+        </td>
+      </tr>
+        `;
+    }
+    template += `
+    </tbody>
+  </table>`;
+
+    Swal.fire({
+      title: "<strong>Tabel Anggota</strong>",
+      html: template,
+      showCloseButton: true,
+      showConfirmButton: false,
+      showCancelButton: false,
+      focusConfirm: false,
+      width: "80%",
+    });
+    new DataTable("#utable", {
+      pageLength: 10,
+      lengthMenu: [
+        [3, 4, 5, 10, 12],
+        [3, 4, 5, 10, 12],
+      ],
+      columnDefs: [{ searchable: false, target: [0, 3] }],
+      layout: {
+        topStart: "pageLength",
+      },
+    });
+  }
+</script>

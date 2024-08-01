@@ -1,4 +1,6 @@
-  <script>
+<!-- @format -->
+
+<script>
     #! if(it.deluser>0){
 
     !!
@@ -140,15 +142,15 @@
 
     }
     let status = false;
-    document.getElementById("menuu").onclick = function() {
-      const sidenav = document.getElementById("sidenav-main");
-      if (status) {
-        sidenav.style.cssText = "";
-      } else {
-        sidenav.style.cssText = "left:-200%";
-      }
-      status = !status;
-    };
+    // document.getElementById("menuu").onclick = function() {
+    //   const sidenav = document.getElementById("sidenav-main");
+    //   if (status) {
+    //     sidenav.style.cssText = "";
+    //   } else {
+    //     sidenav.style.cssText = "left:-200%";
+    //   }
+    //   status = !status;
+    // };
 
     function hapus(id) {
       Swal.fire({
@@ -166,4 +168,4 @@
         }
       });
     }
-  </script>
+</script>

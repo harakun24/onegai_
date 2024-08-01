@@ -1,0 +1,32 @@
+<!-- @format -->
+
+#! layout("./layout/visitor.eta",{ ...it, script:"kuis-script" }) !!
+
+<div class="card mb-4">
+  <div class="card-header pb-0">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <h6>#!=it.user.nama!! / #!=it.user.uname!!</h6>
+      </div>
+      <div>
+        <a href="/anggota" class="btn btn-dark btn-sm mb-3">Kembali</a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="card-body pt-0 pb-2 d-flex flex-wrap justify-content-around"
+    style="padding-left: 10px; padding-right: 10px">
+    <form
+      action="/anggota/jawab"
+      class="d-flex flex-wrap justify-content-around"
+      method="post">
+      #!~ include("./component/visitor-page.eta",{...it}) !!
+      <div class="col-6 d-flex justify-content-center">
+        <input
+          type="submit"
+          value="SUBMIT"
+          class="btn btn-dark col-5 mt-3 rounded-2 p-0 py-4 btn-sm" />
+      </div>
+    </form>
+  </div>
+</div>

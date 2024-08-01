@@ -3,6 +3,8 @@ console.log("\n---------------------------\n")
 import base from "./baseService.js";
 import crypto from "crypto-js";
 import { env, logger } from "../.config.js";
+import { validationResult } from "express-validator"
+
 
 let view, db = null
 
@@ -18,8 +20,10 @@ class service extends base {
     login_panel(req, res) {
         if (req.session.user)
             return res.redirect("/panel-admin")
+        else if (req.session.visitor)
+            return res.redirect("/anggota")
 
-        res.send(view.render("login", { status: req.flash("status"), title: "Log in" }))
+        res.send(view.render("login", { status: req.flash("status"), msg: req.flash("msg"), create: req.flash("create"), title: "Log in" }))
     }
     async login_auth(req, res) {
 
@@ -27,8 +31,11 @@ class service extends base {
             return res.redirect("/panel_login")
 
         const user = { ...req.body };
+        let tipe = "admin";
+        if (user.uname.match(/\d{2}.\d{2}.\d{4}$/))
+            tipe = "anggota"
 
-        const found = await db.user.findFirst({ where: { uname: user.uname } });
+        const found = tipe == "admin" ? await db.user.findFirst({ where: { uname: user.uname } }) : await db.visitor.findFirst({ where: { nim: user.uname } });
 
         let status = true;
         let pwd;
@@ -43,16 +50,58 @@ class service extends base {
 
         req.flash("status", status ? "success" : "error")
 
-        if (!status)
-            return res.redirect("/panel_login")
+        if (!status) {
 
+            return res.redirect("/panel_login")
+        }
         user.token = crypto.Rabbit.encrypt(JSON.stringify(found) + "", env.SECRET_KEY).toString()
-        user.id = found.id;
-        req.session.user = user;
+        delete user.password
+        if (tipe == "admin") {
+            user.id = found.id;
+            req.session.user = user;
+        } else {
+            user.id = found.v_id;
+            user.nama = found.nama;
+            req.session.visitor = user;
+        }
 
         logger(".in", user.token)
+        req.flash("masuk", "true");
+        return res.redirect(tipe == "admin" ? '/panel-admin/' : "/anggota/");
+    }
+    async daftar(req, res) {
+        let status = true
+        const user = req.body;
 
-        res.redirect('/panel-admin/');
+        if ((!user))
+            status = false
+
+        if (!validationResult(req).isEmpty()) {
+            console.log({ msg: validationResult(req).array() })
+            req.flash("create", "error")
+            req.flash("msg", "format nim salah")
+            return res.redirect("/panel_login")
+        }
+        if (user.password.length < 6) {
+            req.flash("create", "error")
+            req.flash("msg", "format password salah, minimal 6 karakter")
+            return res.redirect("/panel_login")
+        }
+        user.password = crypto.Rabbit.encrypt(user.password, env.SECRET_KEY).toString()
+        console.log("membuat visitor")
+        db.visitor
+            .create({ data: user })
+            .then(() => status = true)
+            .catch(error => {
+                console.log("Error creating Visitor " + error)
+                status = false;
+                console.log("ini error")
+                req.flash("msg", `${error.message.replace(/\n/g, "")}`);
+            })
+            .finally(() => {
+                req.flash("create", status ? "success" : "error");
+                res.redirect("/panel_login")
+            })
     }
 }
 

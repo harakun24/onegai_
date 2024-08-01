@@ -1,43 +1,50 @@
 
-import { validationResult } from "express-validator"
 import base from "./baseService.js";
-import matriksService from "./matriksService.js";
 import crypto from "crypto-js";
+import { validationResult } from "express-validator"
 import { env } from "../.config.js";
+import matriksService from "./matriksService.js";
 
 let view, db = null
-
 class service extends base {
     constructor() {
-        super("visitor")
+        super("anggota")
         view = this.view
         db = this.db
     }
-
-    main(req, res) {
-        db.visitor
-            .findMany()
-            .then(data =>
-                res.send(
-                    view.render("visitor", {
-                        title: "Visitor",
-                        create: req.flash("create"),
-                        user: req.session.user,
-                        update: req.flash("update"),
-                        deluser: req.flash("hapus"),
-                        list_user: data,
-                        side: "visitor",
-                    })
-                )
-            )
+    async main(req, res) {
+        res.send(view.render("anggota", {
+            title: "Dashboard " + req.session.visitor.nama + " / " + req.session.visitor.uname,
+            create: req.flash("masuk") == "true" ? "success" : "",
+            hasil: await db.visitor.findFirst({ where: { nim: req.session.visitor.uname }, select: { hasil: true } }),
+            user: req.session.visitor,
+            kriteria: await db.kriteria.findMany()
+        }))
     }
 
-    jawab(req, res) {
+    kuis(req, res) {
         db.visitor
-            .findFirst({ where: { nim: req.params.id } })
+            .findFirst({ where: { nim: req.session.visitor.v_id } })
             .then(async data => {
                 if (!data)
-                    return res.redirect("/panel-admin/visitor")
+                    return res.redirect("/anggota")
+
+                res.send(view.render("kuis-anggota", {
+                    title: "Kuisioner Halaman 1",
+                    user: req.session.visitor,
+                    key: req.session.visitor.v_id,
+                    tanya: await db.tanya.findMany({
+                        include: { jawab_tanya: true }
+                    }),
+                }))
+            })
+    }
+    jawab(req, res) {
+        db.visitor
+            .findFirst({ where: { nim: req.session.visitor.uname } })
+            .then(async data => {
+                if (!data)
+                    return res.redirect("/anggota")
 
                 const divisi = await db.divisi.findMany()
                 const sub = await db.sub_kriteria.findMany({
@@ -47,17 +54,7 @@ class service extends base {
                 const val = Object.entries(req.body).map(m => {
                     return m[1].split(";");
                 });
-                // const total = divisi.map(d => {
-                //     d.sub = sub.map(s => {
-                //         s.score = 0;
-                //         for (const v of val)
-                //             if (v[0] == s.sk_id && d.div_id == v[1]) {
-                //                 s.score += v[2] - 0
-                //             }
-                //         return s;
-                //     })
-                //     return d
-                // })
+
                 const total = [];
                 for (const d of divisi) {
                     const dsub = [];
@@ -101,94 +98,41 @@ class service extends base {
 
                     }
                 }
-                // const join = {
-                //     where: { msub_k1: { kriteria: { tipe: "NILAI" } } },
-                //     include: {
-                //         msub_k1: true,
-                //         msub_k2: true,
-                //     }
-                // }
-                // const mpair = await db.mSub.findMany(join);
-
-                // const table = matriksService.sintesis(mpair, ["k1", "k2", "sk_id"], sub)
-                // const sum = matriksService.total(table, sub, ["k1", "sk_id"]);
-                // const eigen = matriksService.eigen(table, sum, "k1")
-
-                // const penilaian = await db.penilaian.findMany({
-                //     where: {
-                //         visitor: data.v_id
-                //     }
-                // })
-
-                // const sub_pv = eigen.map(m => m[sub.length + 1]);
-
-                // let div_pv = []
-
-                // for (const m of sub) {
-                //     const dmpair = await db.mDiv.findMany({
-                //         where: {
-                //             mdiv_sub: { sk_id: m.sk_id - 0 }
-                //         },
-                //         include: {
-                //             mdiv_k1: true,
-                //             mdiv_k2: true,
-                //             mdiv_sub: true,
-                //         }
-                //     });
-
-                //     const dtable = matriksService.sintesis(dmpair, ["k1", "k2", "div_id"], divisi)
-                //     const dtotal = matriksService.total(dtable, divisi, ["k1", "div_id"]);
-                //     const deigen = matriksService.eigen(dtable, dtotal, "k1")
-
-                //     div_pv.push(deigen.map(n => n[divisi.length + 1]))
-                // }
-
-                // const result = []
-
-                // let di = 0;
-                // let si = 0;
-                // for (const d of divisi) {
-                //     const temp = [];
-                //     for (const s of sub) {
-                //         const penilaian = await db.penilaian.findFirst({
-                //             where: {
-                //                 visitor: data.v_id,
-                //                 sub: s.sk_id - 0,
-                //                 divisi: d.div_id - 0
-                //             }
-                //         })
-                //         temp.push({
-                //             sub: s.nama,
-                //             sub_pv: sub_pv[si],
-                //             div_pv: div_pv[si][di],
-                //             val: penilaian.val
-
-                //         })
-                //         si++
-                //     }
-                //     si = 0;
-                //     result.push({
-                //         divisi: d.nama, total: temp.map(t => {
-                //             t.bobot = t.sub_pv * t.div_pv * t.val
-                //             return t.bobot
-                //         }), bobot: temp.map(t => {
-                //             t.bobot = t.sub_pv * t.div_pv * t.val
-                //             return t.bobot
-                //         }).reduce((a, b) => a + b), temp
-                //     })
-                //     di++
-                // }
-                // res.send(result)
-                res.redirect("/panel-admin/visitor/" + data.nim + "/peminatan")
+                res.redirect("/anggota/kuesioner/page/2")
             })
     }
-
-    hitung_minat(req, res) {
+    minat(req, res) {
         db.visitor
-            .findFirst({ where: { nim: req.params.id } })
+            .findFirst({ where: { nim: req.session.visitor.uname } })
             .then(async data => {
                 if (!data)
-                    return res.redirect("/panel-admin/visitor")
+                    return res.redirect("/anggota")
+                const nilai = await db.penilaian.findFirst({ where: { visitor: data.v_id } })
+                if (!nilai)
+                    return res.redirect("/anggota/kuesioner/page/1");
+
+                const kriteria = await db.kriteria.findMany({
+                    where: { tipe: "MINAT" },
+                    include: { sub: true }
+                })
+
+                const divisi = await db.divisi.findMany();
+
+                res.send(view.render("minat-anggota", {
+                    title: "Kuesioner Halaman 2",
+                    user: req.session.visitor,
+                    key: req.session.visitor.id,
+                    divisi, kriteria,
+                }))
+
+            })
+    }
+    hitung_minat(req, res) {
+        db.visitor
+            .findFirst({ where: { nim: req.session.visitor.uname } })
+            .then(async data => {
+                if (!data)
+                    return res.redirect("/anggota")
 
                 const divisi = await db.divisi.findMany()
                 let kriteria = await db.kriteria.findMany({ where: { tipe: "MINAT" }, include: { sub: true } })
@@ -232,27 +176,25 @@ class service extends base {
                 }))
 
 
-                console.log(kriteria)
-                res.redirect("/panel-admin/visitor/" + data.nim + "/pembobotan")
+                res.redirect("/anggota/pembobotan")
             })
     }
-
     bobot(req, res) {
         db.visitor
-            .findFirst({ where: { nim: req.params.id } })
+            .findFirst({ where: { nim: req.session.visitor.uname } })
             .then(async data => {
                 if (!data)
-                    return res.redirect("/panel-admin/visitor")
+                    return res.redirect("/anggota")
 
                 const penilaian = await db.penilaian.findMany({ where: { visitor: data.v_id } })
 
                 if (penilaian.length < 1)
-                    return res.redirect(`/panel-admin/visitor/${data.nim}/kuisioner`)
+                    return res.redirect(`/anggota/kuesioner/page/1`)
 
                 const peminatan = await db.peminatan.findMany({ where: { visitor: data.v_id } })
 
                 if (peminatan.length < 1)
-                    return res.redirect(`/panel-admin/visitor/${data.nim}/pembobotan`)
+                    return res.redirect(`/anggota/kuesioner/page/2`)
 
                 const divisi = await db.divisi.findMany();
 
@@ -276,7 +218,6 @@ class service extends base {
                     return d
                 })
 
-                console.log(JSON.stringify(result))
 
                 result = result.map(d => {
                     let i = 0;
@@ -351,7 +292,6 @@ class service extends base {
                         }
                     }
                 }
-                console.log(JSON.stringify({ result }))
 
                 result = result.map(m => m.kriteria.map(k => k.spv * k.pv))
 
@@ -373,149 +313,11 @@ class service extends base {
                         where: { v_id: data.v_id }
                     })
                     .then(() => {
-                        res.redirect("/panel-admin/visitor/" + data.nim + "/perankingan")
+                        res.redirect("/anggota")
                     })
 
             })
     }
-
-    ranking(req, res) {
-        db.visitor
-            .findFirst({ where: { nim: req.params.id } })
-            .then(async data => {
-                if (!data || !data.hasil)
-                    return res.redirect("/panel-admin/visitor/" + data.nim + "/kuisioner")
-                const kriteria = await db.kriteria.findMany()
-                const pv = await generate_pv(db.mKriteria, "k_id", kriteria);
-
-
-                res.send(view.render("ranking", {
-                    title: `${data.nim} - ${data.nama}`,
-                    hasil: JSON.parse(data.hasil),
-                    kriteria,
-                    pv: pv.map(m => (m * 100) + "%")
-                }))
-            })
-    }
-
-    kuis(req, res) {
-        db.visitor
-            .findFirst({ where: { nim: req.params.id } })
-            .then(async data => {
-                if (!data)
-                    return res.redirect("/panel-admin/visitor")
-
-                res.send(view.render("kuis", {
-                    title: "Kuisioner Visitor",
-                    user: req.session.user,
-                    key: req.params.id,
-                    tanya: await db.tanya.findMany({
-                        include: { jawab_tanya: true }
-                    }),
-                    side: "visitor",
-                }))
-            })
-    }
-
-    minat(req, res) {
-        db.visitor
-            .findFirst({ where: { nim: req.params.id } })
-            .then(async data => {
-                if (!data)
-                    return res.redirect("/panel-admin/visitor")
-
-                const kriteria = await db.kriteria.findMany({
-                    where: { tipe: "MINAT" },
-                    include: { sub: true }
-                })
-
-                const divisi = await db.divisi.findMany();
-
-                res.send(view.render("minat", {
-                    title: "Peminatan Visitor",
-                    user: req.session.user,
-                    key: req.params.id,
-                    divisi, kriteria,
-                    side: "visitor",
-                }))
-
-            })
-    }
-
-    hapus_visitor(req, res) {
-        db.visitor
-            .findFirst({ where: { v_id: req.params.id - 0 } })
-            .then(found => {
-                if (!found)
-                    return res.redirect("/panel-admin/visitor")
-            })
-            .then(() => {
-                db.visitor
-                    .delete({ where: { v_id: req.params.id - 0 } })
-                    .then(deluser => {
-                        req.flash("hapus", deluser.v_id);
-                        res.redirect("/panel-admin/visitor")
-                    })
-            })
-    }
-
-    tambah_visitor(req, res) {
-        let status = false
-        const user = req.body;
-
-        if ((!user))
-            return res.redirect("/panel-admin/visitor")
-
-        if (!validationResult(req).isEmpty()) {
-            console.log({ msg: validationResult(req).array() })
-            return res.redirect("/panel-admin/visitor")
-        }
-
-        db.visitor
-            .create({ data: user })
-            .then(() => status = true)
-            .catch(error => {
-                console.log("Error creating Visitor " + error)
-                status = false;
-            })
-            .finally(() => {
-                req.flash("create", status ? "success" : "error");
-                res.redirect("/panel-admin/visitor")
-            })
-    }
-
-    show_visitor(req, res) {
-        db.visitor.findFirst({ where: { v_id: req.params.id - 0 } })
-            .then(user =>
-                res.json(user || { res: false })
-            )
-    }
-
-    edit_visitor(req, res) {
-        let status = false
-        const user = req.body;
-
-        if (!user)
-            return res.redirect("/panel-admin/visitor")
-        if (user.password == "")
-            delete user.password;
-        else
-            user.password = crypto.Rabbit.encrypt(user.password, env.SECRET_KEY).toString()
-
-        db.visitor
-            .update({ where: { v_id: req.params.id - 0 }, data: user })
-            .then(() => status = true)
-            .catch(error => {
-                console.log("Error updating visitor " + error)
-                status = false;
-            })
-            .finally(() => {
-                req.flash("update", status ? "success" : "error");
-                res.redirect("/panel-admin/visitor")
-            })
-    }
-    //kebutuhan login pengguna
-
 }
 async function generate_pv(data, key, sample, join = {}) {
     const matriks = matriksService.sintesis((await data.findMany(join)), ["k1", "k2", key], sample).map(m => ({ k1: m.k1, k2: m.k2, val: m.val }))
@@ -525,5 +327,4 @@ async function generate_pv(data, key, sample, join = {}) {
     const eigen = matriksService.eigen(matriks, total, "k1").map(m => m[sample.length + 1])
     return eigen;
 }
-
 export default new service();

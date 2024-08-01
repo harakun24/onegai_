@@ -7,3 +7,4 @@ export * as admin from "./adminRoute.js";
 // export * as tanya from "./tanyaRoute.js";
 // export * as mDiv from "./mDivRoute.js";
 // export * as jawab from "./jawabRoute.js";
+export * as anggota from "./anggotaRoute.js";

@@ -10,8 +10,9 @@ export default class {
         console.log(`    -- Service `.green + `${name}`.cyan)
     }
     keluar(req, res) {
+        console.log("logout")
         try {
-            const { token } = req.session.user
+            const { token } = req.session.user ? req.session.user : req.session.visitor ? req.session.visitor : false;
 
             logger(".out", token)
 

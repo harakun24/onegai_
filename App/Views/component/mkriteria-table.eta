@@ -1,183 +1,182 @@
- #!
- if(it.status=="true"){
+<!-- @format -->
 
-  !!
-  <div class="alert position-absolute alert-success text-white d-flex justify-content-between col-4" role="alert" id="alert" style="margin-top: -9vh;">
-    Sukses mengupdate data
-    <i class="fa fa-check fa-lg"></i>
+#! if(it.status=="true"){ !!
+<div
+  class="alert position-absolute alert-success text-white d-flex justify-content-between col-4"
+  role="alert"
+  id="alert"
+  style="margin-top: -9vh">
+  Sukses mengupdate data
+  <i class="fa fa-check fa-lg"></i>
 </div>
-  #!
- }
- else if(it.status=="false"){
-  !!
-<div class="alert position-absolute alert-danger text-white d-flex justify-content-between col-4" role="alert" id="alert">
-    gagal mengupdate data
-    <i class="fa fa-close fa-lg"></i>
+#! } else if(it.status=="false"){ !!
+<div
+  class="alert position-absolute alert-danger text-white d-flex justify-content-between col-4"
+  role="alert"
+  id="alert">
+  gagal mengupdate data
+  <i class="fa fa-close fa-lg"></i>
 </div>
-  #!
- }
- !!
- <div class="accordion accordion-flush" id="norm">
-          <div class="accordion-item">
-
-            <h2 class="accordion-header">
-              <button class="accordion-button bg-dark text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a-norm" aria-expanded="false" aria-controls="flush-collapseOne">
-                <span class="col-12 d-flex justify-content-between">
-                  <span>
-                    Matriks berpasangan
-                  </span>
-                  <i class="fa fa-expand"></i>
-                </span>
-              </button>
-
-            </h2>
-            <div id="a-norm" class="accordion-collapse collapse show" data-bs-parent="norm">
-              <div class="accordion-body">
-                <div class="table-responsive">
-
-                  <table class="table tn table-bordered text-center text-black table">
-                    <thead>
-                      <th>Kriteria</th>
-                      #! for(const k of it.kriteria){
-
-                      !!
-                      <th class="nt">#!=k.nama !!</th>
-                      #!
-                      } !!
-                    </thead>
-                    <tbody>
-                      #! for(const k of it.kriteria){
-
-                      !!
-                      <tr>
-                        <th class="nt">#!=k.nama !!</th>
-                        #! for(const t of it.table){
-                        if(k.k_id==t.k1){
-                        !!
-                        <td>#!=t.val.toFixed(2)*1!!</td>
-                        #!}
-                        } !!
-                      </tr>
-                      #!
-                      } !!
-                      <tr class="nts">
-                        <th>Total</th>
-                        #!
-                        for(const t of it.total){
-
-                        !!
-                        <td>
-                          <b>
-                            #!=t.toFixed(2)*1!!
-                          </b>
-                        </td>
-                        #!
-                        }
-                        !!
-                      </tr>
-                      <tr></tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item my-3">
-
-            <h2 class="accordion-header">
-              <button class="accordion-button bg-secondary text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a-norm2" aria-expanded="false" aria-controls="flush-collapseOne2">
-                <span class="col-12 d-flex justify-content-between">
-                  <span>
-                    Matriks Normalisasi
-                  </span>
-                  <i class="fa fa-expand"></i>
-                </span>
-              </button>
-
-            </h2>
-            <div id="a-norm2" class="accordion-collapse collapse" data-bs-parent="norm">
-              <div class="accordion-body">
-                <div class="table-responsive mt-2">
-                  <table class="table tn table-bordered text-center" style="box-shadow:0px 0px 5px rgba(0, 0, 0, 0.356)">
-                    <thead>
-                      <tr>
-                        <th>Eigen</th>
-                        #! for(const k of it.kriteria){
-
-                        !!
-                        <th class="nt">#!=k.nama!!</th>
-                        #!
-                        } !!
-                        <th class="bg-primary text-white">Total</th>
-                        <th class="bg-gradient-dark text-white">PV</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      #!let i=0; for(const k of it.kriteria){
-                      !!
-                      <tr>
-                        <th class="nt">#!=k.nama !!</th>
-                        #! for(let j=0;j
-
-                        < it.eigen[i].length;j++){ const e=it.eigen[i][j]; !! <td class="text-#!=j==it.kriteria.length?'primary':j==it.kriteria.length+1?'black':'black'!!" style="background:#!=j==it.kriteria.length?'#fdb0af':j==it.kriteria.length+1?'':'#ffffff'!! !important;">#!=e.toFixed(2)*1!!</td>
-                          #!
-                          } !!
-                      </tr>
-                      #!
-                      i++;
-                      } !!
-                      <tr>
-                        <th class="bg-primary text-white">Total</th>
-                        <td colspan="#!=it.eigen[i-1].length-1!!"></td>
-                        <td>#!=it.eigen.map(m=>m[it.eigen[i-1].length-1]).reduce((a,b)=>a+b).toFixed(2)*1 !!</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item mb-3">
-
-            <h2 class="accordion-header">
-              <button class="accordion-button bg-#!=it.konsis.cr<=0.1?'success':'danger'!! text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#a-norm3" aria-expanded="false" aria-controls="flush-collapseOne">
-                <span class="col-12 d-flex justify-content-between">
-                  <span>
-                    Uji Konsistensi
-                  </span>
-                  <i class="fa fa-expand"></i>
-                </span>
-              </button>
-
-            </h2>
-            <div id="a-norm3" class="accordion-collapse collapse" data-bs-parent="norm">
-              <div class="accordion-body">
-                <table>
-                  <tr>
-                    <td><b>λmax</b></td>
-                    <td>=</td>
-                    <td>#!= it.konsis.lmax.toFixed(3) !!</td>
-                  </tr>
-                  <tr>
-                    <td><b>CI</b></td>
-                    <td>=</td>
-                    <td>#!= it.konsis.ci.toFixed(3) !!</td>
-                  </tr>
-                  <tr>
-                    <td><b>RI</b></td>
-                    <td>=</td>
-                    <td>#!= it.konsis.ri.toFixed(3) !!</td>
-                  </tr>
-                  <tr>
-                    <td><b>CR</b></td>
-                    <td>=</td>
-                    <th>#!= it.konsis.cr.toFixed(3)*1 !!</th>
-                  </tr>
-                </table>
-                <p class="opacity-7 bg-#!=it.konsis.cr<=0.1?'success':'danger'!! text-white p-3"><i class="fa fa-#!=it.konsis.cr<=0.1?'check':'close'!!"></i> #!=it.konsis.cr<=0.1?"M":"Tidak m" !!emenuhi standar rasio </p>
-              </div>
-            </div>
-          </div>
-
+#! } !!
+<div class="accordion accordion-flush" id="norm">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button bg-dark text-white collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#a-norm"
+        aria-expanded="false"
+        aria-controls="flush-collapseOne">
+        <span class="col-12 d-flex justify-content-between">
+          <span> Matriks berpasangan </span>
+          <i class="fa fa-expand"></i>
+        </span>
+      </button>
+    </h2>
+    <div
+      id="a-norm"
+      class="accordion-collapse collapse show"
+      data-bs-parent="norm">
+      <div class="accordion-body">
+        <div class="table-responsive">
+          <table class="table tn table-bordered text-center text-black table">
+            <thead>
+              <th>Kriteria</th>
+              #! for(const k of it.kriteria){ !!
+              <th class="nt">#!=k.nama !!</th>
+              #! } !!
+            </thead>
+            <tbody>
+              #! for(const k of it.kriteria){ !!
+              <tr>
+                <th class="nt">#!=k.nama !!</th>
+                #! for(const t of it.table){ if(k.k_id==t.k1){ !!
+                <td>#!=t.val.toFixed(2)*1!!</td>
+                #!} } !!
+              </tr>
+              #! } !!
+              <tr class="nts">
+                <th>Total</th>
+                #! for(const t of it.total){ !!
+                <td>
+                  <b> #!=t.toFixed(2)*1!! </b>
+                </td>
+                #! } !!
+              </tr>
+              <tr></tr>
+            </tbody>
+          </table>
         </div>
-        #!~ include("./mkriteria-script.eta",{...it}) !!
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item my-3">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button bg-secondary text-white collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#a-norm2"
+        aria-expanded="false"
+        aria-controls="flush-collapseOne2">
+        <span class="col-12 d-flex justify-content-between">
+          <span> Matriks Normalisasi </span>
+          <i class="fa fa-expand"></i>
+        </span>
+      </button>
+    </h2>
+    <div id="a-norm2" class="accordion-collapse collapse" data-bs-parent="norm">
+      <div class="accordion-body">
+        <div class="table-responsive mt-2">
+          <table
+            class="table tn table-bordered text-center"
+            style="box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.356)">
+            <thead>
+              <tr>
+                <th>Eigen</th>
+                #! for(const k of it.kriteria){ !!
+                <th class="nt">#!=k.nama!!</th>
+                #! } !!
+                <th class="bg-primary text-white">Total</th>
+                <th class="bg-gradient-dark text-white">PV</th>
+              </tr>
+            </thead>
+            <tbody>
+              #!let i=0; for(const k of it.kriteria){ !!
+              <tr>
+                <th class="nt">#!=k.nama !!</th>
+                #! for(let j=0;j < it.eigen[i].length;j++){ const
+                e=it.eigen[i][j]; !!
+                <td
+                  class="text-#!=j==it.kriteria.length?'primary':j==it.kriteria.length+1?'black':'black'!!"
+                  style="background:#!=j==it.kriteria.length?'#fdb0af':j==it.kriteria.length+1?'':'#ffffff'!! !important;">
+                  #!=e.toFixed(2)*1!!
+                </td>
+                #! } !!
+              </tr>
+              #! i++; } !!
+              <tr>
+                <th class="bg-primary text-white">Total</th>
+                <td colspan="#!=it.eigen[i-1].length-1!!"></td>
+                <td>
+                  #!=it.eigen.map(m=>m[it.eigen[i-1].length-1]).reduce((a,b)=>a+b).toFixed(2)*1
+                  !!
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item mb-3">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button bg-#!=it.konsis.cr<=0.1?'success':'danger'!! text-white collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#a-norm3"
+        aria-expanded="false"
+        aria-controls="flush-collapseOne">
+        <span class="col-12 d-flex justify-content-between">
+          <span> Uji Konsistensi </span>
+          <i class="fa fa-expand"></i>
+        </span>
+      </button>
+    </h2>
+    <div id="a-norm3" class="accordion-collapse collapse" data-bs-parent="norm">
+      <div class="accordion-body">
+        <table>
+          <tr>
+            <td><b>λmax</b></td>
+            <td>=</td>
+            <td>#!= it.konsis.lmax.toFixed(2) !!</td>
+          </tr>
+          <tr>
+            <td><b>CI</b></td>
+            <td>=</td>
+            <td>#!= it.konsis.ci.toFixed(2) !!</td>
+          </tr>
+          <tr>
+            <td><b>RI</b></td>
+            <td>=</td>
+            <td>#!= it.konsis.ri.toFixed(2) !!</td>
+          </tr>
+          <tr>
+            <td><b>CR</b></td>
+            <td>=</td>
+            <td>#!= it.konsis.cr.toFixed(2)*1 !!</td>
+          </tr>
+        </table>
+        <p class="bg-#!=it.konsis.cr<=0.1?'success':'danger'!! text-white p-3">
+          <i class="fa fa-#!=it.konsis.cr<=0.1?'check':'close'!!"></i>&nbsp; #!
+          if(it.konsis.cr < 0.1) { !! Data telah sesuai dan dapat digunakan
+          dalam perhitungan. #! }else{ !! Silahkan isi kembali perbandingan
+          kriteria data belum dapat digunakan #! }!!
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+#!~ include("./mkriteria-script.eta",{...it}) !!

@@ -1,6 +1,6 @@
 <!-- @format -->
 
-#! layout("./layout/visitor.eta",{ ...it, script:"ranking-script" }) !!
+#! layout("./layout/visitor.eta",{ ...it, script:"anggota-script" }) !!
 <style>
   tbody tr:first-of-type {
     background-color: rgba(227, 253, 59, 0.671) !important;
@@ -26,21 +26,22 @@
   <div class="card-body d-flex justify-content-center flex-wrap">
     <div class="table-responsive col-12 show" id="tbl">
       <table
-        class="col-12 table table-bordered tnn text-center text-xs"
-        id="tabel-anggota"
-        style="color: rgba(77, 61, 26, 0.616) !important">
+        class="col-12 tnn table table-bordered text-center text-xs"
+        style="color: rgba(77, 61, 26, 0.616) !important"
+        id="tabel-anggota">
         <thead>
           <tr class="ntt text-xs">
             <th>Rank</th>
             <th style="text-align: right">Divisi</th>
             #!let i2=0; for(const k of it.kriteria){ !!
             <th>#!=k.nama!!</th>
-            #! }!!
+            #! } let status=true!!
             <th>Total</th>
           </tr>
         </thead>
         <tbody>
-          #!let i=1; for(const h of it.hasil){ !!
+          #!let i=1; try { it.hasil=JSON.parse(it.hasil.hasil); for(const h of
+          it.hasil){ !!
           <tr class="t-#!=i!! #!=i==1?'firsttop':''!!" style="cursor: pointer">
             <td><b>#!=i++!!.</b></td>
             <td style="text-align: left">#!=h.nama!!</td>
@@ -48,17 +49,46 @@
             <td>#!=Math.floor(kk*100)/100!!</td>
             #! }!!
             <td>
-              <b>#!=Math.floor(h.total*100)/100!!</b> &nbsp;<i
-                class="ml-3 fa #!=i==2?'fa-crown':''!! fa-xl"
-                style="color: rgba(252, 197, 45, 0.856)"></i>
+              <b
+                >#!=Math.floor(h.total*100)/100!! &nbsp;<i
+                  class="ml-3 fa #!=i==2?'fa-crown':''!! fa-xl"
+                  style="color: rgba(252, 197, 45, 0.856)"></i
+              ></b>
             </td>
           </tr>
-          #! }!!
+          #! }}catch(e){ !!
+          <style>
+            tr {
+              display: none;
+            }
+          </style>
+          <div class="col-12 d-flex justify-content-center">
+            <div class="mb-3">
+              <div class="card-body text-warning">
+                <h3 class="card-title text-warning" id="running-text"></h3>
+                <p class="card-text">
+                  Silahkan mengisi kuesioner terlebih dahulu.
+                </p>
+              </div>
+            </div>
+          </div>
+          <script>
+            const dot = ["", ".", "..", "...", "..."];
+            let i = 0;
+            setInterval(() => {
+              document.getElementById("running-text").innerText =
+                "Kuesioner Menunggu" + dot[i++];
+              if (i > 3) i = 0;
+            }, 450);
+          </script>
+          #! status=false;console.log(e)}!!
         </tbody>
       </table>
     </div>
     <div class="col-12 d-flex align-items-center justify-content-between">
       <div class="d-flex">
+        #!if(status){!!
+
         <button
           class="btn btn-success btn-xs mt-2 mx-1 p-2 rounded-2 d-flex justify-content-start align-items-center"
           onclick="
@@ -80,13 +110,12 @@ const header2 = document.createElement(`i`);
 const footer = document.createElement(`p`);
 const footer2 = document.createElement(`p`);
 const icon = document.createElement(`img`);
-    let addr = '#!=it.title!!';
 icon.src = `/assets/images/onegai.png`;
-header.innerText = `Hasil Perankingan ${addr.split('- ')[1].toUpperCase()}`;
-header2.innerHTML = `<b>File:</b> tabel_ranking_${addr
-      .split(' -')[0]
-      .split('.')
-      .join('')}_${Date.now()}`;
+header.innerText = `Hasil Perankingan ${'#!=it.user.nama!!'
+  .toUpperCase()}`;
+header2.innerHTML = `<b>File:</b> tabel_ranking_${'#!=it.user.uname!!'
+.split(`.`)
+.join(``)}_${Date.now()}`;
 footer.innerText = `Onegai Shelter  © ${new Date().getFullYear()}`;
 
 header.style.textAlign = `center`;
@@ -142,10 +171,9 @@ content.style.zIndex = `999`;
 //content.style.border = `8px solid #d5d6d7`;
 var opt = {
   margin: 0,
-  filename: `tabel_ranking_${addr
-        .split(' -')[0]
-        .split('.')
-        .join('')}_${Date.now()}.pdf`,
+  filename: `tabel_ranking_${'#!=it.user.uname!!'
+  .split(`.`)
+  .join(``)}_${Date.now()}.pdf`,
   image: {
     type: `svg`,
     quality: 1,
@@ -171,25 +199,22 @@ Swal.fire({
 });
 setTimeout(()=>{
   content2.classList.add(`show`);
-  content.remove()
 })
 })
 ">
           <i class="fas fa-save text-white"></i>
-          <span class="nav-link-text">&nbsp;Simpan</span>
-        </button>
+          <span class="nav-link-text">&nbsp;Simpan</span></button
+        >#! }!!
         <!-- <a
-          href="/panel-admin/visitor/#!=it.title.split(' - ')[0]!!/kuisioner"
+        href="/anggota/kuesioner/page/1"
           class="btn btn-xs rounded-2 mt-2 mx-1 p-2 btn-warning d-flex justify-content-start align-items-center"
           ><i class="fas fa-clipboard-list text-white"></i>
-          <span class="nav-link-text">&nbsp;Kuesioner Ulang</span></a
+          <span class="nav-link-text">&nbsp;Kuesioner</span></a
         > -->
       </div>
       <a
         href="#"
-        onclick="
-        window.history.back();
-        "
+        onclick="logout()"
         class="btn btn-xs rounded-2 mt-2 mx-1 p-2 btn-outline-primary d-flex justify-content-start align-items-center"
         ><i class="fas fa-power-off text-primary"></i>
         <span class="nav-link-text">&nbsp;Keluar</span></a

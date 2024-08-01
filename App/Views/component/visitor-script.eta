@@ -1,4 +1,6 @@
-  <script>
+<!-- @format -->
+
+<script>
     #! if(it.deluser>0){
 
     !!
@@ -74,7 +76,10 @@
           <input type="text" class="form-control" placeholder="NIM" name="nim" aria-label="Name" required pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}"/>
         </div>
         <div class="mb-3">
-        <input type="text" class="form-control" placeholder="visitor" name="nama" aria-label="Name" required />
+        <input type="text" class="form-control" placeholder="Nama" name="nama" aria-label="Name" required />
+      </div>
+        <div class="mb-3">
+        <input type="password" class="form-control" placeholder="Password" name="password" aria-label="Name" required minlength="6" />
       </div>
 
         <div class="text-center mt-3">
@@ -107,6 +112,10 @@
         <div class="mb-3">
           <input type="text" class="form-control" placeholder="visitor" name="nama" aria-label="Name" value="${e.nama}" required />
         </div>
+        <div class="mb-3 d-flex flex-column align-items-end">
+          <input type="password" class="form-control" placeholder="Password" name="password" aria-label="Name" minlength="6" />
+          <label class="text-danger text-xs mt-1">*Kosongkan Jika tidak ingin ubah password</label>
+      </div>
         <div class="text-center mt-3">
           <input type="submit" class="form-control  py-3" class="btn bg-danger w-100 my-4 mb-2 text-white" value="SUBMIT" />
         </div>
@@ -137,4 +146,4 @@
         }
       });
     }
-  </script>
+</script>

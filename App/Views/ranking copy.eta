@@ -1,0 +1,81 @@
+<!-- @format -->
+
+#! layout("./layout/visitor.eta",{ ...it, script:"ranking-script" }) !!
+<style>
+  .t-1 {
+    background-color: rgba(227, 253, 59, 0.671);
+  }
+</style>
+<div class="card mb-4 col-lg-7 col-12">
+  <div class="card-header pb-0">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <h6 class="text-success">#!= it.title!!</h6>
+      </div>
+    </div>
+  </div>
+  <div class="card-body d-flex justify-content-center flex-wrap">
+    <div class="table-responsive col-12" id="tbl">
+      <table
+        class="col-12 table table-bordered tnn text-center text-xs"
+        style="color: rgba(77, 61, 26, 0.616) !important">
+        <thead>
+          <tr class="ntt text-xs">
+            <th>Rank</th>
+            <th>Divisi</th>
+            #!let i2=0; for(const k of it.kriteria){ !!
+            <th>#!=k.nama!!</th>
+            #! }!!
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          #!let i=1; for(const h of it.hasil){ !!
+          <tr class="t-#!=i!!" style="cursor: pointer">
+            <td><b>#!=i++!!.</b></td>
+            <td style="text-align: left">#!=h.nama!!</td>
+            #!for(const kk of h.kriteria){ !!
+            <td>#!=Math.floor(kk*100)/100!!</td>
+            #! }!!
+            <td>
+              <b>#!=Math.floor(h.total*100)/100!!</b> &nbsp;<i
+                class="ml-3 fa #!=i==2?'fa-crown':''!! fa-xl"
+                style="color: rgba(252, 197, 45, 0.856)"></i>
+            </td>
+          </tr>
+          #! }!!
+        </tbody>
+      </table>
+    </div>
+    <div class="col-12 d-flex align-items-center justify-content-between">
+      <div class="d-flex">
+        <button
+          class="btn btn-success btn-xs mt-2 mx-1 p-2 rounded-2 d-flex justify-content-start align-items-center"
+          onclick="generatePDF()">
+          <i class="fas fa-save text-white"></i>
+          <span class="nav-link-text">&nbsp;Simpan</span>
+        </button>
+        <!-- <a
+          href="/panel-admin/visitor/#!=it.title.split(' - ')[0]!!/kuisioner"
+          class="btn btn-xs rounded-2 mt-2 mx-1 p-2 btn-warning d-flex justify-content-start align-items-center"
+          ><i class="fas fa-clipboard-list text-white"></i>
+          <span class="nav-link-text">&nbsp;Kuesioner Ulang</span></a
+        > -->
+      </div>
+      <a
+        href="#"
+        onclick="
+        window.history.back();
+        "
+        class="btn btn-xs rounded-2 mt-2 mx-1 p-2 btn-outline-primary d-flex justify-content-start align-items-center"
+        ><i class="fas fa-power-off text-primary"></i>
+        <span class="nav-link-text">&nbsp;Keluar</span></a
+      >
+      <!-- <button class=" btn btn-secondary btn-xs mt-2 mx-1 p-2 rounded-2 d-flex justify-content-start align-items-center">
+
+        <i class="fas fa-pen-square text-white"></i>
+        <span class="nav-link-text">&nbsp;simpan</span>
+      </button> -->
+    </div>
+  </div>
+</div>

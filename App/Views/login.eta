@@ -18,24 +18,30 @@
             <h3>Onegai Shelter</h3>
           </div>
           <div class="card-body justify-content-center">
-            <form method="post" action="/login-auth">
+            <form method="post" action="/login-auth" autocomplete="off">
               <div class="mb-3">
+                <label>NIM</label>
+
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="UName"
+                  placeholder="Masukkan NIM anda"
                   name="uname"
                   aria-label="Name"
-                  required />
+                  required
+                  autocomplete="off" />
               </div>
               <div class="mb-3">
+                <label>Password</label>
+
                 <input
                   type="password"
                   class="form-control"
                   placeholder="Password"
                   name="password"
                   aria-label="Password"
-                  required />
+                  required
+                  autocomplete="off" />
               </div>
               <!-- <div class="form-check text-start" style="margin-left: 13px">
                 <input
@@ -53,6 +59,11 @@
                   class="form-control py-3"
                   class="btn bg-danger w-100 my-4 mb-2 text-white"
                   value="MASUK" />
+              </div>
+              <div class="mt-3 d-flex justify-content-end">
+                <a href="#" class="text-xs text-center" onclick="adddata()"
+                  >Buat akun baru</a
+                >
               </div>
             </form>
           </div>
@@ -76,4 +87,70 @@
       });
     #!
   }!!
+   function adddata() {
+      Swal.fire({
+        html: `
+  <div class="card z-index-0">
+    <div class="card-header text-center pt-4">
+      <h3>Buat akun</h3>
+    </div>
+    <div class="card-body justify-content-center">
+      <form method="post" action="/daftar">
+        <div class="mb-3 d-flex flex-column justify-content-start align-items-start">
+          <label>NIM</label>
+          <input type="text" class="form-control" placeholder="nim" name="nim" aria-label="Name" required pattern="[0-9]{2}.[0-9]{2}.[0-9]{4}" />
+        </div>
+        <div class="mb-3  d-flex flex-column justify-content-start align-items-start">
+          <label>Nama</label>
+          <input type="text" class="form-control" placeholder="nama" name="nama" aria-label="Name" required />
+        </div>
+        <div class="mb-3  d-flex flex-column justify-content-start align-items-start">
+          <label>Password</label>
+          <input type="password" class="form-control" placeholder="Password" minlength="6" name="password" aria-label="Password" required />
+        </div>
+        <!-- <div class="form-check text-start" style="margin-left: 13px">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  checked />
+                <label class="form-check-label" for="flexCheckDefault">
+                  <b>Ingat saya</b>
+                </label>
+              </div> -->
+        <div class="text-center mt-3">
+          <input type="submit" class="form-control py-3" class="btn bg-danger w-100 my-4 mb-2 text-white" value="SUBMIT" />
+        </div>
+      </form>
+    </div>
+  </div>
+  `,
+        showCloseButton: false,
+        showConfirmButton: false
+      });
+    }
+    #!
+      if (it.create == "success") {
+        !!
+
+        Swal.fire({
+          icon: "success",
+          title: "Berhasil membuat akun",
+          text: "silahkan login",
+          showConfirmButton: false,
+          timer: 2800
+        });
+        #!
+      }
+    else if (it.create == "error") {
+      !!
+      Swal.fire({
+        icon: "error",
+        title: "Pendaftaran gagal",
+        text: "#!=it.msg!!",
+        showConfirmButton: false,
+        timer: 3800
+      });
+      #!
+    }!!
 </script>

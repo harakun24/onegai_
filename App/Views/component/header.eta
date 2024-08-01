@@ -17,7 +17,8 @@
           <img
             src="/assets/images/logo-2.png"
             id="navigation-logo"
-            alt="Landing Page" />
+            alt="Landing Page"
+            style="transform: scale(1.5)" />
           <!--End of Navigation Logo-->
         </div>
         <!--End of Logo-->

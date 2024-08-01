@@ -81,15 +81,15 @@ model mSub {
 }
 
 model Peminatan{
-  p_id                Int           @id @default(autoincrement())
-  visitor             Int
-  kriteria            Int
-  divisi              Int
-  sub                 Int
-  peminatan_visitor   Visitor      @relation(name: "peminatan_visitor", fields: [visitor], references: [v_id], onDelete: Cascade)
-  pemminatan_kriteria Kriteria     @relation(name: "peminatan_kriteria", fields: [kriteria], references: [k_id], onDelete: Cascade)
-  peminatan_divisi    Divisi       @relation(name: "peminatan_divisi", fields: [divisi], references: [div_id], onDelete: Cascade)
-  peminatan_sub       Sub_kriteria @relation(name: "peminatan_sub", fields: [sub], references: [sk_id], onDelete: Cascade)
+  p_id               Int           @id @default(autoincrement())
+  visitor            Int
+  kriteria           Int
+  divisi             Int
+  sub                Int
+  peminatan_visitor  Visitor      @relation(name: "peminatan_visitor", fields: [visitor], references: [v_id], onDelete: Cascade)
+  peminatan_kriteria Kriteria     @relation(name: "peminatan_kriteria", fields: [kriteria], references: [k_id], onDelete: Cascade)
+  peminatan_divisi   Divisi       @relation(name: "peminatan_divisi", fields: [divisi], references: [div_id], onDelete: Cascade)
+  peminatan_sub      Sub_kriteria @relation(name: "peminatan_sub", fields: [sub], references: [sk_id], onDelete: Cascade)
 }
 
 model Penilaian{
@@ -133,6 +133,7 @@ model Visitor {
   v_id              Int          @id @default(autoincrement())
   nim               String       @unique
   nama              String
+  password          String
   hasil             String?
   peminatan_visitor Peminatan[] @relation("peminatan_visitor")
   penilaian_visitor Penilaian[] @relation("penilaian_visitor")

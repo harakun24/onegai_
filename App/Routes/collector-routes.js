@@ -1,5 +1,6 @@
 import express from "express";
 import * as bundle from "./bundle.routes.js";
+import { view } from "../.config.js"
 import "colors"
 
 console.log("\n---------------------------")
@@ -12,12 +13,19 @@ const mapRouting = listRouter.map(route => {
 function routeMapping(route) {
     console.log("\n")
     const result = [route.path, express.Router()];
-    if (route.path != "/")
+    if (route.path != "/" && route.path != "/anggota")
         result[1].use((req, res, next) => {
             if (req.session.user == null)
                 return res.redirect("/panel_login")
             return next();
         })
+    else if (route.path == "/anggota")
+        result[1].use((req, res, next) => {
+            if (req.session.visitor == null)
+                return res.redirect("/panel_login")
+            return next();
+        })
+
     for (const m in route.method) {
         if (m == "sub") {
             for (const sub of route.method.sub) {
@@ -49,4 +57,7 @@ for (const sub of subrouteList) {
     const route = routeMapping(sub.route)
     mainRouter.use(route[0], route[1])
 }
+mainRouter.use((req, res) => {
+    res.send(view.render('/404.eta'))
+})
 export default mainRouter;

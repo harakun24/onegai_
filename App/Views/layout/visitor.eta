@@ -1,3 +1,5 @@
+<!-- @format -->
+
 <!--
 =========================================================
 * Argon Dashboard 2 - v2.0.4
@@ -14,15 +16,17 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="/assets/admin/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="/assets/images/onegai.png">
-    <title>
-      OSS - #!=it.title!!
-    </title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="/assets/admin/img/apple-icon.png" />
+    <link rel="icon" type="image/png" href="/assets/images/onegai.png" />
+    <title>OSS - #!=it.title!!</title>
     <!--     Fonts and icons     -->
     <link href="/assets/css/google.font.css" rel="stylesheet" />
     <!-- Nucleo Icons -->
@@ -32,26 +36,28 @@
     <!-- <script src="/assets/css/kit.css" crossorigin="anonymous"></script> -->
     <link href="/assets/admin/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
-    <link id="pagestyle" href="/assets/admin/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+    <link
+      id="pagestyle"
+      href="/assets/admin/css/argon-dashboard.css?v=2.0.4"
+      rel="stylesheet" />
     <script src="/assets/js/jquery.1.8.3.min.js"></script>
 
     <link href="/assets/css/datatable.css" rel="stylesheet" />
     <link href="/assets/css/swal2.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/assets/fa/css/all.min.css">
+    <link rel="stylesheet" href="/assets/fa/css/all.min.css" />
     <script src="/assets/js/datatable.js"></script>
-
 
     <script src="/assets/js/swal2.js"></script>
     <script src="/assets/js/htmx.js"></script>
     <script src="/assets/fa/js/all.js"></script>
     <style>
-      th{
-      padding-top:20px !important;
+      th {
+        padding-top: 20px !important;
       }
       .dt-paging-button {
         box-shadow: 0 !important;
         border: 0 !important;
-        padding: 3px !important
+        padding: 3px !important;
       }
 
       .current {
@@ -79,56 +85,68 @@
 
       .nt {
         background-color: #ff909040 !important;
-        color:rgba(0, 0, 0, 0.623);
+        color: rgba(0, 0, 0, 0.623);
       }
 
       .ntt {
         background-color: #90f8ff40 !important;
-        color:rgba(0, 0, 0, 0.623);
+        color: rgba(0, 0, 0, 0.623);
       }
-      table{
-        color:rgba(0, 0, 0, 0.623) !important;
+      table {
+        color: rgba(0, 0, 0, 0.623) !important;
       }
       .nts {
         background-color: #ff9090f5 !important;
       }
       .tn {
-        border: 1px solid rgb(153, 43, 43)
+        border: 1px solid rgb(153, 43, 43);
       }
-         .tnn {
-        border: 1px solid rgba(243, 243, 248, 0.897);
-        box-shadow:0px 0px 13px rgba(0, 0, 0, 0.541)
+      .tnn {
+        border: 1px solid rgba(166, 166, 166, 0.897);
+        /* box-shadow: 0px 0px 13px rgba(0, 0, 0, 0.541); */
       }
-      body{
-        min-width:270px
+      body {
+        min-width: 270px;
       }
     </style>
     <script src="/assets/js/html2canvas.js"></script>
     <script src="/assets/js/jspdf.js"></script>
     <script src="/assets/js/html2pdf.js"></script>
+    <script src="/assets/js/fixedColumn.js"></script>
   </head>
 
-  <body class="g-sidenav-show   bg-gray-100">
+  <body class="g-sidenav-show bg-gray-100">
     <div class="min-height-300 bg-success position-fixed w-100"></div>
     <!-- sidebar -->
 
-    <main class="main-content position-relative border-radius-lg ">
+    <main class="main-content position-relative border-radius-lg">
       <!-- Navbar -->
-      <nav class="navbar opacity-0 navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+      <nav
+        class="navbar opacity-0 navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
+        id="navbarBlur"
+        data-scroll="false">
         <div class="container-fluid py-1 px-3">
-          <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <div
+            class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
+            id="navbar">
             <div class="opacity-0 ms-md-auto pe-md-3 d-flex align-items-center">
               <div class="input-group">
-                <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" placeholder="Type here...">
+                <span class="input-group-text text-body"
+                  ><i class="fas fa-search" aria-hidden="true"></i
+                ></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Type here..." />
               </div>
             </div>
-            <ul class="navbar-nav  justify-content-end">
-              <li class="nav-item d-flex align-items-center">
-
-              </li>
+            <ul class="navbar-nav justify-content-end">
+              <li class="nav-item d-flex align-items-center"></li>
               <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                <a
+                  href="javascript:;"
+                  class="nav-link text-white p-0"
+                  id="iconNavbarSidenav">
                   <div class="sidenav-toggler-inner">
                     <i class="sidenav-toggler-line bg-white"></i>
                     <i class="sidenav-toggler-line bg-white"></i>
@@ -136,7 +154,6 @@
                   </div>
                 </a>
               </li>
-
             </ul>
           </div>
         </div>
@@ -144,20 +161,29 @@
       <!-- End Navbar -->
       <div class="container-fluid py-4">
         <div class="row">
-          <div class="col-12 d-flex justify-content-center" style="min-height: 275px;">
+          <div
+            class="col-12 d-flex justify-content-center"
+            style="min-height: 275px">
             #!~ it.body!!
           </div>
         </div>
-        <footer class="footer pt-3  ">
+        <footer class="footer pt-3">
           <div class="container-fluid">
             <div class="row align-items-center justify-content-lg-between">
               <div class="col-lg-6 mb-lg-0 mb-4">
-                <div class="copyright text-center text-sm text-muted text-lg-start">
-                  © <script>
-                    document.write(new Date().getFullYear())
-                  </script>,
-                  made with <i class="fa fa-heart"></i> by
-                  <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
+                <div
+                  class="copyright text-center text-sm text-muted text-lg-start">
+                  ©
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  , made with <i class="fa fa-heart"></i> by
+                  <a
+                    href="https://www.creative-tim.com"
+                    class="font-weight-bold"
+                    target="_blank"
+                    >Creative Tim</a
+                  >
                   for a better web.
                 </div>
               </div>
@@ -173,12 +199,12 @@
     <script src="/assets/admin/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="/assets/admin/js/plugins/smooth-scrollbar.min.js"></script>
     <script>
-      var win = navigator.platform.indexOf('Win') > -1;
-      if (win && document.querySelector('#sidenav-scrollbar')) {
+      var win = navigator.platform.indexOf("Win") > -1;
+      if (win && document.querySelector("#sidenav-scrollbar")) {
         var options = {
-          damping: '0.5'
-        }
-        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+          damping: "0.5",
+        };
+        Scrollbar.init(document.querySelector("#sidenav-scrollbar"), options);
       }
     </script>
     <!-- Github buttons -->
@@ -187,5 +213,4 @@
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="/assets/admin/js/argon-dashboard.min.js?v=2.0.4"></script>
   </body>
-
 </html>

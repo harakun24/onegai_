@@ -34,6 +34,18 @@ class service extends base {
                         list_user: data,
                         side: "dashboard",
                         count,
+                        anggota: Object.groupBy((await db.visitor.findMany()).map(m => {
+                            if (typeof m.hasil == "string") {
+
+                                m.hasil = JSON.parse(m.hasil);
+                                m.hasil = m.hasil[0]
+                            }
+                            else
+                                m.hasil = { nama: "Belum Kuesioner" }
+                            return m
+                        })
+                            // .filter(m => m.hasil)
+                            , m => m.hasil.nama)
                     })
                 )
             })

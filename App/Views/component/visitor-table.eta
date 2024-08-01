@@ -1,57 +1,56 @@
+<!-- @format -->
+
 <table class="table tn table-bordered align-items-center p-4" id="utable">
   <thead class="text-center">
     <tr>
-      <th class="nt text-sm text-center" style="width: 1%;">
-        id
-      </th>
-      <th class="nt text-sm text-center">
-        NIM
-      </th>
-      <th class="nt text-sm text-center">
-        visitor
-      </th>
-      <th class="nt text-sm text-center" style="width:1%">
-        Uji
-      </th>
-      <th class="nt text-sm text-center" style="width:1%">
-        Aksi
-      </th>
+      <th class="nt text-sm text-center" style="width: 1%">id</th>
+      <th class="nt text-sm text-center">NIM</th>
+      <th class="nt text-sm text-center">visitor</th>
+      <th class="nt text-sm text-center">Password</th>
+      <th class="nt text-sm text-center" style="width: 1%">Hasil</th>
+      <th class="nt text-sm text-center" style="width: 1%">Aksi</th>
     </tr>
   </thead>
   <tbody class="text-center">
-    #!if(it.list_user.length)
-    var i=1;
-       for(const user of it.list_user){
-                  !!
+    #!if(it.list_user.length) var i=1; for(const user of it.list_user){ !!
     <tr>
       <td>
         <p class="text-sm px-4 font-weight-bold mb-0">
-          VST-#!= `${("00000"+(i++)+0+user.v_id+user.nim.substr(6).split("").reverse().join("")).split("").reverse().join("").substr(0,8).split("").reverse().join("")}`!!
+          VST-#!=
+          `${("00000"+(i++)+0+user.v_id+user.nim.substr(6).split("").reverse().join("")).split("").reverse().join("").substr(0,8).split("").reverse().join("")}`!!
         </p>
       </td>
       <td>
-        <p class="text-sm  mb-0">
-          #!= user.nim!!
-        </p>
+        <p class="text-sm mb-0">#!= user.nim!!</p>
       </td>
       <td>
-        <p class="text-sm  mb-0">
-          #!= user.nama!!
+        <p class="text-sm mb-0">#!= user.nama!!</p>
+      </td>
+      <td>
+        <p class="text-sm mb-0">
+          #!= "*".repeat(user.password.length).substr(0,3)!!
         </p>
       </td>
       <td class="">
-
-          <a href="/panel-admin/visitor/#!=user.nim!!/kuisioner" class="btn btn-success btn-sm mb-3 mx-1">Kuisioner</a>
-          <a href="/panel-admin/visitor/#!=user.nim!!/perankingan" class="btn btn-secondary btn-sm mb-3 mx-1">Hasil</a>
-
-
+        <a
+          href="/panel-admin/visitor/#!=user.nim!!/perankingan"
+          class="btn btn-secondary btn-sm mb-3 mx-1"
+          >Hasil</a
+        >
       </td>
-      <td class="d-flex justify-content-between" style="border: 0;">
-
-          <a href="#" class="btn btn-dark btn-sm mb-3 mx-1" onclick="editdata(#!=user.v_id!!)">Edit</a>
-          <a href="#" class="btn btn-danger btn-sm mb-3 mx-1" onclick="hapus(#!=user.v_id!!)">Hapus</a>
-
-
+      <td class="d-flex justify-content-between" style="border: 0">
+        <a
+          href="#"
+          class="btn btn-dark btn-sm mb-3 mx-1"
+          onclick="editdata(#!=user.v_id!!)"
+          >Edit</a
+        >
+        <a
+          href="#"
+          class="btn btn-danger btn-sm mb-3 mx-1"
+          onclick="hapus(#!=user.v_id!!)"
+          >Hapus</a
+        >
       </td>
     </tr>
     #! } !!
@@ -59,25 +58,23 @@
 </table>
 
 <script>
-  window.onload = function() {
-
-    const table = new DataTable('#utable', {
+  window.onload = function () {
+    const table = new DataTable("#utable", {
       pageLength: 3,
       lengthMenu: [
         [3, 4, 5, 10, 12],
-        [3, 4, 5, 10, 12]
+        [3, 4, 5, 10, 12],
       ],
       layout: {
-        topStart: 'pageLength',
-      }
+        topStart: "pageLength",
+      },
     });
-    $("#dt-search-0").off().on("keyup", function() {
-      try {
-        table.column(1).search(this.value).draw()
-
-      } catch {
-
-      }
-    })
-  }
+    $("#dt-search-0")
+      .off()
+      .on("keyup", function () {
+        try {
+          table.column(1).search(this.value).draw();
+        } catch {}
+      });
+  };
 </script>
